@@ -18,7 +18,7 @@ void menu_pause(SDL_Window *window, SDL_Renderer *renderer)
     if (!police)
 		SDL_ExitWithError("Erreur du chargement de la police", window, renderer, NULL);
 
-    SDL_SetRenderDrawColor(renderer, R_R,  R_G, R_B, 255);
+    SDL_SetRenderDrawColor(renderer, R_R, R_G, R_B, 255);
 
 	SDL_RenderFillRect(renderer, &rect_reprendre);
 	SDL_RenderFillRect(renderer, &rect_options);
@@ -74,11 +74,10 @@ void menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 
 	free(police);
 
-    /*if (reprendre_asked)
-		//
+    if (reprendre_asked)
+		printf("Reprendre");
 	else if (options_asked)
-		//
+		printf("Options");
 	else if (quitter_asked)
-		//*/
-
+		printf("Quitter");
 }
