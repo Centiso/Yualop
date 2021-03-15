@@ -1,25 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <SDL_image.h>
-
-#define WIDTH 800
-#define HEIGHT 600
-
-void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t){
-/**Fonction de gestion d'erreur qui affiche l'erreur SDL rencontrée et libère la mémoire allouée avant de quitter le programme**/
-    SDL_Log("ERREUR : %s > %s\n", message, SDL_GetError());
-	if(t != NULL)
-        SDL_DestroyTexture(t);
-    if(r != NULL)
-        SDL_DestroyRenderer(r);
-    if(w != NULL)
-        SDL_DestroyWindow(w);
-    SDL_Quit();
-
-    exit(EXIT_FAILURE);
-}
+#include "commun.h"
 
 int main(int argc, char** argv)
 {
@@ -29,6 +8,12 @@ int main(int argc, char** argv)
 	SDL_Renderer *renderer = NULL;
 
 	SDL_bool program_launched = SDL_TRUE;
+
+	const unsigned int FPS = 60;
+	const unsigned int frameDelay = 1000 / FPS;
+
+	unsigned long long frameStart;
+	int frameTime;
 
 /**-------------------------Initialisation SDL et librairies-------------------------**/
 
@@ -49,10 +34,12 @@ int main(int argc, char** argv)
 		SDL_ExitWithError("Erreur à la création du renderer\n", window, renderer, NULL);
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
 /**-------------------------Programme principal-------------------------**/
 
 	while(program_launched)
 	{
+		frameStart = SDL_GetTicks();
 		SDL_Event event;
 
 		while(SDL_PollEvent(&event))
@@ -63,8 +50,9 @@ int main(int argc, char** argv)
 				case SDL_KEYDOWN:
 					switch(event.key.keysym.sym)
 					{
-						case SDLK_b:
-							printf("Vous avez appuyé sur B\n");
+						case SDLK_ESCAPE:
+							printf("Le jeu est désormais en pause.\n");
+							menu_pause(window, renderer);
 							break;
 					}
 					break;
@@ -74,6 +62,11 @@ int main(int argc, char** argv)
 					break;
 			}
 		}
+
+		frameTime = SDL_GetTicks() - frameStart; //FPS Limiter
+
+		if(frameDelay > frameTime)
+			SDL_Delay(frameDelay - frameTime);
 	}
 
 /**-------------------------Libération de la mémoire allouée-------------------------**/
