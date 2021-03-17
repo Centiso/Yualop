@@ -5,26 +5,29 @@
 
 void mouvement(int Carte[][26], SDL_Rect *pos, int Direction, SDL_Renderer *render)
 {
-    SDL_Log("Entrée fonction Mouvement");
+    SDL_Log("%d %d",pos->x,pos->y);
     switch(Direction)
     {  
         case BAS:
-            pos->y++;
-             
+            if(pos->y + pos->h/TAILLE_BLOCK < HEIGHT/TAILLE_BLOCK)
+                pos->y++;
             break;
  
         case HAUT:
-            pos->y--;
+            if(pos->y > 0)
+                pos->y--;
              
             break;
  
         case DROITE:
+            if(pos->x + pos->w/TAILLE_BLOCK < WIDTH/TAILLE_BLOCK)
             pos->x++;
              
             break;
  
         case GAUCHE:
-            pos->x--;
+            if(pos->x > 0)
+                pos->x--;
              
             break;
  
@@ -86,6 +89,8 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
         SDL_Log("Erreur lors du chargement du personnage actuelle");
     positionJoueur.x = 3;
     positionJoueur.y = 3;
+    positionJoueur.w = 100;
+    positionJoueur.h = 100;
     position.w = 100;
     position.h = 100;
  
