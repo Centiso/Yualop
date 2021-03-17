@@ -37,6 +37,8 @@ int main(int argc, char** argv)
 
 /**-------------------------Programme principal-------------------------**/
 
+	menu(window, renderer);
+
 	while(program_launched)
 	{
 		frameStart = SDL_GetTicks();
@@ -52,7 +54,7 @@ int main(int argc, char** argv)
 					{
 						case SDLK_ESCAPE:
 							printf("Le jeu est désormais en pause.\n");
-							menu_pause(window, renderer);
+							program_launched = menu_pause(window, renderer);
 							break;
 					}
 					break;
