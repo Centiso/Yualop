@@ -1,10 +1,10 @@
 /**
- * \file statiques.c
- * \brief Programme de je sais pas trop j'essaie de créer un personnage
- * \details Version avec pointeurs
+ * \file persp.c
+ * \brief Programme de création de personnage pluS le level up des stats
+ * \details Version avec pointeurs regroupement de statiques.c et pers.c
  * \author Cécile SAIVET
- * \version 1.2
- * \date 16 février 2021
+ * \version 1.3
+ * \date 08 Mars 2021
  */
 
  #include<stdio.h>
@@ -42,7 +42,7 @@ t_pers *crea_pers (int faction, int level){
     player->att = 3;
   }
 
-/*
+/* Version avec jolies emojis dommage ça fonctionne que sur mon terminal à moi 
   printf(" %s 🧙 ", player.nom);
   for (int coeur=0; coeur < ((player.pdv)/2); coeur++ ) {printf("🟦");}
   printf("\n"); printf(" %d🛡️ ", player.def); printf(" %d🗡️ \n", player.att);
@@ -80,7 +80,7 @@ int main (){
   gentil = crea_pers(0,1);
 
   mechant = crea_pers(1,1);
-  printf( "test : nom gentil : %s, pdv mechant : %i \n", gentil->nom, mechant->pdv);
+  printf( "test unitaire creation : nom gentil : %s, pdv mechant : %i \n", gentil->nom, mechant->pdv);
 
   free(gentil);
   free(mechant);
