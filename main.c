@@ -1,5 +1,11 @@
 #include "commun.h"
 
+SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *renderer) {
+    SDL_Surface *image = IMG_Load(file_name);
+    SDL_Texture * image_texture = SDL_CreateTextureFromSurface(renderer, image);
+    SDL_FreeSurface(image);
+    return image_texture;
+}
 int main(int argc, char** argv)
 {
 /**-------------------------Déclaration des variables principales-------------------------**/
@@ -35,9 +41,27 @@ int main(int argc, char** argv)
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
-/**-------------------------Programme principal-------------------------**/
 
-	menu(window, renderer);
+/**-------------------------Initialisation fond-------------------------**/
+
+    // Initialize support for loading PNG and JPEG images
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+
+    SDL_Texture * image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
+    int image_width, image_height;
+
+    // Get texture width/height
+    SDL_QueryTexture(image_texture, NULL, NULL, &image_width, &image_height);
+
+    // Define where on the "screen" we want to draw the texture
+    SDL_Rect texture_destination;
+
+    texture_destination.x = 0;
+    texture_destination.y = 0;
+    texture_destination.w = image_width;
+    texture_destination.h = image_height;
+
+/**-------------------------Programme principal-------------------------**/
 
 	while(program_launched)
 	{
@@ -54,8 +78,11 @@ int main(int argc, char** argv)
 					{
 						case SDLK_ESCAPE:
 							printf("Le jeu est désormais en pause.\n");
-							program_launched = menu_pause(window, renderer);
+							menu_pause(window, renderer);
 							break;
+
+						case SDLK_i:
+							jouer(renderer, window);
 					}
 					break;
 
@@ -63,6 +90,15 @@ int main(int argc, char** argv)
 					program_launched = SDL_FALSE;
 					break;
 			}
+
+			// Clear screen
+            SDL_RenderClear(renderer);
+
+            // Draw
+            SDL_RenderCopy(renderer, image_texture, NULL, &texture_destination);
+
+            // Show what was drawn
+            SDL_RenderPresent(renderer);
 		}
 
 		frameTime = SDL_GetTicks() - frameStart; //FPS Limiter
@@ -73,11 +109,13 @@ int main(int argc, char** argv)
 
 /**-------------------------Libération de la mémoire allouée-------------------------**/
 
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	TTF_Quit();
+	SDL_DestroyTexture(image_texture);
+    IMG_Quit();
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    TTF_Quit();
 	SDL_Quit();
-
+	
 /**-------------------------Fin du programme-------------------------**/
 
 	return EXIT_SUCCESS;
