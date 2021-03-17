@@ -1,7 +1,12 @@
 #include "commun.h"
 
+void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
+{
+	//
+}
+
 ///Affichage du menu pause lorsque le joueur est en jeu.
-void menu_pause(SDL_Window *window, SDL_Renderer *renderer)
+SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 {
     SDL_Rect rect_reprendre, rect_options, rect_quitter;
 	const int taille_police = 72;
@@ -18,13 +23,13 @@ void menu_pause(SDL_Window *window, SDL_Renderer *renderer)
     if (!police)
 		SDL_ExitWithError("Erreur du chargement de la police", window, renderer, NULL);
 
-    SDL_SetRenderDrawColor(renderer, R_R, R_G, R_B, 255);
+    SDL_SetRenderDrawColor(renderer, A_R, A_G, A_B, 255);
 
 	SDL_RenderFillRect(renderer, &rect_reprendre);
 	SDL_RenderFillRect(renderer, &rect_options);
 	SDL_RenderFillRect(renderer, &rect_quitter);
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(renderer, P_R, P_R, P_R, 255);
 
 	SDL_RenderDrawRect(renderer, &rect_reprendre);
 	SDL_RenderDrawRect(renderer, &rect_options);
@@ -37,9 +42,10 @@ void menu_pause(SDL_Window *window, SDL_Renderer *renderer)
  	SDL_RenderPresent(renderer);
 
     SDL_Event event;
+
 	SDL_bool pause_launched = SDL_TRUE;
+
 	SDL_bool reprendre_asked = SDL_FALSE;
-	SDL_bool options_asked = SDL_FALSE;
 	SDL_bool quitter_asked = SDL_FALSE;
 
 	while (pause_launched){
@@ -55,8 +61,8 @@ void menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 							pause_launched = SDL_FALSE;
 						}
 						else if (clickSurCase(event, rect_options)){
-							options_asked = SDL_TRUE;
-							pause_launched = SDL_FALSE;
+							printf("Options");
+							in_game_options(window, renderer);
 						}
 						else if (clickSurCase(event, rect_quitter)){
 							quitter_asked = SDL_TRUE;
@@ -73,11 +79,11 @@ void menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 	}
 
 	free(police);
+	SDL_RenderClear(renderer);
+	SDL_RenderPresent(renderer);
 
     if (reprendre_asked)
-		printf("Reprendre");
-	else if (options_asked)
-		printf("Options");
+		return SDL_TRUE;
 	else if (quitter_asked)
-		printf("Quitter");
+		return SDL_FALSE;
 }
