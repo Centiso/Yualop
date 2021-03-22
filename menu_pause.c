@@ -23,7 +23,7 @@ SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
     if (!police)
 		SDL_ExitWithError("Erreur du chargement de la police", window, renderer, NULL);
 
-    SDL_SetRenderDrawColor(renderer, A_R, A_G, A_B, 255);
+    SDL_SetRenderDrawColor(renderer, R_R, R_G, R_B, 255);
 
 	SDL_RenderFillRect(renderer, &rect_reprendre);
 	SDL_RenderFillRect(renderer, &rect_options);
