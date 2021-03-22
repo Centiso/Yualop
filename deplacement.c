@@ -39,6 +39,43 @@ void mouvement(int Carte[][26], SDL_Rect *pos, int Direction, SDL_Renderer *rend
  
 }
 
+void attaque(int Carte[][26], SDL_Rect *pos , int Direction, SDL_Renderer *render)
+{
+  
+    switch(Direction)
+    {  
+        case BAS:
+            
+            pos->y + 2 ;
+
+            break;
+ 
+        case HAUT:
+            
+            pos->y-2;
+
+            break;
+ 
+        case DROITE:
+            
+            pos->x+2;
+
+            break;
+ 
+        case GAUCHE:
+         
+            pos->x-2;
+             
+            break;
+ 
+        default:
+            break;
+    }
+    
+    SDL_RenderClear(render);
+ 
+}
+
 int jouer(SDL_Renderer *render , SDL_Window *window)
 {  
  
@@ -116,19 +153,30 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
                             printf("Le jeu est désormais en pause.\n");
 							menu_pause(window, render);
                             break;
-                        case SDLK_DOWN:
+                        case SDLK_s:
                             mouvement(Carte, &positionJoueur, BAS, render);
                             break;
-                        case SDLK_UP:
+                        case SDLK_z:
                             mouvement(Carte, &positionJoueur, HAUT, render);
                             break;
-                        case SDLK_RIGHT:
+                        case SDLK_d:
                             mouvement(Carte, &positionJoueur, DROITE, render);
                             break;
-                        case SDLK_LEFT:
+                        case SDLK_q:
                             mouvement(Carte, &positionJoueur, GAUCHE, render);
                             break;
- 
+                        case SDLK_UP:
+                            attaque(Carte, &positionJoueur, HAUT, render);
+                            break;
+                        case SDLK_LEFT:
+                            attaque(Carte, &positionJoueur, GAUCHE, render);
+                            break;
+                        case SDLK_DOWN:
+                            attaque(Carte, &positionJoueur, BAS, render);
+                            break;
+                        case SDLK_RIGHT:
+                            attaque(Carte, &positionJoueur, DROITE, render);
+                            break;
                         default:
                             break;
                     }
@@ -138,9 +186,10 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
  
             }
         }
- 
+
         position.x = positionJoueur.x * TAILLE_BLOCK;
         position.y = positionJoueur.y * TAILLE_BLOCK;
+
  
         if(SDL_RenderCopy(render, persoActuelle, NULL, &position) != 0)
             SDL_Log("Erreur lors de l'affichage à l'écran");
