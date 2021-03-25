@@ -150,7 +150,10 @@ int main(int argc, char *argv[])
 
 				case SDL_KEYDOWN:
 					switch(event.key.keysym.sym){
-						case SDLK_ESCAPE: pause_launched = SDL_FALSE;break;
+						case SDLK_ESCAPE: 
+							pause_launched = SDL_FALSE;
+							reprendre_asked = SDL_TRUE;
+							break;
 					}
 			}
 	}
