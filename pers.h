@@ -16,6 +16,7 @@
   int att;
   int def;
   int pdv;
+  int lvl; //numéro étage donjon
  } t_pers ;
 
  typedef struct{
@@ -23,9 +24,10 @@
    t_pers mechants;
  } t_categories;
 
- typedef struct {
-   int niveau;
-   int pdv;
-   int def;
-   int att;
- } t_levels;
+
+
+t_pers *crea_pers (int faction, int level);
+void maj_lvl(int faction, t_pers *player);
+
+
+// SDL_Rect rect_nom, rect_att, rect_def, rect_pdv, rect_level; //ICI
