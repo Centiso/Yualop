@@ -1,6 +1,6 @@
 #include "commun.h"
 
-void menu(SDL_Window *window, SDL_Renderer *renderer){
+SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer){
 /**Fonction affichant un menu permettant a l'utilisateur de naviguer dans le programme**/
 	SDL_Rect rect_new_game, rect_load_game, rect_settings, rect_exit;
 	const int taille_police = 72;
@@ -18,7 +18,7 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
 	if (!police)
 		SDL_ExitWithError("Erreur du chargement de la police", window, renderer, NULL);
 
-	SDL_SetRenderDrawColor(renderer, A_R,  A_G, A_B, 255);
+	SDL_SetRenderDrawColor(renderer, A_R, A_G, A_B, 255);
 
 	SDL_RenderFillRect(renderer, &rect_new_game);
 	SDL_RenderFillRect(renderer, &rect_load_game);
@@ -51,7 +51,10 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
         SDL_WaitEvent(&event);
 
 			switch(event.type){
-				case SDL_QUIT: menu_launched = SDL_FALSE;break;
+				case SDL_QUIT: 
+					menu_launched = SDL_FALSE;
+					exit_asked = SDL_TRUE;
+					break;
 
 				case SDL_MOUSEBUTTONDOWN:
 					if (event.button.button == SDL_BUTTON_LEFT){
@@ -86,11 +89,22 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 
 	if (new_game_asked)
+	{
 		printf("New Game.");
+		jouer(renderer, window);
+		return SDL_TRUE;
+	}
 	else if (load_game_asked)
+	{
 		printf("Load Game.");
+	}
 	else if (setting_asked)
+	{
 		printf("Settings.");
+	}
     else if (exit_asked)
+	{
         printf("Bisous.");
+		return SDL_FALSE;
+	}
 }

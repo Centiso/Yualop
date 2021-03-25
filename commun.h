@@ -22,6 +22,7 @@
 #include "menu_pause.h"
 #include "fonctions.h"
 #include "main_menu.h"
+#include "jeu.h"
 
 ///Déclaration des constantes
 
@@ -30,7 +31,17 @@
 
 #define NOM_FONT "polices/LLHP.ttf"
 
-#define CASE_SIZE (WIDTH/HEIGHT)*12
+#define TAILLE_BLOCK 34
+
+
+///Définitions pour le jeu.c
+
+typedef enum s_direction{HAUT, BAS, GAUCHE, DROITE} t_direction;
+
+typedef enum s_obstacle{VIDE, MUR, JOUEUR} t_obstacle;
+
+#define RANGE_JOUEUR 2
+#define RANGE_BOT 1
 
 ///Code RGB de la police d'écriture
 

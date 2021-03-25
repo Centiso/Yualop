@@ -10,4 +10,7 @@ SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect);
 ///Fonction affichant un texte "str" sur le renderer aux coordonées passées en paramètres.
 void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y);
 
+///Delay utilisé pour la limite de fps
+void delay(unsigned int frameLimit);
+
 #endif

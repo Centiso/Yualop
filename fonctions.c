@@ -44,3 +44,24 @@ void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int 
 	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
 	SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
 }
+
+void delay(unsigned int frameLimit)
+{
+	// Gestion des 60 fps (images/stories/seconde)
+	unsigned int ticks = SDL_GetTicks();
+
+	if (frameLimit < ticks)
+	{
+		return;
+	}
+
+	if (frameLimit > ticks + 16)
+	{
+		SDL_Delay(16);
+	}
+
+	else
+	{
+		SDL_Delay(frameLimit - ticks);
+	}
+}

@@ -73,7 +73,10 @@ SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 
 				case SDL_KEYDOWN:
 					switch(event.key.keysym.sym){
-						case SDLK_ESCAPE: pause_launched = SDL_FALSE;break;
+						case SDLK_ESCAPE: 
+							pause_launched = SDL_FALSE;
+							reprendre_asked = SDL_TRUE;
+							break;
 					}
 			}
 	}
