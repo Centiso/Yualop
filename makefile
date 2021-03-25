@@ -36,7 +36,11 @@ Yualop : $(OBJ)
 	$(CC) -o $(SDLBIN_DIR)/$@ $^ $(LDFLAGS)
 
 %.o : %.c 
-	$(CC) -o $@ -c $< $(LDFLAGS) 
+	$(CC) -o $@ -c $< $(LDFLAGS)
+
+clean : 
+	del *.o
+
 else
 Yualop : $(OBJ)
 	$(CC) -o $(SDLBIN_DIR)/$@ $^ $(LLDFLAGS)
@@ -44,6 +48,7 @@ Yualop : $(OBJ)
 %.o : %.c 
 	$(CC) -o $@ -c $< $(LLDFLAGS) 
 
+<<<<<<< Updated upstream
 endif
 
 
@@ -69,5 +74,9 @@ endif
 #	$(CC) -o main_menu.o -c main_menu.c $(LDFLAGS)
 
 
+=======
+>>>>>>> Stashed changes
 clean :
-	rm -f *.o
+	rm -f *.o core
+
+endif
