@@ -1,4 +1,5 @@
 #include "commun.h"
+#include <stdio.h>
 
 void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
 {
