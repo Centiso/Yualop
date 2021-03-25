@@ -1,7 +1,7 @@
 #include "commun.h"
 
-///Fonction de gestion d'erreur qui affiche l'erreur SDL rencontrée et libère la mémoire allouée avant de quitter le programme.
-void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t){
+void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
+{
     SDL_Log("ERREUR : %s > %s\n", message, SDL_GetError());
 	if(t != NULL)
         SDL_DestroyTexture(t);
@@ -14,16 +14,16 @@ void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_
     exit(EXIT_FAILURE);
 }
 
-///Fonction testant si un clique a lieu dans le rectangle passé en paramètres.
-SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect){
+SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect)
+{
 	return (	click.button.y > caseRect.y
 			&& 	click.button.y < caseRect.y + caseRect.h
 			&& 	click.button.x > caseRect.x
 			&&	click.button.x < caseRect.x + caseRect.w);
 }
 
-///Fonction affichant un texte "str" sur le renderer aux coordonées passées en paramètres.
-void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y){
+void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y)
+{
 	SDL_Surface *texte = NULL;
 	SDL_Rect txtDestRect;
 	SDL_Color NOIR = {P_R, P_G, P_B};
