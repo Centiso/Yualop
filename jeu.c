@@ -3,27 +3,27 @@
 void mouvement(int carte[][MAP_MAX_X], SDL_Rect *pos, int direction, SDL_Renderer *render)
 {
     switch(direction)
-    {  
+    {
         case BAS:
             if( pos->y + pos->h/TAILLE_BLOCK <= MAP_MAX_Y )
                 pos->y++;
             break;
- 
+
         case HAUT:
             if(pos->y > 0)
                 pos->y--;
             break;
- 
+
         case DROITE:
             if(pos->x + pos->w/TAILLE_BLOCK <= MAP_MAX_X)
                 pos->x++;
             break;
- 
+
         case GAUCHE:
             if(pos->x > 0)
                 pos->x--;
             break;
- 
+
         default:
             break;
     }
@@ -132,8 +132,7 @@ void botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SD
 }
 
 int jouer(SDL_Renderer *render , SDL_Window *window)
-{  
-
+{
 /**-------------------------Initialisation personnage-------------------------**/
 
     ///On crée des variables
@@ -152,7 +151,7 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
     int i;
     int cptBot, cptJoueur;
     cptBot = cptJoueur = 0;
-    
+
     ///Definit les images sur les Surfaces Perso[Orientation]
     sPerso[0]=IMG_Load("images/stickman.bmp");
     sPerso[1]=IMG_Load("images/stickman.bmp");
@@ -163,7 +162,7 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
     sBot[1] = IMG_Load("images/bot_de_la_mort_qui_tue.png");
     sBot[2] = IMG_Load("images/bot_de_la_mort_qui_tue.png");
     sBot[3] = IMG_Load("images/bot_de_la_mort_qui_tue.png");
- 
+
     ///Définition de la carte
     int carte[MAP_MAX_Y][MAP_MAX_X];
 
@@ -222,9 +221,11 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
     SDL_bool run = SDL_TRUE;
     SDL_Event event;
 
+    /* Cache le curseur de la souris */
+	SDL_ShowCursor(SDL_DISABLE);
+
     while(run)
     {
-
         const Uint8* keystate = SDL_GetKeyboardState(NULL); //Regarde si la touche est restée enfoncée (pour effectuer des mouvements plus fluides)
         SDL_PumpEvents();
 
@@ -332,5 +333,7 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
         SDL_RenderPresent(render);
    		
     }
+    /* Cache le curseur de la souris */
+	SDL_ShowCursor(SDL_ENABLE);
 }
  

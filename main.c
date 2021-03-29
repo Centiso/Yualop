@@ -65,7 +65,6 @@ int main(int argc, char** argv)
     texture_destination.h = image_height;
 
 /**-------------------------Programme principal-------------------------**/
-	
 	while(program_launched)
 	{
 		//Clear screen

@@ -8,6 +8,9 @@ void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
 ///Affichage du menu pause lorsque le joueur est en jeu.
 SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 {
+	/* Montre le curseur de la souris */
+	SDL_ShowCursor(SDL_ENABLE);
+
     SDL_Rect rect_reprendre, rect_options, rect_quitter;
 	const int taille_police = 72;
 
@@ -84,6 +87,9 @@ SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 	free(police);
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
+	
+	/* Cache le curseur de la souris */
+	SDL_ShowCursor(SDL_DISABLE);
 
     if (reprendre_asked)
 		return SDL_TRUE;

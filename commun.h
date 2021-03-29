@@ -23,6 +23,7 @@
 #include "fonctions.h"
 #include "main_menu.h"
 #include "jeu.h"
+#include "map.h"
 
 ///Déclaration des constantes
 
@@ -32,7 +33,6 @@
 #define NOM_FONT "polices/LLHP.ttf"
 
 #define TAILLE_BLOCK 34
-
 
 ///Définitions pour le jeu.c
 

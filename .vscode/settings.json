@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "commun.h": "c"
+        "commun.h": "c",
+        "main_menu.h": "c",
+        "fonctions.h": "c"
     }
 }
