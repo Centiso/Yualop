@@ -1,5 +1,15 @@
 #include "commun.h"
 
+SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *renderer)
+{
+	SDL_Surface *image = IMG_Load(file_name);
+    SDL_Texture * image_texture = SDL_CreateTextureFromSurface(renderer, image);
+    SDL_FreeSurface(image);
+
+    return image_texture;
+}
+
+
 int main(int argc, char** argv)
 {
 /**-------------------------Déclaration des variables principales-------------------------**/
@@ -35,46 +45,47 @@ int main(int argc, char** argv)
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
+/**-------------------------Initialisation de fond-------------------------**/
+
+    // Initialize support for loading PNG and JPEG images
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+
+    SDL_Texture * image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
+    int image_width, image_height;
+
+    // Get texture width/height
+    SDL_QueryTexture(image_texture, NULL, NULL, &image_width, &image_height);
+
+    // Define where on the "screen" we want to draw the texture
+    SDL_Rect texture_destination;
+
+    texture_destination.x = 0;
+    texture_destination.y = 0;
+    texture_destination.w = image_width;
+    texture_destination.h = image_height;
+
 /**-------------------------Programme principal-------------------------**/
-
-	menu(window, renderer);
-
+	
 	while(program_launched)
 	{
-		frameStart = SDL_GetTicks();
-		SDL_Event event;
+		//Clear screen
+		SDL_RenderClear(renderer);
 
-		while(SDL_PollEvent(&event))
-		{
-			printf("%i, %i\n", event.button.x, event.button.y);
-			switch(event.type)
-			{
-				case SDL_KEYDOWN:
-					switch(event.key.keysym.sym)
-					{
-						case SDLK_ESCAPE:
-							printf("Le jeu est désormais en pause.\n");
-							program_launched = menu_pause(window, renderer);
-							break;
-					}
-					break;
+		//Draw
+		SDL_RenderCopy(renderer, image_texture, NULL, &texture_destination);
 
-				case SDL_QUIT:
-					program_launched = SDL_FALSE;
-					break;
-			}
-		}
+		//Show what was drawn
+		SDL_RenderPresent(renderer);
 
-		frameTime = SDL_GetTicks() - frameStart; //FPS Limiter
-
-		if(frameDelay > frameTime)
-			SDL_Delay(frameDelay - frameTime);
+		program_launched = menu(window, renderer);
 	}
 
 /**-------------------------Libération de la mémoire allouée-------------------------**/
 
+	SDL_DestroyTexture(image_texture);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	IMG_Quit();
 	TTF_Quit();
 	SDL_Quit();
 
