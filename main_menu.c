@@ -1,7 +1,20 @@
+/**
+ * \file main_menu.c
+ * \brief Contient le menu principal de Yualop
+ * \author SAIVET Cécile, TACHET Nicolas, SANNA Florian
+ * \version 1.0
+ * \date 2021
+ */
+
 #include "commun.h"
 
-SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer){
-/**Fonction affichant un menu permettant a l'utilisateur de naviguer dans le programme**/
+/**
+ * \fn SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Fonction affichant un menu permettant a l'utilisateur de naviguer dans le programme.
+ * \return SDL_TRUE si le joueur reste sur le jeu, SDL_FALSE sinon.
+ */
+SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
+{
 	SDL_Rect rect_new_game, rect_load_game, rect_settings, rect_exit;
 	const int taille_police = 72;
 

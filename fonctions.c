@@ -1,5 +1,18 @@
+/**
+ * \file fonctions.c
+ * \brief Contient des fonctions utilisées pour le jeu
+ * \author SAIVET Cécile, TACHET Nicolas, SANNA Florian
+ * \version 1.0
+ * \date 2021
+ */
+
 #include "commun.h"
 
+/**
+ * \fn void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
+ * \brief Fonction utilisée en cas d'erreur SDL.
+ * \return Affiche l'erreur dans la console et ferme le programme en libérant la mémoire.
+ */
 void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_Texture *t)
 {
     SDL_Log("ERREUR : %s > %s\n", message, SDL_GetError());
@@ -14,6 +27,11 @@ void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_
     exit(EXIT_FAILURE);
 }
 
+/**
+ * \fn SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect)
+ * \brief Regarde si l'utilisateur a cliqué sur une case passée en paramètre.
+ * \return SDL_TRUE si le clique est sur le rectangle, SDL_FALSE sinon.
+ */
 SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect)
 {
 	return (	click.button.y > caseRect.y
@@ -22,6 +40,10 @@ SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect)
 			&&	click.button.x < caseRect.x + caseRect.w);
 }
 
+/**
+ * \fn void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y)
+ * \brief Création d'un texte passé en paramètre à l'emplacement passé en paramètre.
+ */
 void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y)
 {
 	SDL_Surface *texte = NULL;
@@ -45,6 +67,10 @@ void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int 
 	SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
 }
 
+/**
+ * \fn void delay(unsigned int frameLimit)
+ * \brief Fonction utilisée pour la limite d'image par seconde.
+ */
 void delay(unsigned int frameLimit)
 {
 	// Gestion des 60 fps (images/stories/seconde)

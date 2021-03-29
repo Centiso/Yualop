@@ -1,5 +1,18 @@
+/**
+ * \file main.c
+ * \brief Fichier principal du jeu Yualop
+ * \author SAIVET Cécile, TACHET Nicolas, SANNA Florian
+ * \version 1.0
+ * \date 2021
+ */
+
 #include "commun.h"
 
+/**
+ * \fn SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *renderer)
+ * \brief Créé une texture à partir d'un fichier.
+ * \return Texture du fichier passé en paramètre.
+ */
 SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *renderer)
 {
 	SDL_Surface *image = IMG_Load(file_name);
@@ -9,21 +22,20 @@ SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *r
     return image_texture;
 }
 
-
+/**
+ * \fn int main(int argc, char** argv)
+ * \brief Fonction principale du jeu.
+ * \return EXIT_SUCCESS - Arrêt normal du programme.
+ */
 int main(int argc, char** argv)
 {
 /**-------------------------Déclaration des variables principales-------------------------**/
 
 	SDL_Window *window = NULL;
 	SDL_Renderer *renderer = NULL;
+	SDL_Surface *icon = NULL;
 
 	SDL_bool program_launched = SDL_TRUE;
-
-	const unsigned int FPS = 60;
-	const unsigned int frameDelay = 1000 / FPS;
-
-	unsigned long long frameStart;
-	int frameTime;
 
 /**-------------------------Initialisation SDL et librairies-------------------------**/
 
@@ -47,16 +59,21 @@ int main(int argc, char** argv)
 
 /**-------------------------Initialisation de fond-------------------------**/
 
-    // Initialize support for loading PNG and JPEG images
+    ///Initialize support for loading PNG and JPEG images
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
     SDL_Texture * image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
     int image_width, image_height;
 
-    // Get texture width/height
+	///Création de l'icône
+	icon = IMG_Load("images/Yualop.png");
+	SDL_SetWindowIcon(window, icon);
+	SDL_FreeSurface(icon);
+
+    ///Get texture width/height
     SDL_QueryTexture(image_texture, NULL, NULL, &image_width, &image_height);
 
-    // Define where on the "screen" we want to draw the texture
+    ///Define where on the "screen" we want to draw the texture
     SDL_Rect texture_destination;
 
     texture_destination.x = 0;

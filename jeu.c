@@ -1,5 +1,17 @@
+/**
+ * \file jeu.c
+ * \brief Contient les actions disponibles pendant une partie
+ * \author TACHET Nicolas, SANNA Florian
+ * \version 1.0
+ * \date 2021
+ */
+
 #include "commun.h"
 
+/**
+ * \fn void mouvement(int carte[][MAP_MAX_X], SDL_Rect *pos, int direction, SDL_Renderer *render)
+ * \brief Bouge le SDL_Rect (correspondant à un personnage) passé en paramètre.
+ */
 void mouvement(int carte[][MAP_MAX_X], SDL_Rect *pos, int direction, SDL_Renderer *render)
 {
     switch(direction)
@@ -31,25 +43,81 @@ void mouvement(int carte[][MAP_MAX_X], SDL_Rect *pos, int direction, SDL_Rendere
     SDL_RenderClear(render);
 }
 
-void attaque(int carte[][MAP_MAX_X], SDL_Rect *pos , int direction, SDL_Renderer *render, int rangeAttaque)
+/**
+ * \fn int hitMarker(int direction, SDL_Rect *srcPos, SDL_Rect *destPos, int rangeAttaque)
+ * \brief Regarde si une attaque peut être effectuée.
+ * \return 1 si l'attaque peut être effectuée, 0 sinon.
+ */
+int hitMarker(int direction, SDL_Rect *srcPos, SDL_Rect *destPos, int rangeAttaque)
 {
-  
+    for (int i = 0; i <= rangeAttaque; i++)
+    {
+        if (direction == BAS)
+        {
+            if ((srcPos->x == destPos->x) && ((srcPos->y + i) == destPos->y))
+                return 1;
+        }
+        else if (direction == HAUT)
+        {
+            if ((srcPos->x == destPos->x) && ((srcPos->y - i) == destPos->y))
+                return 1;
+        }
+        else if (direction == DROITE)
+        {
+            if ((srcPos->y == destPos->y) && ((srcPos->x + i) == destPos->x))
+                return 1;
+        }
+        else if (direction == GAUCHE)
+        {
+            if ((srcPos->y == destPos->y) && ((srcPos->x - i) == destPos->x))
+                return 1;
+        }
+    }
+    return 0;
+}
+
+/**
+ * \fn void attaque(int carte[][MAP_MAX_X], SDL_Rect *srcPos, SDL_Rect *destPos, int direction, SDL_Renderer *render, int rangeAttaque, t_pers *srcAtq, t_pers *destAtq)
+ * \brief Fonction d'attaque du jeu.
+ */
+void attaque(int carte[][MAP_MAX_X], SDL_Rect *srcPos, SDL_Rect *destPos, int direction, SDL_Renderer *render, int rangeAttaque, t_pers *srcAtq, t_pers *destAtq)
+{
     switch(direction)
     {  
         case BAS:
-            pos->y + rangeAttaque;
+            if(hitMarker(direction, srcPos, destPos, rangeAttaque))
+            {
+                if (srcAtq->atq - destAtq->def > 0)
+                    destAtq->pdv -= (srcAtq->atq - destAtq->def);
+                mouvement(carte, destPos, BAS, render); //Simulation d'un knockback
+            }
             break;
  
         case HAUT:
-            pos->y - rangeAttaque;
+            if(hitMarker(direction, srcPos, destPos, rangeAttaque))
+            {
+                if (srcAtq->atq - destAtq->def > 0)
+                    destAtq->pdv -= (srcAtq->atq - destAtq->def);
+                mouvement(carte, destPos, HAUT, render); //Simulation d'un knockback
+            }
             break;
  
         case DROITE:
-            pos->x + rangeAttaque;
+            if(hitMarker(direction, srcPos, destPos, rangeAttaque))
+            {
+                if (srcAtq->atq - destAtq->def > 0)
+                    destAtq->pdv -= (srcAtq->atq - destAtq->def);
+                mouvement(carte, destPos, DROITE, render); //Simulation d'un knockback
+            }
             break;
  
         case GAUCHE:
-            pos->x - rangeAttaque;
+            if(hitMarker(direction, srcPos, destPos, rangeAttaque))
+            {
+                if (srcAtq->atq - destAtq->def > 0)
+                    destAtq->pdv -= (srcAtq->atq - destAtq->def);
+                mouvement(carte, destPos, GAUCHE, render); //Simulation d'un knockback
+            }
             break;
  
         default:
@@ -59,23 +127,34 @@ void attaque(int carte[][MAP_MAX_X], SDL_Rect *pos , int direction, SDL_Renderer
     SDL_RenderClear(render);
 }
 
-void botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SDL_Renderer *render)
+/**
+ * \fn int botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SDL_Renderer *render, t_pers *srcAtq, t_pers *destAtq)
+ * \brief Fonction concernant les actions du/des bots.
+ * \return Côté vers lequel le bot se tourne.
+ */
+int botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SDL_Renderer *render, t_pers *srcAtq, t_pers *destAtq)
 {
     if (botTueur->x == joueur->x) //Joueur et bot sur la même horizontale
     {
         if(joueur->y > botTueur->y) //Joueur en dessous du bot
         {
             if(joueur->y - botTueur->y <= RANGE_BOT)
-                attaque(carte, botTueur, BAS, render, RANGE_BOT);
+                attaque(carte, botTueur, joueur, BAS, render, RANGE_BOT, srcAtq, destAtq);
             else
+            {
                 mouvement(carte, botTueur, BAS, render);
+                return BAS;
+            }
         }
         else //Joueur au dessus du bot
         {
             if(botTueur->y - joueur->y <= RANGE_BOT)
-                attaque(carte, botTueur, HAUT, render, RANGE_BOT);
+                attaque(carte, botTueur, joueur, HAUT, render, RANGE_BOT, srcAtq, destAtq);
             else
+            {
                 mouvement(carte, botTueur, HAUT, render);
+                return HAUT;
+            }
         }
     }
     else if (botTueur->y == joueur->y) //Joueur et bot sur la même verticale
@@ -83,16 +162,22 @@ void botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SD
         if(joueur->x > botTueur->x) //Joueur à droite du bot
         {
             if(joueur->x - botTueur->x <= RANGE_BOT)
-                attaque(carte, botTueur, DROITE, render, RANGE_BOT);
+                attaque(carte, botTueur, joueur, DROITE, render, RANGE_BOT, srcAtq, destAtq);
             else
+            {
                 mouvement(carte, botTueur, DROITE, render);
+                return DROITE;
+            }
         }
         else //Joueur à gauche du bot
         {
             if(botTueur->x - joueur->x <= RANGE_BOT)
-                attaque(carte, botTueur, GAUCHE, render, RANGE_BOT);
+                attaque(carte, botTueur, joueur, GAUCHE, render, RANGE_BOT, srcAtq, destAtq);
             else
+            {
                 mouvement(carte, botTueur, GAUCHE, render);
+                return GAUCHE;
+            }
         }
     }
     else if(joueur->x > botTueur->x) //Joueur à droite du bot
@@ -100,16 +185,28 @@ void botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SD
         if(joueur->y > botTueur->y) //Joueur en dessous du bot
         {
             if(joueur->y - botTueur->y > joueur->x - botTueur->x) //Joueur en dessous à droite du bot (proche en x)
+            {
                 mouvement(carte, botTueur, BAS, render);
+                return BAS;
+            }
             else
+            {
                 mouvement(carte, botTueur, DROITE, render);
+                return DROITE;
+            }
         }
         else //Joueur au dessus du bot
         {
             if(botTueur->y - joueur->y > joueur->x - botTueur->x) //Joueur au dessus à droite du bot (proche en x)
+            {    
                 mouvement(carte, botTueur, HAUT, render);
+                return HAUT;
+            }
             else
+            {
                 mouvement(carte, botTueur, DROITE, render);
+                return DROITE;
+            }
         }
     }
     else //Joueur à gauche du bot
@@ -117,21 +214,37 @@ void botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SD
         if(joueur->y > botTueur->y) //Joueur en dessous du bot
         {
             if(joueur->y - botTueur->y > botTueur->x - joueur->x) //Joueur en dessous à gauche du bot (proche en x)
+            {    
                 mouvement(carte, botTueur, BAS, render);
+                return BAS;
+            }
             else
+            {
                 mouvement(carte, botTueur, GAUCHE, render);
+                return GAUCHE;
+            }
         }
         else //Joueur au dessus du bot
         {
             if(botTueur->y - joueur->y > joueur->x - botTueur->x) //Joueur au dessus à droite du bot (proche en x)
+            {
                 mouvement(carte, botTueur, HAUT, render);
+                return HAUT;
+            }
             else
+            {
                 mouvement(carte, botTueur, GAUCHE, render);
+                return GAUCHE;
+            }
         }
     }
 }
 
-int jouer(SDL_Renderer *render , SDL_Window *window)
+/**
+ * \fn void jouer(SDL_Renderer *render , SDL_Window *window)
+ * \brief Fonction principale du jeu.
+ */
+void jouer(SDL_Renderer *render , SDL_Window *window)
 {
 /**-------------------------Initialisation personnage-------------------------**/
 
@@ -144,24 +257,28 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
     SDL_Surface *sBot[4] = {NULL};
     SDL_Texture *tBot[4] = {NULL};
 
-    SDL_Texture *persoActuelle = NULL;
+    SDL_Texture *persoActuel = NULL;
     SDL_Texture *botTueur = NULL;
+
+    t_pers *persPlayer;
+    t_pers *persBotTueur;
 
     ///Compteur_Variable
     int i;
+    int botSide;
     int cptBot, cptJoueur;
     cptBot = cptJoueur = 0;
 
     ///Definit les images sur les Surfaces Perso[Orientation]
-    sPerso[0]=IMG_Load("images/stickman.bmp");
-    sPerso[1]=IMG_Load("images/stickman.bmp");
-    sPerso[2]=IMG_Load("images/stickman.bmp");
-    sPerso[3]=IMG_Load("images/stickman.bmp");
+    sPerso[HAUT] = IMG_Load("images/stickmanG.png");
+    sPerso[BAS] = IMG_Load("images/stickmanD.png");
+    sPerso[GAUCHE] = IMG_Load("images/stickmanG.png");
+    sPerso[DROITE] = IMG_Load("images/stickmanD.png");
 
-    sBot[0] = IMG_Load("images/bot_de_la_mort_qui_tue.png");
-    sBot[1] = IMG_Load("images/bot_de_la_mort_qui_tue.png");
-    sBot[2] = IMG_Load("images/bot_de_la_mort_qui_tue.png");
-    sBot[3] = IMG_Load("images/bot_de_la_mort_qui_tue.png");
+    sBot[HAUT] = IMG_Load("images/bot_de_la_mort_qui_tueG.png");
+    sBot[BAS] = IMG_Load("images/bot_de_la_mort_qui_tueD.png");
+    sBot[GAUCHE] = IMG_Load("images/bot_de_la_mort_qui_tueG.png");
+    sBot[DROITE] = IMG_Load("images/bot_de_la_mort_qui_tueD.png");
 
     ///Définition de la carte
     int carte[MAP_MAX_Y][MAP_MAX_X];
@@ -169,35 +286,30 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
     for(i = 0; i < 4; i++)
     {  
         if(sPerso[i] == NULL)
-        {  
             SDL_ExitWithError("image personnage", window, render, NULL);
-        }
+        
         if(sBot[i] == NULL)
-        {
             SDL_ExitWithError("image bot", window, render, NULL);
-        }
     }
 
     for(i = 0; i < 4; i++)
     {
         tPerso[i] = SDL_CreateTextureFromSurface(render, sPerso[i]);
         SDL_FreeSurface(sPerso[i]);
-        SDL_Log("Free surface perso %d", i);
 
         tBot[i] = SDL_CreateTextureFromSurface(render, sBot[i]);
         SDL_FreeSurface(sBot[i]);
-        SDL_Log("Free surface bot %d", i);
     }
 
     ///On remet le render vierge
     SDL_RenderClear(render);
  
     ///Définission de la position du joueur et du bot
-    persoActuelle = tPerso[BAS];
-    if(persoActuelle == NULL)
-        SDL_Log("Erreur persoActuelle");
+    persoActuel = tPerso[HAUT];
+    if(persoActuel == NULL)
+        SDL_Log("Erreur persoActuel");
     
-    botTueur = tBot[BAS];
+    botTueur = tBot[HAUT];
     if(botTueur == NULL)
         SDL_Log("Erreur botTueur");
 
@@ -212,6 +324,10 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
 
     position.w = positionB.w = 100;
     position.h = positionB.h = 100;
+
+    ///Création du joueur et du/des bots
+    persPlayer = crea_pers(MECHANT, DEFAULT_LEVEL);
+    persBotTueur = crea_pers(MECHANT, DEFAULT_LEVEL);
 
     ///Gestion des FPS
     unsigned int frameLimit = SDL_GetTicks() + 16;
@@ -235,30 +351,46 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
             {
                 mouvement(carte, &positionJoueur, GAUCHE, render);
                 mouvement(carte, &positionJoueur, HAUT, render);
+                persoActuel = tPerso[GAUCHE];
             }
             else if (keystate[SDL_SCANCODE_A] && keystate[SDL_SCANCODE_S])
             {
                 mouvement(carte, &positionJoueur, GAUCHE, render);
                 mouvement(carte, &positionJoueur, BAS, render);
+                persoActuel = tPerso[GAUCHE];
             }
             else if (keystate[SDL_SCANCODE_D] && keystate[SDL_SCANCODE_W])
             {
                 mouvement(carte, &positionJoueur, DROITE, render);
                 mouvement(carte, &positionJoueur, HAUT, render);
+                persoActuel = tPerso[DROITE];
             }
             else if (keystate[SDL_SCANCODE_D] && keystate[SDL_SCANCODE_S])
             {
                 mouvement(carte, &positionJoueur, DROITE, render);
                 mouvement(carte, &positionJoueur, BAS, render);
+                persoActuel = tPerso[DROITE];
             }
             else if (keystate[SDL_SCANCODE_S])
+            {
                 mouvement(carte, &positionJoueur, BAS, render);
+                //persoActuel = tPerso[BAS];
+            }
             else if (keystate[SDL_SCANCODE_W])
+            {
                 mouvement(carte, &positionJoueur, HAUT, render);
+                //persoActuel = tPerso[HAUT];
+            }
             else if (keystate[SDL_SCANCODE_D])
+            {
                 mouvement(carte, &positionJoueur, DROITE, render);
+                persoActuel = tPerso[DROITE];
+            }
             else if (keystate[SDL_SCANCODE_A])
+            {
                 mouvement(carte, &positionJoueur, GAUCHE, render);
+                persoActuel = tPerso[GAUCHE];
+            }
             cptJoueur = 0;
         }
         else
@@ -283,18 +415,17 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
 
                         ///Attaques
                         case SDLK_UP:
-                            attaque(carte, &positionJoueur, HAUT, render, RANGE_JOUEUR);
+                            attaque(carte, &positionJoueur, &positionBot, HAUT, render, RANGE_JOUEUR, persPlayer, persBotTueur);
                             break;
                         case SDLK_LEFT:
-                            attaque(carte, &positionJoueur, GAUCHE, render, RANGE_JOUEUR);
+                            attaque(carte, &positionJoueur, &positionBot, GAUCHE, render, RANGE_JOUEUR, persPlayer, persBotTueur);
                             break;
                         case SDLK_DOWN:
-                            attaque(carte, &positionJoueur, BAS, render, RANGE_JOUEUR);
+                            attaque(carte, &positionJoueur, &positionBot, BAS, render, RANGE_JOUEUR, persPlayer, persBotTueur);
                             break;
                         case SDLK_RIGHT:
-                            attaque(carte, &positionJoueur, DROITE, render, RANGE_JOUEUR);
+                            attaque(carte, &positionJoueur, &positionBot, DROITE, render, RANGE_JOUEUR, persPlayer, persBotTueur);
                             break;
-
                         
                         default:
                             break;
@@ -306,13 +437,17 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
             }
         }
 
-        if(cptBot == 6)
+        if(persBotTueur->pdv > 0)
         {
-            botActions(carte, &positionBot, &positionJoueur, render);
-            cptBot = 0;
+            if(cptBot == 6)
+            {
+                botSide = botActions(carte, &positionBot, &positionJoueur, render, persBotTueur, persPlayer);
+                botTueur = tBot[botSide];
+                cptBot = 0;
+            }
+            else
+                cptBot++;
         }
-        else 
-            cptBot++;
 
         position.x = positionJoueur.x * TAILLE_BLOCK;
         position.y = positionJoueur.y * TAILLE_BLOCK;
@@ -320,12 +455,15 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
         positionB.x = positionBot.x * TAILLE_BLOCK;
         positionB.y = positionBot.y * TAILLE_BLOCK;
 
-        if(SDL_RenderCopy(render, persoActuelle, NULL, &position) != 0)
+        if(SDL_RenderCopy(render, persoActuel, NULL, &position) != 0)
             SDL_Log("Erreur lors de l'affichage à l'écran");
+        
+        if(persBotTueur->pdv > 0)
+        {
+            if(SDL_RenderCopy(render, botTueur, NULL, &positionB) != 0)
+                SDL_Log("Erreur lors de l'affichage à l'écran");
+        }
 
-        if(SDL_RenderCopy(render, botTueur, NULL, &positionB) != 0)
-            SDL_Log("Erreur lors de l'affichage à l'écran");
- 
         ///Gestion des 60 fps (1000ms/60 = 16.6 -> 16 
 		delay(frameLimit);
 		frameLimit = SDL_GetTicks() + 16;
@@ -333,7 +471,9 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
         SDL_RenderPresent(render);
    		
     }
-    /* Cache le curseur de la souris */
+    /* Affiche le curseur de la souris */
 	SDL_ShowCursor(SDL_ENABLE);
+    destruction_pers(persBotTueur);
+    destruction_pers(persPlayer);
 }
  

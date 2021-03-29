@@ -8,16 +8,16 @@ typedef struct s_map
 {
     SDL_Surface *background, *tileSet;
 
-    /* Coordonnées de début, lorsqu'on doit dessiner la map */
+    //Coordonnées de début, lorsqu'on doit dessiner la map
     int startX, startY;
 
-    /* Coordonnées max de fin de la map */
+    //Coordonnées max de fin de la map
     int maxX, maxY;
 
-    /* Complession du niveau */
+    //Complession du niveau
     int levelClear;
 
-    /* Tableau à double dimension représentant la map de tiles */
+    //Tableau à double dimension représentant la map de tiles
     int tile[MAP_MAX_Y][MAP_MAX_X];
 
 } t_map;

@@ -1,11 +1,27 @@
+/**
+ * \file menu_pause.c
+ * \brief Contient les fonctions utilisées pour le menu de pause du jeu
+ * \author SAIVET Cécile, TACHET Nicolas, SANNA Florian
+ * \version 1.0
+ * \date 2021
+ */
+
 #include "commun.h"
 
+/**
+ * \fn void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Fonction gérant les paramètre en jeu.
+ */
 void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
 {
 	//
 }
 
-///Affichage du menu pause lorsque le joueur est en jeu.
+/**
+ * \fn SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Met en pause le jeu et laisse un choix au joueur dans un menu (reprendre, options, quitter).
+ * \return SDL_TRUE si la personne clique sur REPRENDRE, SDL_FALSE si le bouton QUITTER a été pressé.
+ */
 SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 {
 	/* Montre le curseur de la souris */
@@ -47,7 +63,6 @@ SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
     SDL_Event event;
 
 	SDL_bool pause_launched = SDL_TRUE;
-
 	SDL_bool reprendre_asked = SDL_FALSE;
 	SDL_bool quitter_asked = SDL_FALSE;
 
