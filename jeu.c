@@ -221,7 +221,10 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
 
     SDL_bool run = SDL_TRUE;
     SDL_Event event;
-
+    
+    t_pers *player;
+	player=crea_pers(GENTIL,DEFAULT_LEVEL);
+	
     while(run)
     {
 
@@ -277,7 +280,7 @@ int jouer(SDL_Renderer *render , SDL_Window *window)
                         case SDLK_ESCAPE:
                             SDL_RenderPresent(render);
                             printf("Le jeu est désormais en pause.\n");
-							run = menu_pause(window, render);
+							run = menu_pause(window, render, player);
                             break;
 
                         ///Attaques

@@ -239,12 +239,6 @@ SDL_SetRenderDrawColor(renderer, 0, 128, 128, 255); //Change couleur rect stats
 	SDL_bool options_asked = SDL_FALSE;
 	SDL_bool quitter_asked = SDL_FALSE;
 
-  SDL_bool nom_asked = SDL_FALSE; //ICI
-  SDL_bool level_asked = SDL_FALSE; //ICI
-  SDL_bool pdv_asked = SDL_FALSE; //ICI
-	SDL_bool att_asked = SDL_FALSE; //ICI
-	SDL_bool def_asked = SDL_FALSE; //ICI
-
 
 
 
@@ -269,27 +263,6 @@ SDL_SetRenderDrawColor(renderer, 0, 128, 128, 255); //Change couleur rect stats
 							pause_launched = SDL_FALSE;
 						}
 
-
-            else if (clickSurCase(event, rect_nom)){
-							nom_asked = SDL_TRUE;
-							pause_launched = SDL_FALSE;
-						}
-            else if (clickSurCase(event, rect_level)){
-							level_asked = SDL_TRUE;
-							pause_launched = SDL_FALSE;
-						}
-            else if (clickSurCase(event, rect_pdv)){
-							pdv_asked = SDL_TRUE;
-							pause_launched = SDL_FALSE;
-						}
-            else if (clickSurCase(event, rect_att)){
-							att_asked = SDL_TRUE;
-							pause_launched = SDL_FALSE;
-						}
-            else if (clickSurCase(event, rect_def)){
-							def_asked = SDL_TRUE;
-							pause_launched = SDL_FALSE;
-						}
 					}
 					break;
 
@@ -308,16 +281,5 @@ SDL_SetRenderDrawColor(renderer, 0, 128, 128, 255); //Change couleur rect stats
 		printf("Options");
 	else if (quitter_asked)
 		printf("Quitter");
-
-    else if (nom_asked)
-  		printf("Nom");
-    else if (level_asked)
-      printf("Niveau");
-    else if (pdv_asked)
-      printf("Points de Vie");
-    else if (att_asked)
-    	printf("Attaque");
-    else if (def_asked)
-    	printf("Defense");
 
 }

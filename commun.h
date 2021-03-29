@@ -19,20 +19,21 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
+#include "pers.h"
 #include "menu_pause.h"
 #include "fonctions.h"
 #include "main_menu.h"
 #include "jeu.h"
 
+
 ///Déclaration des constantes
 
-#define WIDTH 1280
-#define HEIGHT 960
+#define WIDTH 1260
+#define HEIGHT 720
 
 #define NOM_FONT "polices/LLHP.ttf"
 
 #define TAILLE_BLOCK 34
-
 
 ///Définitions pour le jeu.c
 
@@ -42,6 +43,12 @@ typedef enum s_obstacle{VIDE, MUR, JOUEUR} t_obstacle;
 
 #define RANGE_JOUEUR 2
 #define RANGE_BOT 1
+
+///Définitions pers.c
+
+typedef enum s_faction{GENTIL, MECHANT} t_faction;
+
+typedef enum s_niveau{DEFAULT_LEVEL = 1} t_niveau;
 
 ///Code RGB de la police d'écriture
 
