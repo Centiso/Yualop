@@ -13,7 +13,7 @@
  #include<string.h>
  #include<time.h>
 
- #include "pers.h"
+#include "pers.h"
 
  enum categ {CASQUE, PLASTRON, GANTS, JAMBIERES, BOTTES, OFF_HAND, MAIN_HAND};
 

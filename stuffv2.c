@@ -14,12 +14,10 @@
  #include<string.h>
  #include<time.h>
 
- #include "pers.h"
- //#include "persp.c"
+
 #include "stuffv2.h"
-#include "test_u_stuffv2.c"
 //Protos + struct irons dans pers.h ou obj.h
-//Le prog ira dans persp.c
+
 
 t_objet *crea_obj (int level, int cat){
     t_objet *item;
@@ -62,7 +60,7 @@ void maj_lvl_obj(int level, t_objet *obj){
 
     for (int i = 0;i<level;i++){ //gentils
 
-        obj->durabilite = obj->durabilite *rand()%6;
+        obj->durabilite = obj->durabilite * rand()%6;
         obj->att = obj->att * rand()%6;
     }
 }

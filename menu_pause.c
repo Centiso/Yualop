@@ -87,3 +87,4 @@ SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer)
 	else if (quitter_asked)
 		return SDL_FALSE;
 }
+
