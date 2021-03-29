@@ -7,6 +7,7 @@ typedef struct s_pers{
 	int pdv;
 	int faction;
 	int lvl;
+	int alive;
 } t_pers;
 
 t_pers *crea_pers (int faction, int level);

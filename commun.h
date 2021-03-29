@@ -25,8 +25,11 @@
 #include "menu_pause.h"
 #include "fonctions.h"
 #include "main_menu.h"
-#include "jeu.h"
+#include "stuff.h"
+#include "drop.h"
 #include "map.h"
+#include "jeu.h"
+
 
 ///Déclaration des constantes
 

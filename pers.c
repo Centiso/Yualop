@@ -35,6 +35,7 @@ t_pers *crea_pers(int faction, int level)
 	}
 
 	player->faction = faction;
+	player->alive = 1;
 
 	return (player);
 }
