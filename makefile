@@ -34,10 +34,10 @@ clean :
 
 else
 Yualop : $(OBJ)
-	$(CC) -o $(SDLBIN_DIR)/$@ $^ $(LLDFLAGS)
+	$(CC) $^ -o $@ $(LDFLAGSU) 
 
 %.o : %.c 
-	$(CC) -o $@ -c $< $(LLDFLAGS) 
+	$(CC) -Wall $< -c `sdl2-config --cflags` -o $@
 
 clean :
 	rm -f *.o core

@@ -28,6 +28,8 @@ SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
 
 	TTF_Font *police = TTF_OpenFont(NOM_FONT, taille_police);
 
+	SDL_Color NOIR = {P_R, P_G, P_B};
+
 	if (!police)
 		SDL_ExitWithError("Erreur du chargement de la police", window, renderer, NULL);
 
@@ -45,10 +47,19 @@ SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
 	SDL_RenderDrawRect(renderer, &rect_settings);
     SDL_RenderDrawRect(renderer, &rect_exit);
 
-	creerTexte(renderer, police, "NEW GAME",  WIDTH/2 - 5 * 18, rect_new_game.y - 5);
-	creerTexte(renderer, police, "LOAD GAME", WIDTH/2 - 7 * 15, rect_load_game.y - 5);
-	creerTexte(renderer, police, "SETTINGS",  WIDTH/2 - 7 * 20, rect_settings.y - 5);
-    creerTexte(renderer, police, "EXIT",      WIDTH/2 - 7 * 20, rect_exit.y - 5);
+	int widthTemp;
+	
+	TTF_SizeText(police, "NEW GAME", &widthTemp, NULL);
+	creerTexte(renderer, police, "NEW GAME",  WIDTH/2 - widthTemp/2, rect_new_game.y - 5, NOIR);
+	
+	TTF_SizeText(police, "LOAD GAME", &widthTemp, NULL);
+	creerTexte(renderer, police, "LOAD GAME", WIDTH/2 - widthTemp/2, rect_load_game.y - 5, NOIR);
+	
+	TTF_SizeText(police, "SETTINGS", &widthTemp, NULL);
+	creerTexte(renderer, police, "SETTINGS",  WIDTH/2 - widthTemp/2, rect_settings.y - 5, NOIR);
+    
+	TTF_SizeText(police, "EXIT", &widthTemp, NULL);
+	creerTexte(renderer, police, "EXIT",      WIDTH/2 - widthTemp/2, rect_exit.y - 5, NOIR);
 
  	SDL_RenderPresent(renderer);
 
@@ -103,7 +114,6 @@ SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
 
 	if (new_game_asked)
 	{
-		printf("New Game.");
 		jouer(renderer, window);
 		return SDL_TRUE;
 	}

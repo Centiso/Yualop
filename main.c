@@ -40,27 +40,28 @@ int main(int argc, char** argv)
 /**-------------------------Initialisation SDL et librairies-------------------------**/
 
   	if (SDL_Init(SDL_INIT_VIDEO) != 0)
-  		SDL_ExitWithError("Initialisation SDL", NULL, NULL, NULL);
+  		SDL_ExitWithError("SDL_Init", NULL, NULL, NULL);
 
 	if(!TTF_WasInit() && TTF_Init() == -1)
 		SDL_ExitWithError("TTF_Init", NULL, NULL, NULL);
+	
+	///Initialize support for loading PNG and JPEG images
+    if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == 0)
+		SDL_ExitWithError("IMG_Init", NULL, NULL, NULL);
 
 	///Création de la fenêtre
 	window = SDL_CreateWindow("Yualop", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == NULL)
-		SDL_ExitWithError("Erreur à la création de la fenêtre\n", window, NULL, NULL);
+		SDL_ExitWithError("Erreur à la création de la fenêtre", window, NULL, NULL);
 
 	///Création du rendu
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (renderer == NULL)
-		SDL_ExitWithError("Erreur à la création du renderer\n", window, renderer, NULL);
+		SDL_ExitWithError("Erreur à la création du renderer", window, renderer, NULL);
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
 /**-------------------------Initialisation de fond-------------------------**/
-
-    ///Initialize support for loading PNG and JPEG images
-    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
 
     SDL_Texture * image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
     int image_width, image_height;
@@ -107,5 +108,5 @@ int main(int argc, char** argv)
 
 /**-------------------------Fin du programme-------------------------**/
 
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }

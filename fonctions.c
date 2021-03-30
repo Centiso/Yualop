@@ -22,7 +22,13 @@ void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_
         SDL_DestroyRenderer(r);
     if(w != NULL)
         SDL_DestroyWindow(w);
-    SDL_Quit();
+
+	if(strcmp(message, "IMG_Init"))
+		IMG_Quit();
+	if(TTF_WasInit())
+		TTF_Quit();
+	if(SDL_WasInit(SDL_INIT_VIDEO))
+    	SDL_Quit();
 
     exit(EXIT_FAILURE);
 }
@@ -44,13 +50,12 @@ SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect)
  * \fn void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y)
  * \brief Création d'un texte passé en paramètre à l'emplacement passé en paramètre.
  */
-void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y)
+void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y, SDL_Color color)
 {
 	SDL_Surface *texte = NULL;
 	SDL_Rect txtDestRect;
-	SDL_Color NOIR = {P_R, P_G, P_B};
 
-	texte = TTF_RenderUTF8_Blended(police, str, NOIR);
+	texte = TTF_RenderUTF8_Blended(police, str, color);
 	if (!texte){
 		fprintf (stderr, "Erreur a la creation du texte : %s\n", SDL_GetError ());
 		exit(EXIT_FAILURE);
@@ -60,16 +65,18 @@ void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int 
 		fprintf(stderr, "Erreur a la creation du rendu du texte : %s\n", SDL_GetError ());
 		exit(EXIT_FAILURE);
 	}
-	SDL_FreeSurface(texte);
 	txtDestRect.x = x;
   	txtDestRect.y = y;
 	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
 	SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
+
+	SDL_FreeSurface(texte);
+	SDL_DestroyTexture(texte_tex);
 }
 
 /**
  * \fn void delay(unsigned int frameLimit)
- * \brief Fonction utilisée pour la limite d'image par seconde.
+ * \brief Fonction utilisée pour la limite d'image par seconde (en ms).
  */
 void delay(unsigned int frameLimit)
 {

@@ -246,6 +246,25 @@ int botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SDL
  */
 void jouer(SDL_Renderer *render , SDL_Window *window)
 {
+
+/**-------------------------Définition des textes-------------------------**/
+	///Définition des polices
+	int taille_mort = 128;
+	int taille_hp = 16;
+
+	TTF_Font *police_mort = TTF_OpenFont(NOM_FONT, taille_mort);
+	TTF_Font *police_hp = TTF_OpenFont(NOM_FONT, taille_hp);
+
+	if (!police_mort)
+		SDL_ExitWithError("Erreur du chargement de la police_mort", window, render, NULL);
+
+	if (!police_hp)
+		SDL_ExitWithError("Erreur du chargement de la police_hp", window, render, NULL);
+
+	//Définition des couleurs
+	
+	SDL_Color RED = {220, 0, 0};
+
 /**-------------------------Initialisation personnage-------------------------**/
 
 	///On crée des variables
@@ -264,9 +283,11 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_Texture *botTueur = NULL;
 
 	t_pers *persPlayer;
-	t_pers *persBotTueur;
+	t_pers *persBotTueur; //t_pers *persBotTueur[x] avec x = nombre de bots
 
-	t_objet *itemDrop;
+	t_objet *itemDrop; //t_objet *itemDrop[x] avec x = nombre de bots
+
+	t_stuff playerStuff;
 
 	///Compteur_Variable
 	int i;
@@ -431,8 +452,9 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 					{
 						case SDLK_ESCAPE:
 							SDL_RenderPresent(render);
-							printf("Le jeu est désormais en pause.\n");
-							run = menu_pause(window, render);
+							SDL_ShowCursor(SDL_ENABLE);
+							run = menu_pause(window, render, persPlayer);
+							SDL_ShowCursor(SDL_DISABLE);
 							break;
 
 						///Attaques
@@ -459,7 +481,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 			}
 		}
 
-		if(persBotTueur->pdv > 0)
+		if(persBotTueur->alive)
 		{
 			if(cptBot == 6)
 			{
@@ -470,26 +492,17 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 			else
 				cptBot++;
 		}
-		if (persBotTueur->alive == 1 && persBotTueur->pdv <= 0)
-		{
-			persBotTueur->alive = 0;
-			itemDrop = drop(persBotTueur->lvl);
-			if(itemDrop != NULL)
-			{
-				affiche_drop(render, &positionB, tStuff, itemDrop);
-				printf("Affiche drop\n");
-			}
-		}
-		if (persBotTueur->alive == 0)
-			affiche_drop(render, &positionB, tStuff, itemDrop);
 
+		//Affichage des mouvements par le joueur et les ennemis
 		position.x = positionJoueur.x * TAILLE_BLOCK;
 		position.y = positionJoueur.y * TAILLE_BLOCK;
+
+		SDL_RenderClear(render);
 
 		if(SDL_RenderCopy(render, persoActuel, NULL, &position) != 0)
 			SDL_Log("Erreur lors de l'affichage à l'écran");
 		
-		if(persBotTueur->pdv > 0)
+		if(persBotTueur->alive)
 		{
 			positionB.x = positionBot.x * TAILLE_BLOCK;
 			positionB.y = positionBot.y * TAILLE_BLOCK;
@@ -498,16 +511,54 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 				SDL_Log("Erreur lors de l'affichage à l'écran");
 		}
 
+		//Gestion du drop lorsqu'un ennemi meurt
+		if (persBotTueur->alive == 1 && persBotTueur->pdv <= 0)
+		{
+			persBotTueur->alive = 0;
+			itemDrop = drop(persBotTueur->lvl);
+		}
+
+		if (persBotTueur->alive == 0 && itemDrop != NULL)
+			affiche_drop(render, &positionB, tStuff, itemDrop);
+		
+		if (itemDrop != NULL && recupere_drop(&positionJoueur, &positionBot, itemDrop, &playerStuff))
+		{
+			itemDrop = NULL;
+		}
+
+		if (persPlayer->pdv <= 0)
+		{
+			persPlayer->alive = 0;
+			run = SDL_FALSE;
+			
+			int widthTemp, heightTemp;
+			TTF_SizeText(police_mort, "YOU DIED", &widthTemp, &heightTemp);
+			creerTexte(render, police_mort, "YOU DIED", WIDTH/2 - widthTemp/2, HEIGHT/2 - heightTemp/2, RED);
+			
+			SDL_RenderPresent(render);
+			SDL_Delay(3000);
+		}
+			
 		///Gestion des 60 fps (1000ms/60 = 16.6 -> 16 
 		delay(frameLimit);
 		frameLimit = SDL_GetTicks() + 16;
 
 		SDL_RenderPresent(render);
-   		
 	}
 	/* Affiche le curseur de la souris */
 	SDL_ShowCursor(SDL_ENABLE);
+
+	SDL_DestroyTexture(*tPerso);
+	SDL_DestroyTexture(*tBot);
+	SDL_DestroyTexture(*tStuff);
+
+	SDL_DestroyTexture(persoActuel);
+	SDL_DestroyTexture(botTueur);
+	
 	destruction_pers(persBotTueur);
 	destruction_pers(persPlayer);
+
+	free(police_mort);
+	free(police_hp);
 }
  

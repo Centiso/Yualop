@@ -8,7 +8,7 @@ void SDL_ExitWithError(const char *message, SDL_Window *w, SDL_Renderer *r, SDL_
 SDL_bool clickSurCase(SDL_Event click, SDL_Rect caseRect);
 
 ///Fonction affichant un texte "str" sur le renderer aux coordonées passées en paramètres.
-void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y);
+void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int y, SDL_Color color);
 
 ///Delay utilisé pour la limite de fps
 void delay(unsigned int frameLimit);
