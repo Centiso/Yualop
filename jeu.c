@@ -250,7 +250,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 /**-------------------------Définition des textes-------------------------**/
 	///Définition des polices
 	int taille_mort = 128;
-	int taille_hp = 16;
+	int taille_hp = 48;
 
 	TTF_Font *police_mort = TTF_OpenFont(NOM_FONT, taille_mort);
 	TTF_Font *police_hp = TTF_OpenFont(NOM_FONT, taille_hp);
@@ -276,8 +276,8 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_Surface *sBot[4] = {NULL};
 	SDL_Texture *tBot[4] = {NULL};
 
-	SDL_Surface *sStuff[7] = {NULL};
-	SDL_Texture *tStuff[7] = {NULL};
+	SDL_Surface *sStuff[9] = {NULL};
+	SDL_Texture *tStuff[9] = {NULL};
 		
 	SDL_Texture *persoActuel = NULL;
 	SDL_Texture *botTueur = NULL;
@@ -294,6 +294,8 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	int botSide;
 	int cptBot, cptJoueur;
 	cptBot = cptJoueur = 0;
+
+	char texte_life[5];
 
 	///Definit les images sur les Surfaces Perso[Orientation]
 	sPerso[HAUT] = IMG_Load("images/player/stickmanG.png");
@@ -313,6 +315,8 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	sStuff[FEET] = IMG_Load("images/stuff/feet.png");
 	sStuff[MAIN_HAND] = IMG_Load("images/stuff/main_hand.png");
 	sStuff[OFF_HAND] = IMG_Load("images/stuff/off_hand.png");
+	sStuff[HEART] = IMG_Load("images/stuff/heart.png");
+	sStuff[HALF_HEART] = IMG_Load("images/stuff/half_heart.png");
 
 	///Définition de la carte
 	int carte[MAP_MAX_Y][MAP_MAX_X];
@@ -338,7 +342,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		SDL_FreeSurface(sBot[i]);
 	}
 
-	for(i = 0; i < 7; i++)
+	for(i = 0; i < 9; i++)
 	{
 		tStuff[i] = SDL_CreateTextureFromSurface(render, sStuff[i]);
 		SDL_FreeSurface(sStuff[i]);
@@ -499,6 +503,11 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 
 		SDL_RenderClear(render);
 
+		if (persPlayer->pdv > 0){
+			itoa(persPlayer->pdv, texte_life, 10);
+			creerTexte(render, police_hp, texte_life, 10, 10, RED);
+		}
+
 		if(SDL_RenderCopy(render, persoActuel, NULL, &position) != 0)
 			SDL_Log("Erreur lors de l'affichage à l'écran");
 		
@@ -521,13 +530,10 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		if (persBotTueur->alive == 0 && itemDrop != NULL)
 			affiche_drop(render, &positionB, tStuff, itemDrop);
 		
-		if (itemDrop != NULL && recupere_drop(&positionJoueur, &positionBot, itemDrop, &playerStuff))
-		{
+		if (itemDrop != NULL && recupere_drop(&positionJoueur, &positionBot, itemDrop, &playerStuff, persPlayer))
 			itemDrop = NULL;
-		}
 
-		if (persPlayer->pdv <= 0)
-		{
+		if (persPlayer->pdv <= 0){
 			persPlayer->alive = 0;
 			run = SDL_FALSE;
 			
@@ -538,7 +544,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 			SDL_RenderPresent(render);
 			SDL_Delay(3000);
 		}
-			
+
 		///Gestion des 60 fps (1000ms/60 = 16.6 -> 16 
 		delay(frameLimit);
 		frameLimit = SDL_GetTicks() + 16;

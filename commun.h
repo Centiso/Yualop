@@ -55,6 +55,10 @@ typedef enum s_faction{GENTIL, MECHANT} t_faction;
 
 typedef enum s_niveau{DEFAULT_LEVEL = 1} t_niveau;
 
+///Définition stuff.c / drop.c
+
+typedef enum s_categorie{HEAD, CHEST, GLOVES, LEGS, FEET, MAIN_HAND, OFF_HAND, HEART, HALF_HEART} t_categorie;
+
 ///Code RGB de la police d'écriture
 
 #define P_R 25

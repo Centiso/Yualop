@@ -61,9 +61,17 @@ t_objet *crea_obj (int level, int cat)
             item->atq=4;
             item->def=5;
             break;
+        
+        case HEART:
+            item->durabilite=1;
+            item->atq=0;
+            item->def=0;
+            break;
 
-        default : 
-            return 0;
+        case HALF_HEART:
+            item->durabilite=1;
+            item->atq=0;
+            item->def=0;
             break;
     }
     item->categ = cat;
