@@ -63,9 +63,10 @@ int main(int argc, char** argv)
     texture_destination.y = 0;
     texture_destination.w = image_width;
     texture_destination.h = image_height;
-
+/**-------------------------Init_Images--------------------------------**/
+	image_stuff(&renderer);
 /**-------------------------Programme principal-------------------------**/
-	
+
 	while(program_launched)
 	{
 		//Clear screen

@@ -5,6 +5,24 @@ void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
 	//
 }
 
+/**-------------------------Initialisation de fond-------------------------**/
+//ICI
+    // Initialize support for loading PNG and JPEG images
+//Refaire ça fonctionne pas
+void image_stuff(SDL_Renderer *renderer){
+    SDL_Texture * image_texture = initialize_texture_from_file("images/earth_chan.png", renderer);
+
+    // Get texture width/height
+    SDL_QueryTexture(image_texture, NULL, NULL, 20, 10);
+
+    // Define where on the "screen" we want to draw the texture
+    SDL_Rect texture_destination;
+
+    texture_destination.x = 1200;
+    texture_destination.y = HEIGHT/2;
+    texture_destination.w = 20;
+    texture_destination.h = 10;
+}
 ///Affichage du menu pause lorsque le joueur est en jeu.
 SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer, t_pers *player)
 {
