@@ -101,10 +101,11 @@ SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
 					}
 					break;
 
-				case SDL_KEYDOWN:
+				/*case SDL_KEYDOWN:
 					switch(event.key.keysym.sym){
 						case SDLK_ESCAPE: menu_launched = SDL_FALSE;break;
 					}
+					break;*/
 			}
 	}
 

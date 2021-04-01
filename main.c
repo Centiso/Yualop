@@ -35,6 +35,9 @@ int main(int argc, char** argv)
 	SDL_Renderer *renderer = NULL;
 	SDL_Surface *icon = NULL;
 
+	WIDTH = 1400;
+	HEIGHT = 800;
+
 	SDL_bool program_launched = SDL_TRUE;
 
 /**-------------------------Initialisation SDL et librairies-------------------------**/
@@ -79,8 +82,8 @@ int main(int argc, char** argv)
 
     texture_destination.x = 0;
     texture_destination.y = 0;
-    texture_destination.w = image_width;
-    texture_destination.h = image_height;
+    texture_destination.w = WIDTH;
+    texture_destination.h = HEIGHT;
 
 /**-------------------------Programme principal-------------------------**/
 	while(program_launched)

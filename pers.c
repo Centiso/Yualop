@@ -19,19 +19,20 @@ t_pers *crea_pers(int faction, int level)
 
 	player = malloc(sizeof(t_pers)*1);
 
-	if(faction == GENTIL)
+	switch(faction)
 	{
-		player->pdv = 100;
-		player->def = 50;
-		player->atq = 100;
-		player->lvl = level;
-	}
+		case GENTIL:
+			player->pdv = 100;
+			player->def = 50;
+			player->atq = 100;
+			player->lvl = level;
+			break;
 
-	else if (faction == MECHANT)
-	{
-		player->pdv = 100;
-		player->def = 25;
-		player->atq = 55;
+		case MECHANT:
+			player->pdv = 100;
+			player->def = 25;
+			player->atq = 55;
+			break;
 	}
 
 	player->faction = faction;

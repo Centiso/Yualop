@@ -30,15 +30,14 @@
 #include "map.h"
 #include "jeu.h"
 
-
 ///Déclaration des constantes
 
-#define WIDTH 1280
-#define HEIGHT 960
+unsigned int WIDTH;  ///Largeur de la fenêtre principale
+unsigned int HEIGHT; ///Hauteur de la fenêtre principale
+
+#define TAILLE_BLOCK (HEIGHT / MAP_MAX_Y)
 
 #define NOM_FONT "polices/LLHP.ttf"
-
-#define TAILLE_BLOCK 34
 
 ///Définitions pour le jeu.c
 
@@ -53,7 +52,7 @@ typedef enum s_obstacle{VIDE, MUR, JOUEUR} t_obstacle;
 
 typedef enum s_faction{GENTIL, MECHANT} t_faction;
 
-typedef enum s_niveau{DEFAULT_LEVEL = 1} t_niveau;
+#define DEFAULT_LEVEL 1
 
 ///Définition stuff.c / drop.c
 

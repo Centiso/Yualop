@@ -16,21 +16,20 @@ SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer, t_pers *player)
 	const int taille_police = 72;
 	const int taille_stats = 38;
 
-	rect_level.w = rect_pdv.w = rect_atq.w = rect_def.w = WIDTH-WIDTH*0.70;
-	rect_level.h = rect_atq.h = rect_pdv.h = rect_def.h = taille_police+10;
-	rect_level.x = rect_pdv.x = rect_atq.x = rect_def.x = (WIDTH-rect_level.w)/28;
-	
-	rect_level.y = HEIGHT - 7*(HEIGHT/8);
-	rect_pdv.y	 = HEIGHT - 5*(HEIGHT/8);
-	rect_atq.y	 = HEIGHT - 3*(HEIGHT/8);
-	rect_def.y	 = HEIGHT - 1*(HEIGHT/8);
-
 	rect_reprendre.w = rect_options.w = rect_quitter.w = WIDTH-WIDTH*0.65;
 	rect_reprendre.h = rect_options.h = rect_quitter.h = taille_police + 10;
 	rect_reprendre.x = rect_options.x = rect_quitter.x = (WIDTH-rect_reprendre.w)/2;
 	rect_reprendre.y = HEIGHT-3*(HEIGHT/4);
 	rect_options.y = HEIGHT-2*(HEIGHT/4);
 	rect_quitter.y = HEIGHT-1*(HEIGHT/4);
+
+	rect_level.w = rect_pdv.w = rect_atq.w = rect_def.w = WIDTH-WIDTH*0.70;
+	rect_level.h = rect_atq.h = rect_pdv.h = rect_def.h = rect_reprendre.h;
+	rect_level.x = rect_pdv.x = rect_atq.x = rect_def.x = (WIDTH-rect_level.w)/28;
+	rect_level.y = HEIGHT - 5*(HEIGHT/8);
+	rect_pdv.y	 = HEIGHT - 4*(HEIGHT/8);
+	rect_atq.y	 = HEIGHT - 3*(HEIGHT/8);
+	rect_def.y	 = HEIGHT - 2*(HEIGHT/8);
 
 	TTF_Font *police = TTF_OpenFont(NOM_FONT, taille_police);
 	TTF_Font *police_stats = TTF_OpenFont(NOM_FONT, taille_stats);
@@ -90,17 +89,17 @@ SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer, t_pers *player)
 	sprintf(atq,   "%d", player->atq);
 	sprintf(def,   "%d", player->def);
 
-	TTF_SizeText(police, level, &widthTemp, &heightTemp);
-	creerTexte(renderer, police_stats, level, rect_level.x + rect_level.w - widthTemp, rect_level.y + rect_level.h - heightTemp, NOIR);
+	TTF_SizeText(police_stats, level, &widthTemp, &heightTemp);
+	creerTexte(renderer, police_stats, level, rect_level.x + rect_level.w - widthTemp - 3, rect_level.y + rect_level.h - heightTemp, NOIR);
 	
-	TTF_SizeText(police, pdv, &widthTemp, &heightTemp);
-	creerTexte(renderer, police_stats, pdv, rect_pdv.x + rect_pdv.w - widthTemp, rect_pdv.y + rect_pdv.h - heightTemp, NOIR);
+	TTF_SizeText(police_stats, pdv, &widthTemp, &heightTemp);
+	creerTexte(renderer, police_stats, pdv, rect_pdv.x + rect_pdv.w - widthTemp - 3, rect_pdv.y + rect_pdv.h - heightTemp, NOIR);
 	
-	TTF_SizeText(police, atq, &widthTemp, &heightTemp);
-	creerTexte(renderer, police_stats, atq, rect_atq.x + rect_atq.w - widthTemp, rect_atq.y + rect_atq.h - heightTemp, NOIR);
+	TTF_SizeText(police_stats, atq, &widthTemp, &heightTemp);
+	creerTexte(renderer, police_stats, atq, rect_atq.x + rect_atq.w - widthTemp - 3, rect_atq.y + rect_atq.h - heightTemp, NOIR);
 	
-	TTF_SizeText(police, def, &widthTemp, &heightTemp);
-	creerTexte(renderer, police_stats, def, rect_def.x + rect_def.w - widthTemp, rect_def.y + rect_def.h - heightTemp, NOIR);
+	TTF_SizeText(police_stats, def, &widthTemp, &heightTemp);
+	creerTexte(renderer, police_stats, def, rect_def.x + rect_def.w - widthTemp - 3, rect_def.y + rect_def.h - heightTemp, NOIR);
 
 	SDL_RenderPresent(renderer);
 

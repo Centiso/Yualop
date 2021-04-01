@@ -273,6 +273,9 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_Surface *sPerso[4] = {NULL};
 	SDL_Texture *tPerso[4] = {NULL};
 
+	SDL_Surface *sPersoAtq[4] = {NULL};
+	SDL_Texture *tPersoAtq[4] = {NULL};
+
 	SDL_Surface *sBot[4] = {NULL};
 	SDL_Texture *tBot[4] = {NULL};
 
@@ -295,6 +298,8 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	int cptBot, cptJoueur;
 	cptBot = cptJoueur = 0;
 
+	int player_recent_attack = 0;
+
 	char texte_life[5];
 
 	///Definit les images sur les Surfaces Perso[Orientation]
@@ -302,6 +307,11 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	sPerso[BAS] = IMG_Load("images/player/stickmanD.png");
 	sPerso[GAUCHE] = IMG_Load("images/player/stickmanG.png");
 	sPerso[DROITE] = IMG_Load("images/player/stickmanD.png");
+
+	sPersoAtq[HAUT] = IMG_Load("images/player/stickmanG_attack.png");
+	sPersoAtq[BAS] = IMG_Load("images/player/stickmanD_attack.png");
+	sPersoAtq[GAUCHE] = IMG_Load("images/player/stickmanG_attack.png");
+	sPersoAtq[DROITE] = IMG_Load("images/player/stickmanD_attack.png");
 
 	sBot[HAUT] = IMG_Load("images/mobs/bot_de_la_mort_qui_tueG.png");
 	sBot[BAS] = IMG_Load("images/mobs/bot_de_la_mort_qui_tueD.png");
@@ -326,11 +336,11 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		if(sPerso[i] == NULL)
 			SDL_ExitWithError("image personnage", window, render, NULL);
 		
+		if(sPersoAtq[i] == NULL)
+			SDL_ExitWithError("image personnage attaque", window, render, NULL);
+		
 		if(sBot[i] == NULL)
 			SDL_ExitWithError("image bot", window, render, NULL);
-
-		if(sStuff[i] == NULL)
-			SDL_ExitWithError("image stuff", window, render, NULL);
 	}
 
 	for(i = 0; i < 4; i++)
@@ -338,12 +348,18 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		tPerso[i] = SDL_CreateTextureFromSurface(render, sPerso[i]);
 		SDL_FreeSurface(sPerso[i]);
 
+		tPersoAtq[i] = SDL_CreateTextureFromSurface(render, sPersoAtq[i]);
+		SDL_FreeSurface(sPersoAtq[i]);
+
 		tBot[i] = SDL_CreateTextureFromSurface(render, sBot[i]);
 		SDL_FreeSurface(sBot[i]);
 	}
 
 	for(i = 0; i < 9; i++)
 	{
+		if(sStuff[i] == NULL)
+			SDL_ExitWithError("image stuff", window, render, NULL);
+
 		tStuff[i] = SDL_CreateTextureFromSurface(render, sStuff[i]);
 		SDL_FreeSurface(sStuff[i]);
 	}
@@ -373,7 +389,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	position.h = positionB.h = 100;
 
 	///Création du joueur et du/des bots
-	persPlayer = crea_pers(MECHANT, DEFAULT_LEVEL);
+	persPlayer = crea_pers(GENTIL, DEFAULT_LEVEL);
 	persBotTueur = crea_pers(MECHANT, DEFAULT_LEVEL);
 
 	///Gestion des FPS
@@ -387,8 +403,15 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	/* Cache le curseur de la souris */
 	SDL_ShowCursor(SDL_DISABLE);
 
+	SDL_Rect zone_jeu;
+	zone_jeu.w = MAP_MAX_X * TAILLE_BLOCK;
+	zone_jeu.h = MAP_MAX_Y * TAILLE_BLOCK;
+	zone_jeu.x = 0;
+	zone_jeu.y = 0;
+
 	while(run)
 	{
+
 		const Uint8* keystate = SDL_GetKeyboardState(NULL); //Regarde si la touche est restée enfoncée (pour effectuer des mouvements plus fluides)
 		SDL_PumpEvents();
 
@@ -398,25 +421,29 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 			{
 				mouvement(carte, &positionJoueur, GAUCHE, render);
 				mouvement(carte, &positionJoueur, HAUT, render);
-				persoActuel = tPerso[GAUCHE];
+				if (player_recent_attack == 0)
+					persoActuel = tPerso[GAUCHE];
 			}
 			else if (keystate[SDL_SCANCODE_A] && keystate[SDL_SCANCODE_S])
 			{
 				mouvement(carte, &positionJoueur, GAUCHE, render);
 				mouvement(carte, &positionJoueur, BAS, render);
-				persoActuel = tPerso[GAUCHE];
+				if (player_recent_attack == 0)
+					persoActuel = tPerso[GAUCHE];
 			}
 			else if (keystate[SDL_SCANCODE_D] && keystate[SDL_SCANCODE_W])
 			{
 				mouvement(carte, &positionJoueur, DROITE, render);
 				mouvement(carte, &positionJoueur, HAUT, render);
-				persoActuel = tPerso[DROITE];
+				if (player_recent_attack == 0)	
+					persoActuel = tPerso[DROITE];
 			}
 			else if (keystate[SDL_SCANCODE_D] && keystate[SDL_SCANCODE_S])
 			{
 				mouvement(carte, &positionJoueur, DROITE, render);
 				mouvement(carte, &positionJoueur, BAS, render);
-				persoActuel = tPerso[DROITE];
+				if (player_recent_attack == 0)
+					persoActuel = tPerso[DROITE];
 			}
 			else if (keystate[SDL_SCANCODE_S])
 			{
@@ -431,17 +458,36 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 			else if (keystate[SDL_SCANCODE_D])
 			{
 				mouvement(carte, &positionJoueur, DROITE, render);
-				persoActuel = tPerso[DROITE];
+				if (player_recent_attack == 0)	
+					persoActuel = tPerso[DROITE];
 			}
 			else if (keystate[SDL_SCANCODE_A])
 			{
 				mouvement(carte, &positionJoueur, GAUCHE, render);
-				persoActuel = tPerso[GAUCHE];
+				if (player_recent_attack == 0)
+					persoActuel = tPerso[GAUCHE];
 			}
 			cptJoueur = 0;
 		}
 		else
 			cptJoueur++;
+
+		//Gestion de l'animation de l'attaque
+		if (player_recent_attack > 0)
+		{
+			player_recent_attack--;
+			if (player_recent_attack == 0)
+			{
+				if(persoActuel == tPersoAtq[GAUCHE])
+					persoActuel = tPerso[GAUCHE];
+				else if(persoActuel == tPersoAtq[DROITE])
+					persoActuel = tPerso[DROITE];
+				else if(persoActuel == tPersoAtq[HAUT])
+					persoActuel = tPerso[HAUT];
+				else if(persoActuel == tPersoAtq[BAS])
+					persoActuel = tPerso[BAS];
+			}
+		}
 
 		while(SDL_PollEvent(&event))
 		{
@@ -460,19 +506,32 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 							run = menu_pause(window, render, persPlayer);
 							SDL_ShowCursor(SDL_DISABLE);
 							break;
+						
+						case SDLK_n:
+							printf("Respawn\n");
+							persBotTueur = crea_pers(MECHANT, DEFAULT_LEVEL);
+							break;
 
 						///Attaques
 						case SDLK_UP:
 							attaque(carte, &positionJoueur, &positionBot, HAUT, render, RANGE_JOUEUR, persPlayer, persBotTueur);
+							player_recent_attack = 20;
+							persoActuel = tPersoAtq[HAUT];
 							break;
 						case SDLK_LEFT:
 							attaque(carte, &positionJoueur, &positionBot, GAUCHE, render, RANGE_JOUEUR, persPlayer, persBotTueur);
+							player_recent_attack = 20;
+							persoActuel = tPersoAtq[GAUCHE];
 							break;
 						case SDLK_DOWN:
 							attaque(carte, &positionJoueur, &positionBot, BAS, render, RANGE_JOUEUR, persPlayer, persBotTueur);
+							player_recent_attack = 20;
+							persoActuel = tPersoAtq[BAS];
 							break;
 						case SDLK_RIGHT:
 							attaque(carte, &positionJoueur, &positionBot, DROITE, render, RANGE_JOUEUR, persPlayer, persBotTueur);
+							player_recent_attack = 20;
+							persoActuel = tPersoAtq[DROITE];
 							break;
 						
 						default:
@@ -502,6 +561,10 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		position.y = positionJoueur.y * TAILLE_BLOCK;
 
 		SDL_RenderClear(render);
+		
+		SDL_SetRenderDrawColor(render, 220, 0, 0, 220);
+		SDL_RenderDrawRect(render, &zone_jeu);
+		SDL_SetRenderDrawColor(render, P_R, P_G, P_B, 255);
 
 		if (persPlayer->pdv > 0){
 			itoa(persPlayer->pdv, texte_life, 10);
