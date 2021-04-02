@@ -42,16 +42,6 @@ t_pers *crea_pers(int faction, int level)
 }
 
 /**
- * \fn void destruction_pers(t_pers *player)
- * \brief Fonction de destruction de personnage.
- */
-void destruction_pers(t_pers *player)
-{
-	free(player);
-	player = NULL;
-}
-
-/**
  * \fn void maj_lvl(int level, t_pers *player)
  * \brief Fonction de mise à jour de niveau d'un t_pers passé en paramètre.
  */
@@ -63,7 +53,7 @@ void maj_lvl(int level, t_pers *player)
 		for (i = 0; i<level; i++)
 		{
 			player->pdv *= 1.1;
-			player->def  *= 1.1;
+			player->def *= 1.1;
 			player->atq *= 1.1;
 		}
 	}
@@ -72,7 +62,7 @@ void maj_lvl(int level, t_pers *player)
 		for (i = 0; i<level; i++)
 		{
 			player->pdv *= 1.1;
-			player->def  *= 1.1;
+			player->def *= 1.1;
 			player->atq *= 1.1;
 		}
 	}

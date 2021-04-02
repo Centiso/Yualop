@@ -47,8 +47,8 @@ t_objet *drop (int levelMonstre)
 void affiche_drop(SDL_Renderer *renderer, SDL_Rect *cadavre, SDL_Texture *stuff[], t_objet *drop)
 {   
 	SDL_Rect posCadavre;
-	posCadavre.x = cadavre->x;
-	posCadavre.y = cadavre->y;
+	posCadavre.x  = cadavre->x + TAILLE_BLOCK;
+	posCadavre.y  = cadavre->y + TAILLE_BLOCK;
 	posCadavre.w = posCadavre.h = TAILLE_BLOCK;
 
 	SDL_RenderCopy(renderer, stuff[drop->categ], NULL, &posCadavre);
@@ -57,7 +57,7 @@ void affiche_drop(SDL_Renderer *renderer, SDL_Rect *cadavre, SDL_Texture *stuff[
 //
 int recupere_drop(SDL_Rect *joueur, SDL_Rect *cadavre, t_objet *drop, t_stuff *playerStuff, t_pers *playerStats)
 {
-	if (joueur->x == cadavre->x && joueur->y == cadavre->y)
+	if (joueur->x + TAILLE_BLOCK == cadavre->x + TAILLE_BLOCK && joueur->y + TAILLE_BLOCK == cadavre->y + TAILLE_BLOCK)
 	{
 		switch (drop->categ)
 		{

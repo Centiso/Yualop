@@ -11,7 +11,6 @@ typedef struct s_pers{
 } t_pers;
 
 t_pers *crea_pers (int faction, int level);
-void destruction_pers(t_pers *player);
 void maj_lvl(int level, t_pers *player);
 
 #endif

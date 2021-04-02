@@ -35,8 +35,7 @@ int main(int argc, char** argv)
 	SDL_Renderer *renderer = NULL;
 	SDL_Surface *icon = NULL;
 
-	WIDTH = 1400;
-	HEIGHT = 800;
+	SDL_DisplayMode current;
 
 	SDL_bool program_launched = SDL_TRUE;
 
@@ -51,6 +50,17 @@ int main(int argc, char** argv)
 	///Initialize support for loading PNG and JPEG images
     if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == 0)
 		SDL_ExitWithError("IMG_Init", NULL, NULL, NULL);
+
+	/*if (SDL_GetCurrentDisplayMode(0, &current) != 0)
+		SDL_ExitWithError("Current display error", NULL, NULL, NULL);
+
+	WIDTH = current.w;
+	HEIGHT = current.h;*/
+
+	if (WIDTH != current.w){
+		WIDTH = 1400;
+		HEIGHT = 800;
+	}
 
 	///Création de la fenêtre
 	window = SDL_CreateWindow("Yualop", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);

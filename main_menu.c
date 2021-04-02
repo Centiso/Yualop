@@ -103,7 +103,10 @@ SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
 
 				/*case SDL_KEYDOWN:
 					switch(event.key.keysym.sym){
-						case SDLK_ESCAPE: menu_launched = SDL_FALSE;break;
+						case SDLK_F11: 
+							//SDL_SetWindowSize(window, 1400, 800);
+							printf("F11");
+							break;
 					}
 					break;*/
 			}

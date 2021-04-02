@@ -17,29 +17,26 @@ void mouvement(int carte[][MAP_MAX_X], SDL_Rect *pos, int direction, SDL_Rendere
 	switch(direction)
 	{
 		case BAS:
-			if( pos->y + pos->h/TAILLE_BLOCK <= MAP_MAX_Y )
+			if( pos->y + 1 + pos->h / TAILLE_BLOCK <= MAP_MAX_Y )
 				pos->y++;
+
 			break;
 
 		case HAUT:
-			if(pos->y > 0)
+			if( pos->y - 1 >= 0 )
 				pos->y--;
 			break;
 
 		case DROITE:
-			if(pos->x + pos->w/TAILLE_BLOCK <= MAP_MAX_X)
+			if(pos->x + 1 + pos->w / TAILLE_BLOCK <= MAP_MAX_X)
 				pos->x++;
 			break;
 
 		case GAUCHE:
-			if(pos->x > 0)
+			if(pos->x - 1 >= 0)
 				pos->x--;
 			break;
-
-		default:
-			break;
 	}
-
 	SDL_RenderClear(render);
 }
 
@@ -118,9 +115,6 @@ void attaque(int carte[][MAP_MAX_X], SDL_Rect *srcPos, SDL_Rect *destPos, int di
 					destAtq->pdv -= (srcAtq->atq - destAtq->def);
 				mouvement(carte, destPos, GAUCHE, render); //Simulation d'un knockback
 			}
-			break;
- 
-		default:
 			break;
 	}
 		
@@ -237,6 +231,83 @@ int botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SDL
 				return GAUCHE;
 			}
 		}
+	}
+}
+
+int canChangeMap(SDL_Rect *joueur, int direction, t_pers *persBot)
+{
+	switch (direction)
+	{
+		case HAUT:
+			return (
+				( joueur->x == (MAP_MAX_X/2) - 1 || joueur->x == MAP_MAX_X/2 )
+				&& (joueur->y - 1 < 0)
+				&& (persBot->alive == 0)
+				&& (persBot->faction == MECHANT) 
+			);
+			break;
+	
+		case BAS:
+			return (
+				( joueur->x == (MAP_MAX_X/2) - 1 || joueur->x == MAP_MAX_X/2 )
+				&& (joueur->y + (joueur->h / TAILLE_BLOCK) + 1 > MAP_MAX_Y)
+				&& (persBot->alive == 0)
+				&& (persBot->faction == MECHANT) 
+			);
+			break;
+
+		case GAUCHE:
+			return (
+				(joueur->y == (MAP_MAX_Y/2) - 1 || joueur->y == MAP_MAX_Y/2 )
+				&& (joueur->x - 1 < 0)
+				&& (persBot->alive == 0)
+				&& (persBot->faction == MECHANT) 
+			);
+			break;
+
+		case DROITE:
+			return (
+				(joueur->y == (MAP_MAX_Y/2) - 1 || joueur->y == MAP_MAX_Y/2 )
+				&& (joueur->x + (joueur->h / TAILLE_BLOCK) + 1 > MAP_MAX_X)
+				&& (persBot->alive == 0)
+				&& (persBot->faction == MECHANT) 
+			);
+			break;
+	}
+	return 0;
+}
+
+void changementMap(SDL_Rect *joueur, SDL_Rect *bot, int direction)
+{
+	switch (direction)
+	{
+		case HAUT:
+			joueur->y = MAP_MAX_Y - (joueur->h / TAILLE_BLOCK); 
+
+			bot->x = (MAP_MAX_X / 2);
+			bot->y = 0;
+			break;
+
+		case BAS:
+			joueur->y = 0;
+
+			bot->x = (MAP_MAX_X / 2);
+			bot->y = MAP_MAX_Y - (joueur->h / TAILLE_BLOCK);
+			break;
+
+		case GAUCHE:
+			joueur->x = MAP_MAX_X - (joueur->w / TAILLE_BLOCK);
+
+			bot->x = 0;
+			bot->y = (MAP_MAX_Y / 2);
+			break;
+
+		case DROITE:
+			joueur->x = 0;
+
+			bot->x = MAP_MAX_X - (bot->w / TAILLE_BLOCK);
+			bot->y = (MAP_MAX_Y / 2);
+			break;
 	}
 }
 
@@ -376,17 +447,19 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	if(botTueur == NULL)
 		SDL_Log("Erreur botTueur");
 
-	positionJoueur.x = 3;
-	positionJoueur.y = 3;
+	///Taille et position des bots/joueur
 
-	positionBot.x = (MAP_MAX_X-positionJoueur.x);
-	positionBot.y = (MAP_MAX_Y-positionJoueur.y);
+	positionJoueur.w = positionBot.w = 3*TAILLE_BLOCK;
+	positionJoueur.h = positionBot.h = positionJoueur.w;
 
-	positionJoueur.w = positionBot.w = 100;
-	positionJoueur.h = positionBot.h = 100;
+	position.w = positionB.w = 3*TAILLE_BLOCK;
+	position.h = positionB.h = position.w;
 
-	position.w = positionB.w = 100;
-	position.h = positionB.h = 100;
+	positionJoueur.x = 0;
+	positionJoueur.y = 0;
+
+	positionBot.x = (MAP_MAX_X - (positionJoueur.x + (positionB.w / TAILLE_BLOCK )));
+	positionBot.y = (MAP_MAX_Y - (positionJoueur.y + (positionB.h / TAILLE_BLOCK )));
 
 	///Création du joueur et du/des bots
 	persPlayer = crea_pers(GENTIL, DEFAULT_LEVEL);
@@ -409,6 +482,11 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	zone_jeu.x = 0;
 	zone_jeu.y = 0;
 
+	SDL_Rect rect_case;
+
+	rect_case.w = rect_case.h = TAILLE_BLOCK;
+	rect_case.x = rect_case.y = 0;
+
 	while(run)
 	{
 
@@ -419,51 +497,162 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		{
 			if (keystate[SDL_SCANCODE_A] && keystate[SDL_SCANCODE_W])
 			{
-				mouvement(carte, &positionJoueur, GAUCHE, render);
-				mouvement(carte, &positionJoueur, HAUT, render);
+				if (canChangeMap(&positionJoueur, GAUCHE, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, GAUCHE);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else if(canChangeMap(&positionJoueur, HAUT, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, HAUT);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, GAUCHE, render);
+					mouvement(carte, &positionJoueur, HAUT, render);
+				}
+
 				if (player_recent_attack == 0)
 					persoActuel = tPerso[GAUCHE];
 			}
 			else if (keystate[SDL_SCANCODE_A] && keystate[SDL_SCANCODE_S])
 			{
-				mouvement(carte, &positionJoueur, GAUCHE, render);
-				mouvement(carte, &positionJoueur, BAS, render);
+				if (canChangeMap(&positionJoueur, GAUCHE, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, GAUCHE);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else if(canChangeMap(&positionJoueur, BAS, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, BAS);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, GAUCHE, render);
+					mouvement(carte, &positionJoueur, BAS, render);
+				}
 				if (player_recent_attack == 0)
 					persoActuel = tPerso[GAUCHE];
 			}
 			else if (keystate[SDL_SCANCODE_D] && keystate[SDL_SCANCODE_W])
 			{
-				mouvement(carte, &positionJoueur, DROITE, render);
-				mouvement(carte, &positionJoueur, HAUT, render);
+				if (canChangeMap(&positionJoueur, DROITE, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, DROITE);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else if(canChangeMap(&positionJoueur, HAUT, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, HAUT);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, DROITE, render);
+					mouvement(carte, &positionJoueur, HAUT, render);
+				}
 				if (player_recent_attack == 0)	
 					persoActuel = tPerso[DROITE];
 			}
 			else if (keystate[SDL_SCANCODE_D] && keystate[SDL_SCANCODE_S])
 			{
-				mouvement(carte, &positionJoueur, DROITE, render);
-				mouvement(carte, &positionJoueur, BAS, render);
+				if (canChangeMap(&positionJoueur, DROITE, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, DROITE);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else if(canChangeMap(&positionJoueur, BAS, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, BAS);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, DROITE, render);
+					mouvement(carte, &positionJoueur, BAS, render);
+				}
 				if (player_recent_attack == 0)
 					persoActuel = tPerso[DROITE];
 			}
 			else if (keystate[SDL_SCANCODE_S])
 			{
-				mouvement(carte, &positionJoueur, BAS, render);
+				if(canChangeMap(&positionJoueur, BAS, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, BAS);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, BAS, render);
+				}
 				//persoActuel = tPerso[BAS];
 			}
 			else if (keystate[SDL_SCANCODE_W])
 			{
-				mouvement(carte, &positionJoueur, HAUT, render);
+				if(canChangeMap(&positionJoueur, HAUT, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, HAUT);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, HAUT, render);
+				}
 				//persoActuel = tPerso[HAUT];
 			}
 			else if (keystate[SDL_SCANCODE_D])
 			{
-				mouvement(carte, &positionJoueur, DROITE, render);
+				if(canChangeMap(&positionJoueur, DROITE, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, DROITE);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, DROITE, render);
+				}
+
 				if (player_recent_attack == 0)	
 					persoActuel = tPerso[DROITE];
 			}
 			else if (keystate[SDL_SCANCODE_A])
 			{
-				mouvement(carte, &positionJoueur, GAUCHE, render);
+				if(canChangeMap(&positionJoueur, GAUCHE, persBotTueur))
+				{
+					changementMap(&positionJoueur, &positionBot, GAUCHE);
+					free(itemDrop);
+					free(persBotTueur);
+					persBotTueur = crea_pers(persBotTueur->faction, persBotTueur->lvl);
+				}
+				else
+				{
+					mouvement(carte, &positionJoueur, GAUCHE, render);
+				}
+
 				if (player_recent_attack == 0)
 					persoActuel = tPerso[GAUCHE];
 			}
@@ -562,10 +751,36 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 
 		SDL_RenderClear(render);
 		
-		SDL_SetRenderDrawColor(render, 220, 0, 0, 220);
+		//Dessin de la map
+		SDL_SetRenderDrawColor(render, 0, 255, 255, 220);
+		rect_case.y = 0; rect_case.x = 12 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
+		rect_case.y = 0; rect_case.x = 13 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
+
+		rect_case.y = 25 * TAILLE_BLOCK; rect_case.x = 12 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
+		rect_case.y = 25 * TAILLE_BLOCK; rect_case.x = 13 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
+
+		rect_case.y = 12 * TAILLE_BLOCK; rect_case.x = 0; SDL_RenderFillRect(render, &rect_case);
+		rect_case.y = 13 * TAILLE_BLOCK; rect_case.x = 0; SDL_RenderFillRect(render, &rect_case);
+
+		rect_case.y = 12 * TAILLE_BLOCK; rect_case.x = 25 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
+		rect_case.y = 13 * TAILLE_BLOCK; rect_case.x = 25 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
+
+		SDL_SetRenderDrawColor(render, 0, 220, 0, 100);
+		for(i = 0; i <= MAP_MAX_Y; i++){
+			for(int j = 0; j < MAP_MAX_X; j++){
+				rect_case.x = j * TAILLE_BLOCK;
+				SDL_RenderDrawRect(render, &rect_case);
+			}
+			rect_case.y = i * TAILLE_BLOCK;
+		}
+		SDL_SetRenderDrawColor(render, 220, 0, 0, 150);
 		SDL_RenderDrawRect(render, &zone_jeu);
+		SDL_SetRenderDrawColor(render, 200, 10, 200, 220);
+		SDL_RenderDrawRect(render, &position);
 		SDL_SetRenderDrawColor(render, P_R, P_G, P_B, 255);
 
+
+		//Affichage de la vie en haut à gauche
 		if (persPlayer->pdv > 0){
 			itoa(persPlayer->pdv, texte_life, 10);
 			creerTexte(render, police_hp, texte_life, 10, 10, RED);
@@ -624,8 +839,10 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_DestroyTexture(persoActuel);
 	SDL_DestroyTexture(botTueur);
 	
-	destruction_pers(persBotTueur);
-	destruction_pers(persPlayer);
+	free(persBotTueur);
+	persBotTueur = NULL;
+	free(persPlayer);
+	persPlayer = NULL;
 
 	free(police_mort);
 	free(police_hp);
