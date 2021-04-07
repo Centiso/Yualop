@@ -311,12 +311,23 @@ void changementMap(SDL_Rect *joueur, SDL_Rect *bot, int direction)
 	}
 }
 
+
 /**
  * \fn void jouer(SDL_Renderer *render , SDL_Window *window)
  * \brief Fonction principale du jeu.
  */
 void jouer(SDL_Renderer *render , SDL_Window *window)
 {
+
+///Compteur_Variable
+	int i , j;
+	int botSide;
+	int cptBot, cptJoueur;
+	cptBot = cptJoueur = 0;
+
+	int player_recent_attack = 0;
+
+	char texte_life[5];
 
 /**-------------------------Définition des textes-------------------------**/
 	///Définition des polices
@@ -337,29 +348,72 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_Color RED = {220, 0, 0};
 
 /**-------------------------Initialisation Map-------------------------**/
-<<<<<<< Updated upstream
-/* char file[200];
-s_map map;
 
-sprintf(file, "map/tileset1.png");
-map.tileSet = SDL_CreateTextureFromSurface(render, IMG_Load(file));
-sprintf(file, "map/map1.txt");
-loadMap(file);
+	///Définition de la carte
+	int carte[MAP_MAX_Y][MAP_MAX_X]={
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	};
 
-drawMap(2);
-drawMap(1);
+	SDL_Surface *sTile_set;
+	SDL_Texture *tTile_set;
 
-*/ 
-=======
+	SDL_Surface *sEcran;
+	SDL_Texture *tEcran;
 
-	map* map;
-	map = ChargerMap("map1.txt");
-	SDL_Surface *screen = SDL_GetWindowSurface(window);
-	AfficherMap(map,screen);
-	SDL_UpdateWindowSurface(window);
-	LibererMap(map);
->>>>>>> Stashed changes
+	SDL_Rect rect_source , rect_dest;
 
+	
+
+	rect_source.w = MAP_MAX_X * TAILLE_BLOCK;
+	rect_source.h = MAP_MAX_Y * TAILLE_BLOCK;
+
+	rect_dest.w = MAP_MAX_X * TAILLE_BLOCK;
+	rect_dest.h = MAP_MAX_Y * TAILLE_BLOCK;
+
+	sTile_set = IMG_Load("map/tileset1.bmp");
+	tTile_set = SDL_CreateTextureFromSurface(render, sTile_set);
+
+	rect_source.w = MAP_MAX_X * TAILLE_BLOCK;
+	rect_source.h =	MAP_MAX_Y * TAILLE_BLOCK;
+
+	for(i=0; i < MAP_MAX_X; i++){
+			for(j=0; i < MAP_MAX_X; i++){
+				rect_dest.x= i*TAILLE_BLOCK;
+				rect_dest.y= j*TAILLE_BLOCK;
+				rect_source.x = (carte[j][i]-'0')*TAILLE_BLOCK;
+				rect_source.y = 0;
+				SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
+				}
+	}
+	
+	tEcran= SDL_CreateTextureFromSurface(render,sEcran);
+
+	SDL_RenderCopy(render, tEcran, &rect_source, &rect_dest);
+	
 /**-------------------------Initialisation personnage-------------------------**/
 
 	///On crée des variables
@@ -387,15 +441,7 @@ drawMap(1);
 
 	t_stuff playerStuff;
 
-	///Compteur_Variable
-	int i;
-	int botSide;
-	int cptBot, cptJoueur;
-	cptBot = cptJoueur = 0;
-
-	int player_recent_attack = 0;
-
-	char texte_life[5];
+	
 
 	///Definit les images sur les Surfaces Perso[Orientation]
 	sPerso[HAUT] = IMG_Load("images/player/stickmanG.png");
@@ -423,8 +469,6 @@ drawMap(1);
 	sStuff[HEART] = IMG_Load("images/stuff/heart.png");
 	sStuff[HALF_HEART] = IMG_Load("images/stuff/half_heart.png");
 
-	///Définition de la carte
-	int carte[MAP_MAX_Y][MAP_MAX_X];
 
 	for(i = 0; i < 4; i++)
 	{  
@@ -775,7 +819,7 @@ drawMap(1);
 		position.y = positionJoueur.y * TAILLE_BLOCK;
 
 		SDL_RenderClear(render);
-		
+		/*
 		//Dessin de la map
 		SDL_SetRenderDrawColor(render, 0, 255, 255, 220);
 		rect_case.y = 0; rect_case.x = 12 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
@@ -803,7 +847,7 @@ drawMap(1);
 		SDL_SetRenderDrawColor(render, 200, 10, 200, 220);
 		SDL_RenderDrawRect(render, &position);
 		SDL_SetRenderDrawColor(render, P_R, P_G, P_B, 255);
-
+		*/
 
 		//Affichage de la vie en haut à gauche
 		if (persPlayer->pdv > 0){
