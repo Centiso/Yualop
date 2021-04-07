@@ -7,7 +7,10 @@ SDLINC_DIR = ${SDL_DIR}/include
 SDLBIN_DIR = ${SDL_DIR}/bin
 
 LIB = -L ${SDLLIB_DIR} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
+<<<<<<< Updated upstream
 INCLUDE = -I ${SDLINC_DIR}
+=======
+>>>>>>> Stashed changes
 LDFLAGS = $(LIB) $(INCLUDE)
 
 LLIB = -ldl `sdl2-config --libs` -lSDL2 -lSDL2_image -lSDL2_ttf

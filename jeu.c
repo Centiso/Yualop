@@ -337,6 +337,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_Color RED = {220, 0, 0};
 
 /**-------------------------Initialisation Map-------------------------**/
+<<<<<<< Updated upstream
 /* char file[200];
 s_map map;
 
@@ -349,6 +350,15 @@ drawMap(2);
 drawMap(1);
 
 */ 
+=======
+
+	map* map;
+	map = ChargerMap("map1.txt");
+	SDL_Surface *screen = SDL_GetWindowSurface(window);
+	AfficherMap(map,screen);
+	SDL_UpdateWindowSurface(window);
+	LibererMap(map);
+>>>>>>> Stashed changes
 
 /**-------------------------Initialisation personnage-------------------------**/
 

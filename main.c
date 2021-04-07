@@ -51,12 +51,21 @@ int main(int argc, char** argv)
     if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG) == 0)
 		SDL_ExitWithError("IMG_Init", NULL, NULL, NULL);
 
+<<<<<<< Updated upstream
 	/*if (SDL_GetCurrentDisplayMode(0, &current) != 0)
 		SDL_ExitWithError("Current display error", NULL, NULL, NULL);
 
 	WIDTH = current.w;
 	HEIGHT = current.h;*/
 
+=======
+	if (SDL_GetCurrentDisplayMode(0, &current) != 0)
+		SDL_ExitWithError("Current display error", NULL, NULL, NULL);
+
+	WIDTH = current.w;
+	HEIGHT = current.h;
+	
+>>>>>>> Stashed changes
 	if (WIDTH != current.w){
 		WIDTH = 1400;
 		HEIGHT = 800;
@@ -78,6 +87,7 @@ int main(int argc, char** argv)
 
     SDL_Texture * image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
     int image_width, image_height;
+<<<<<<< Updated upstream
 
 	///Création de l'icône
 	icon = IMG_Load("images/Yualop.png");
@@ -95,6 +105,25 @@ int main(int argc, char** argv)
     texture_destination.w = WIDTH;
     texture_destination.h = HEIGHT;
 
+=======
+
+	///Création de l'icône
+	icon = IMG_Load("images/Yualop.png");
+	SDL_SetWindowIcon(window, icon);
+	SDL_FreeSurface(icon);
+
+    ///Get texture width/height
+    SDL_QueryTexture(image_texture, NULL, NULL, &image_width, &image_height);
+
+    ///Define where on the "screen" we want to draw the texture
+    SDL_Rect texture_destination;
+
+    texture_destination.x = 0;
+    texture_destination.y = 0;
+    texture_destination.w = WIDTH;
+    texture_destination.h = HEIGHT;
+
+>>>>>>> Stashed changes
 /**-------------------------Programme principal-------------------------**/
 	while(program_launched)
 	{

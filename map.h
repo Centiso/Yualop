@@ -6,6 +6,7 @@
 
 #define TILE_SIZE 32
 
+<<<<<<< Updated upstream
 typedef struct s_map
 {
  
@@ -34,4 +35,29 @@ void drawMap(int layer);
 void cleanMaps(void);
 void afficherTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy);
 
+=======
+#define CACHE_SIZE 5000
+
+typedef struct ss_tileProp
+{
+	SDL_Rect R;
+	int mur;
+	// tout ce que vous voulez...
+} tileProp;
+
+typedef struct s_map
+{
+	int LARGEUR_TILE,HAUTEUR_TILE;
+	int nbtilesX,nbtilesY;
+	SDL_Surface* tileset;
+	tileProp* props;
+	Uint16** schema;
+	int nbtiles_largeur_monde,nbtiles_hauteur_monde;
+} map;
+
+void ChargerMap_tileset(FILE* F,map* m);
+map* ChargerMap(const char* level);
+int AfficherMap(map* m,SDL_Surface* screen);
+int LibererMap(map* m);
+>>>>>>> Stashed changes
 #endif
