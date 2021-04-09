@@ -406,6 +406,9 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		"0056000000000000000000000",
 		"7777777777777777777777777"};
 
+	SDL_Renderer *render_map;
+	SDL_RenderClear(render_map);
+
 	SDL_Surface *sTile_set;
 	SDL_Texture *tTile_set;
 
@@ -415,26 +418,26 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_Rect rect_source , rect_dest;
 
 	sEcran = SDL_GetWindowSurface(window);
+	tEcran = SDL_CreateTextureFromSurface(render_map, sEcran);
 
 	rect_source.w = TILE_SIZE;
 	rect_source.h = TILE_SIZE;
 
 	sTile_set = IMG_Load("map/tileset1.bmp");
-	tTile_set = SDL_CreateTextureFromSurface(render, sTile_set);
+	tTile_set = SDL_CreateTextureFromSurface(render_map, sTile_set);
 
 	for(i=0; i < MAP_MAX_X; i++){
-			for(j=0; j < MAP_MAX_X; j++){
+			for(j=0; j < MAP_MAX_Y; j++){
 				rect_dest.x= i*TILE_SIZE;
 				rect_dest.y= j*TILE_SIZE;
 				rect_source.x = (carte_2[j][i]-'0')*TILE_SIZE;
 				rect_source.y = 0;
-				SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
-				//SDL_RenderCopy(render,tEcran,&rect_source,&rect_dest);
+				//SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
+				SDL_RenderCopy(render_map,tTile_set,&rect_source,&rect_dest);
 				}
-				SDL_UpdateWindowSurface(window);
 
 	}
-	
+	SDL_RenderPresent(render_map);
 	
 	
 /**-------------------------Initialisation personnage-------------------------**/
@@ -931,6 +934,8 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_DestroyTexture(persoActuel);
 	SDL_DestroyTexture(botTueur);
 	
+	SDL_DestroyRenderer(render_map);
+
 	free(persBotTueur);
 	persBotTueur = NULL;
 	free(persPlayer);
