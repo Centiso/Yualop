@@ -378,6 +378,34 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	};
 
+	char* carte_2[]= {
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"1000000001111100000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0000000000000000000000000",
+		"0034000222200220000000000",
+		"0056000000000000000000000",
+		"0056000000000000000000000",
+		"0056000000000000000000000",
+		"7777777777777777777777777"};
+
 	SDL_Surface *sTile_set;
 	SDL_Texture *tTile_set;
 
@@ -388,27 +416,23 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 
 	sEcran = SDL_GetWindowSurface(window);
 
-	rect_source.w = MAP_MAX_X * TAILLE_BLOCK;
-	rect_source.h = MAP_MAX_Y * TAILLE_BLOCK;
-
-	rect_dest.w = MAP_MAX_X * TAILLE_BLOCK;
-	rect_dest.h = MAP_MAX_Y * TAILLE_BLOCK;
+	rect_source.w = TILE_SIZE;
+	rect_source.h = TILE_SIZE;
 
 	sTile_set = IMG_Load("map/tileset1.bmp");
 	tTile_set = SDL_CreateTextureFromSurface(render, sTile_set);
-
-	rect_source.w = MAP_MAX_X * TAILLE_BLOCK;
-	rect_source.h =	MAP_MAX_Y * TAILLE_BLOCK;
 
 	for(i=0; i < MAP_MAX_X; i++){
 			for(j=0; j < MAP_MAX_X; j++){
 				rect_dest.x= i*TILE_SIZE;
 				rect_dest.y= j*TILE_SIZE;
-				rect_source.x = (carte[j][i]-0)*TILE_SIZE;
+				rect_source.x = (carte_2[j][i]-'0')*TILE_SIZE;
 				rect_source.y = 0;
-				//SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
-				SDL_RenderCopy(render,tEcran,&rect_source,&rect_dest);
+				SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
+				//SDL_RenderCopy(render,tEcran,&rect_source,&rect_dest);
 				}
+				SDL_UpdateWindowSurface(window);
+
 	}
 	
 	
