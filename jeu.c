@@ -322,6 +322,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 ///Compteur_Variable
 	int i , j;
 	int botSide;
+	int carte[MAP_MAX_Y][MAP_MAX_X];
 	int cptBot, cptJoueur;
 	cptBot = cptJoueur = 0;
 
@@ -346,96 +347,6 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	//Définition des couleurs
 	
 	SDL_Color RED = {220, 0, 0};
-
-/**-------------------------Initialisation Map-------------------------**/
-
-	///Définition de la carte
-	int carte[MAP_MAX_Y][MAP_MAX_X]={
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-	};
-
-	char* carte_2[]= {
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"1000000001111100000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0000000000000000000000000",
-		"0034000222200220000000000",
-		"0056000000000000000000000",
-		"0056000000000000000000000",
-		"0056000000000000000000000",
-		"7777777777777777777777777"};
-
-	SDL_Surface *sTile_set;
-	SDL_Texture *tTile_set;
-
-	SDL_Surface *sEcran;
-	SDL_Texture *tEcran;
-
-	SDL_Rect rect_source , rect_dest;
-
-	sEcran = SDL_GetWindowSurface(window);
-	tEcran = SDL_CreateTextureFromSurface(render, sEcran);
-
-	rect_source.w = TILE_SIZE;
-	rect_source.h = TILE_SIZE;
-
-	sTile_set = IMG_Load("map/tileset1.bmp");
-	tTile_set = SDL_CreateTextureFromSurface(render, sTile_set);
-
-	for(i=0; i < MAP_MAX_X; i++){
-			for(j=0; j < MAP_MAX_Y; j++){
-				rect_dest.x= i*TILE_SIZE;
-				rect_dest.y= j*TILE_SIZE;
-				rect_source.x = (carte_2[j][i]-'0')*TILE_SIZE;
-				rect_source.y = 0;
-				SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
-				SDL_RenderCopy(render,tTile_set,&rect_source,&rect_dest);
-				}
-
-	}
-	SDL_UpdateWindowSurface(window);
-	SDL_RenderPresent(render);
 	
 	
 /**-------------------------Initialisation personnage-------------------------**/
@@ -843,7 +754,70 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		position.y = positionJoueur.y * TAILLE_BLOCK;
 
 		SDL_RenderClear(render);
-		/*
+
+		//Affichage de du fond 
+
+		char* carte_2[]= {
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"1000000001111100000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0000000000000000000000000",
+			"0034000222200220000000000",
+			"0056000000000000000000000",
+			"0056000000000000000000000",
+			"0056000000000000000000000",
+			"7777777777777777777777777"};
+
+		SDL_Surface *sTile_set;
+		SDL_Texture *tTile_set;
+
+		SDL_Surface *sEcran;
+		SDL_Texture *tEcran;
+
+		SDL_Rect rect_source , rect_dest;
+
+		sEcran = SDL_GetWindowSurface(window);
+		tEcran = SDL_CreateTextureFromSurface(render, sEcran);
+
+		rect_source.w = TILE_SIZE;
+		rect_source.h = TILE_SIZE;
+
+		sTile_set = IMG_Load("map/tileset1.bmp");
+		tTile_set = SDL_CreateTextureFromSurface(render, sTile_set);
+
+		for(i=0; i < MAP_MAX_X; i++){
+				for(j=0; j < MAP_MAX_Y; j++){
+					rect_dest.x= i*TILE_SIZE;
+					rect_dest.y= j*TILE_SIZE;
+					rect_source.x = (carte_2[j][i]-'0')*TILE_SIZE;
+					rect_source.y = 0;
+					SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
+					SDL_RenderCopy(render,tTile_set,&rect_source,&rect_dest);
+					}
+
+		}
+		SDL_UpdateWindowSurface(window);
+		SDL_RenderPresent(render);
+
+
+		
 		//Dessin de la map
 		SDL_SetRenderDrawColor(render, 0, 255, 255, 220);
 		rect_case.y = 0; rect_case.x = 12 * TAILLE_BLOCK; SDL_RenderFillRect(render, &rect_case);
@@ -871,7 +845,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 		SDL_SetRenderDrawColor(render, 200, 10, 200, 220);
 		SDL_RenderDrawRect(render, &position);
 		SDL_SetRenderDrawColor(render, P_R, P_G, P_B, 255);
-		*/
+		
 
 		//Affichage de la vie en haut à gauche
 		if (persPlayer->pdv > 0){
@@ -931,8 +905,6 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 
 	SDL_DestroyTexture(persoActuel);
 	SDL_DestroyTexture(botTueur);
-	
-	SDL_DestroyRenderer(render_map);
 
 	free(persBotTueur);
 	persBotTueur = NULL;
