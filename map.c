@@ -1,101 +1,158 @@
 #include "commun.h"
-/*
-SDL_Surface *load_surface(const char path[])
-{
-    SDL_Surface *tmp = SDL_LoadBMP(path);
-    if(NULL == tmp)
-        fprintf(stderr, "Erreur SDL_LoadBMP : %s", SDL_GetError());
-    return tmp;
-}
 
-SDL_Texture *load_image(const char path[], SDL_Renderer *renderer)
-{
-    SDL_Surface *tmp = load_surface(path); 
-    SDL_Texture *texture = NULL;
-    if(tmp)
-    {
-        texture = SDL_CreateTextureFromSurface(renderer, tmp);
-        SDL_FreeSurface(tmp);
-        if(NULL == texture)
-            fprintf(stderr, "Erreur SDL_CreateTextureFromSurface : %s", SDL_GetError());
-    }
-    return texture;
-}
-
-void ChargerMap_tileset(FILE* F,map* m, SDL_Renderer *renderer)
-{
-	int numtile,i,j;
-	char buf[CACHE_SIZE];  // un buffer, petite mémoire cache
-	char buf2[CACHE_SIZE];  // un buffer, petite mémoire cache
-	fscanf(F,"%s",buf); // #tileset
-	m->tileset = load_surface(buf);
-	fscanf(F,"%d %d",&m->nbtilesX,&m->nbtilesY);
-	m->LARGEUR_TILE = m->tileset->w/m->nbtilesX;
-	m->HAUTEUR_TILE = m->tileset->h/m->nbtilesY;
-	m->props = malloc(m->nbtilesX*m->nbtilesY*sizeof(tileProp));
-	for(j=0,numtile=0;j<m->nbtilesY;j++)
-	{
-		for(i=0;i<m->nbtilesX;i++,numtile++)
-		{
-			m->props[numtile].R.w = m->LARGEUR_TILE;
-			m->props[numtile].R.h = m->HAUTEUR_TILE;
-			m->props[numtile].R.x = i*m->LARGEUR_TILE;
-			m->props[numtile].R.y = j*m->HAUTEUR_TILE;
-			fscanf(F,"%s %s",buf,buf2);
-			m->props[numtile].mur = 0;
-			if (strcmp(buf2,"mur")==0)
-				m->props[numtile].mur = 1;
-		}
-	}
-}
-
-map* ChargerMap(const char* level, SDL_Renderer *renderer)
-{
-	FILE* F;
-	map* m;
-	F = fopen(level,"r");
-	if (!F)
-	{
-		printf("fichier %s introuvable !! \n",level);
-		SDL_Quit();
-		system("pause");
-		exit(-1);
-	}
-	m = malloc(sizeof(map));
-	ChargerMap_tileset(F,m,renderer);
-	fclose(F);
-	return m;
-}
-
-int AfficherMap(map* m,SDL_Surface* screen)
-{
+void init_lab(int lab[N][M]){
+//Initialise le labyrinthe avec des murs 
 	int i,j;
-	SDL_Rect Rect_dest;
-	int numero_tile;
-	for(i=0;i<m->nbtiles_largeur_monde;i++)
-	{
-		for(j=0;j<m->nbtiles_hauteur_monde;j++)
-		{
-			Rect_dest.x = i*m->LARGEUR_TILE;
-			Rect_dest.y = j*m->HAUTEUR_TILE;
-			numero_tile = m->schema[i][j];
-			SDL_BlitSurface(m->tileset,&(m->props[numero_tile].R),screen,&Rect_dest);
+
+	for(i=0;i<N;i++)
+		for(j=0;j<M;j++)
+			lab[i][j] = MUR;
+}
+
+//******************************
+// Partie création du labyrinthe
+//******************************
+
+int valides(int i, int j){
+// renvoie VRAI si i et j désignent une case de la matrice
+	return(i>=0 && i<N &&j>=0 && j<M);
+}
+
+int est_vide(int i, int j, int lab[N][M]){
+// renvoie VRAI si i et j désignent une case couloir
+	return(valides(i,j) && lab[i][j]==COULOIR);
+}
+
+int est_mur(int i, int j, int lab[N][M]){
+// renvoie VRAI si i et j désignent une case mur
+	return(valides(i,j) && lab[i][j]==MUR);
+}
+
+int blocage(int i, int j, int lab[N][M]){
+// renvoie VRAI si aucune case voisine n'est un mur
+	return (!est_mur(i+2,j,lab) && !est_mur(i-2,j,lab)
+		&& !est_mur(i,j+2,lab) && !est_mur(i,j-2,lab));
+}
+
+int creer_lab(int lab[N][M]){
+	int termine=FAUX;
+	int trouve=FAUX;
+	int i,j,alea;
+	init_lab(lab);
+	i=0,j=0;
+	Pile *maPile = initialiser();
+
+	lab[0][0]=COULOIR;
+	   while(!termine){
+
+	if(blocage(i,j,lab)){
+		if(maPile==NULL){
+			depiler(maPile);
+			depiler(maPile);
+		}
+		else
+			termine=VRAI;
+	}
+	else{
+		trouve=FAUX;
+		while(!trouve){
+			alea=rand()%4; 
+			switch(alea){
+				case 0: 
+					if(est_mur(i+2,j,lab)){ 
+						empiler(maPile,i);
+						empiler(maPile,j);
+						lab[i+1][j]=COULOIR;
+						lab[i+2][j]=COULOIR;
+						i=i+2;
+						trouve=VRAI;
+						break;
+					}	
+				case 1: 	
+					if(est_mur(i-2,j,lab)){
+						empiler(maPile,i);
+						empiler(maPile,j);
+						lab[i-1][j]=COULOIR;
+						lab[i-2][j]=COULOIR;
+						i=i-2;
+						trouve=VRAI;
+						break;
+					}	
+				case 2: 	
+					if(est_mur(i,j+2,lab)){
+						empiler(maPile,i);
+						empiler(maPile,j);
+						lab[i][j+1]=COULOIR;
+						lab[i][j+2]=COULOIR;
+						j=j+2;
+						trouve=VRAI;
+						break;
+					}	
+				case 3: 	
+					if(est_mur(i,j-2,lab)){
+						empiler(maPile,i);
+						empiler(maPile,j);
+						lab[i][j-1]=COULOIR;
+						lab[i][j-2]=COULOIR;
+						j=j-2;
+						trouve=VRAI;
+					}	
+			}
 		}
 	}
-	return 0;
+   }
 }
 
-int LibererMap(map* m)
-{
-	int i;
-	SDL_FreeSurface(m->tileset);
-	for(i=0;i<m->nbtiles_hauteur_monde;i++)
-		free(m->schema[i]);
-	free(m->schema);
-	free(m->props);
-	free(m);
-	return 0;
+void initSalle(int lab[N][M], t_salle map[MAP_MAX_Y][MAP_MAX_X]){
+	int i, j, l, k;
+	
+	for(i=0;i<N;i++){
+		for(j=0;j<M;j++){
+			if(lab[i][j]==0){
+				if(valides(i+1,j))
+					map[i][j].porteBas = lab[i+1][j] == 0;
+
+				if(valides(i-1,j))
+					map[i][j].porteHaut = lab[i-1][j] == 0;
+
+				if(valides(i,j+1) )
+					map[i][j].porteDroite = lab[i][j+1] == 0;
+				
+				if(valides(i,j-1) )
+					map[i][j].porteGauche = lab[i][j-1] == 0;
+
+				for(l=0;l<N;i++){
+					for(k=0;k<M;k++){
+						
+						if(l == 0 || k == 0 || l == 25 || k == 25)
+							map[i][j].tileset[l][k] = '2';
+						
+						else
+							map[i][j].tileset[l][k] = '0';
+
+						if(map[i][j].porteBas){
+							map[i][j].tileset[25][12] = '1';
+							map[i][j].tileset[25][13] = '1';
+						}
+
+						if(map[i][j].porteHaut){
+							map[i][j].tileset[0][12] = '1';
+							map[i][j].tileset[0][13] = '1';
+						}
+
+						if(map[i][j].porteGauche){
+							map[i][j].tileset[12][0] = '1';
+							map[i][j].tileset[13][0] = '1';
+						}
+
+						if(map[i][j].porteDroite){
+							map[i][j].tileset[12][25] = '1';
+							map[i][j].tileset[13][25] = '1';
+						}
+					}
+				}
+				
+			}	
+		}
+	}
 }
-
-
-*/

@@ -30,21 +30,21 @@
 #include "drop.h"
 #include "map.h"
 #include "jeu.h"
+#include "pile.h"
 
 ///Déclaration des constantes
 
 unsigned int WIDTH;  ///Largeur de la fenêtre principale
 unsigned int HEIGHT; ///Hauteur de la fenêtre principale
 
-#define TAILLE_BLOCK (HEIGHT / MAP_MAX_Y)
+#define TAILLE_BLOCK 32
 
 #define NOM_FONT "polices/LLHP.ttf"
 
 ///Définitions pour le jeu.c
 
 typedef enum s_direction{HAUT, BAS, GAUCHE, DROITE} t_direction;
-
-typedef enum s_obstacle{VIDE, MUR, JOUEUR} t_obstacle;
+typedef enum s_obstacle{VIDE, MUR = -1, JOUEUR} t_obstacle;
 
 #define RANGE_JOUEUR 3
 #define RANGE_BOT 1
@@ -59,6 +59,16 @@ typedef enum s_faction{GENTIL, MECHANT} t_faction;
 
 typedef enum s_categorie{HEAD, CHEST, GLOVES, LEGS, FEET, MAIN_HAND, OFF_HAND, HEART, HALF_HEART} t_categorie;
 
+///Définition map.c
+#define TILE_SIZE 16
+#define MAP_MAX_Y 26
+#define MAP_MAX_X 26
+#define FAUX 0
+#define VRAI 1
+#define COULOIR 0
+#define CHEMIN -2
+#define N 10
+#define M 10
 ///Code RGB de la police d'écriture
 
 #define P_R 25

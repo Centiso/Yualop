@@ -17,23 +17,23 @@ void mouvement(int carte[][MAP_MAX_X], SDL_Rect *pos, int direction, SDL_Rendere
 	switch(direction)
 	{
 		case BAS:
-			if( pos->y + 1 + pos->h / TAILLE_BLOCK <= MAP_MAX_Y )
+			if( pos->y + 1 + pos->h / TAILLE_BLOCK < MAP_MAX_Y )
 				pos->y++;
 
 			break;
 
 		case HAUT:
-			if( pos->y - 1 >= 0 )
+			if( pos->y - 1 > 0 )
 				pos->y--;
 			break;
 
 		case DROITE:
-			if(pos->x + 1 + pos->w / TAILLE_BLOCK <= MAP_MAX_X)
+			if(pos->x + 1 + pos->w / TAILLE_BLOCK < MAP_MAX_X)
 				pos->x++;
 			break;
 
 		case GAUCHE:
-			if(pos->x - 1 >= 0)
+			if(pos->x - 1 > 0)
 				pos->x--;
 			break;
 	}
@@ -282,28 +282,28 @@ void changementMap(SDL_Rect *joueur, SDL_Rect *bot, int direction)
 	switch (direction)
 	{
 		case HAUT:
-			joueur->y = MAP_MAX_Y - (joueur->h / TAILLE_BLOCK); 
+			joueur->y = MAP_MAX_Y - 1 - (joueur->h / TAILLE_BLOCK); 
 
 			bot->x = (MAP_MAX_X / 2);
 			bot->y = 0;
 			break;
 
 		case BAS:
-			joueur->y = 0;
+			joueur->y = 1;
 
 			bot->x = (MAP_MAX_X / 2);
 			bot->y = MAP_MAX_Y - (joueur->h / TAILLE_BLOCK);
 			break;
 
 		case GAUCHE:
-			joueur->x = MAP_MAX_X - (joueur->w / TAILLE_BLOCK);
+			joueur->x = MAP_MAX_X - 1 - (joueur->w / TAILLE_BLOCK);
 
 			bot->x = 0;
 			bot->y = (MAP_MAX_Y / 2);
 			break;
 
 		case DROITE:
-			joueur->x = 0;
+			joueur->x = 1;
 
 			bot->x = MAP_MAX_X - (bot->w / TAILLE_BLOCK);
 			bot->y = (MAP_MAX_Y / 2);
@@ -347,7 +347,34 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	//Définition des couleurs
 	
 	SDL_Color RED = {220, 0, 0};
-	
+
+/**-------------------------Initialisation Map-------------------------**/
+
+		t_salle map[MAP_MAX_Y][MAP_MAX_Y];
+		int lab[N][M];
+		SDL_Surface *sTile_set;
+		SDL_Texture *tTile_set;
+
+		SDL_Surface *sEcran;
+		SDL_Texture *tEcran;
+
+		SDL_Rect rect_source , rect_dest;
+
+		sEcran = SDL_GetWindowSurface(window);
+		tEcran = SDL_CreateTextureFromSurface(render, sEcran);
+
+		rect_source.w = TILE_SIZE;
+		rect_source.h = TILE_SIZE;
+
+		sTile_set = IMG_Load("map/tileset1.bmp");
+		tTile_set = SDL_CreateTextureFromSurface(render, sTile_set);
+
+		init_lab(lab);
+		creer_lab(lab);
+		initSalle(lab,map);
+
+
+
 	
 /**-------------------------Initialisation personnage-------------------------**/
 
@@ -757,66 +784,17 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 
 		//Affichage de du fond 
 
-		char* carte_2[]= {
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"1000000001111100000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0000000000000000000000000",
-			"0034000222200220000000000",
-			"0056000000000000000000000",
-			"0056000000000000000000000",
-			"0056000000000000000000000",
-			"7777777777777777777777777"};
-
-		SDL_Surface *sTile_set;
-		SDL_Texture *tTile_set;
-
-		SDL_Surface *sEcran;
-		SDL_Texture *tEcran;
-
-		SDL_Rect rect_source , rect_dest;
-
-		sEcran = SDL_GetWindowSurface(window);
-		tEcran = SDL_CreateTextureFromSurface(render, sEcran);
-
-		rect_source.w = TILE_SIZE;
-		rect_source.h = TILE_SIZE;
-
-		sTile_set = IMG_Load("map/tileset1.bmp");
-		tTile_set = SDL_CreateTextureFromSurface(render, sTile_set);
-
 		for(i=0; i < MAP_MAX_X; i++){
 				for(j=0; j < MAP_MAX_Y; j++){
 					rect_dest.x= i*TILE_SIZE;
 					rect_dest.y= j*TILE_SIZE;
-					rect_source.x = (carte_2[j][i]-'0')*TILE_SIZE;
+					rect_source.x = (map[i][j].tileset[j][i]-'0')*TILE_SIZE;
 					rect_source.y = 0;
 					SDL_BlitSurface(sTile_set,&rect_source,sEcran,&rect_dest);
 					SDL_RenderCopy(render,tTile_set,&rect_source,&rect_dest);
 					}
 
 		}
-		SDL_UpdateWindowSurface(window);
-		SDL_RenderPresent(render);
-
-
 		
 		//Dessin de la map
 		SDL_SetRenderDrawColor(render, 0, 255, 255, 220);

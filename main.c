@@ -56,8 +56,8 @@ int main(int argc, char** argv)
 
 	WIDTH = current.w;
 	HEIGHT = current.h;
-	/*
-	if (WIDTH != current.w){
+	
+	/* if (WIDTH != current.w){
 		WIDTH = 1400;
 		HEIGHT = 800;
 	}
