@@ -2,7 +2,7 @@
 
 /**
  * \file main_menu.c
- * \brief Contient le menu principal de Yualop
+ * \brief Contient le menu d'affichage de Yualop
  * \author TACHET Nicolas
  * \version 1.0
  * \date Avril 2021
