@@ -1,7 +1,19 @@
 #include "commun.h"
 
+/**
+ * \file jeu.c
+ * \brief Contient la création du labyrinthe et la création des salles de jeu
+ * \author TACHET Nicolas
+ * \version 1.0
+ * \date Avril 2021
+ */
+
+
+/**
+ * \fn init_lab(int lab[N][M])
+ * \brief Initialise le labyrinthe avec des murs 
+ */
 void init_lab(int lab[N][M]){
-//Initialise le labyrinthe avec des murs 
 	int i,j;
 
 	for(i=0;i<N;i++)
@@ -9,32 +21,48 @@ void init_lab(int lab[N][M]){
 			lab[i][j] = MUR;
 }
 
-//******************************
-// Partie création du labyrinthe
-//******************************
 
+// Partie création du labyrinthe
+
+/**
+ * \fn valides(int i, int j)
+ * \brief renvoie VRAI si i et j désignent une case de la matrice
+ */
 int valides(int i, int j){
-// renvoie VRAI si i et j désignent une case de la matrice
 	return(i>=0 && i<N &&j>=0 && j<M);
 }
 
+/**
+ * \fn est_vide(int i, int j, int lab[N][M])
+ * \brief renvoie VRAI si i et j désignent une case couloir
+ */
 int est_vide(int i, int j, int lab[N][M]){
-// renvoie VRAI si i et j désignent une case couloir
 	return(valides(i,j) && lab[i][j]==COULOIR);
 }
 
+/**
+ * \fn est_mur(int i, int j, int lab[N][M])
+ * \brief renvoie VRAI si i et j désignent une case mur
+ */
 int est_mur(int i, int j, int lab[N][M]){
-// renvoie VRAI si i et j désignent une case mur
+
 	return(valides(i,j) && lab[i][j]==MUR);
 }
+/**
+ * \fn blocage(int i, int j, int lab[N][M])
+ * \brief renvoie VRAI si aucune case voisine n'est un mur
+ */
 
 int blocage(int i, int j, int lab[N][M]){
-// renvoie VRAI si aucune case voisine n'est un mur
 	return (!est_mur(i+2,j,lab) && !est_mur(i-2,j,lab)
 		&& !est_mur(i,j+2,lab) && !est_mur(i,j-2,lab));
 }
-
+/**
+ * \fn creer_lab(int lab[N][M])
+ * \brief crée le labyrinthe parfait de la partie de jeu.
+ */
 int creer_lab(int lab[N][M]){
+
 	int termine=FAUX;
 	int trouve=FAUX;
 	int i,j,alea;
@@ -103,27 +131,32 @@ int creer_lab(int lab[N][M]){
    }
 }
 
+/**
+ * \fn initSalle(int lab[N][M], t_salle map[MAP_MAX_Y][MAP_MAX_X])
+ * \brief génère les salles de jeu
+ */
 void initSalle(int lab[N][M], t_salle map[MAP_MAX_Y][MAP_MAX_X]){
 	int i, j, l, k;
-	
+	printf("1");
 	for(i=0;i<N;i++){
 		for(j=0;j<M;j++){
 			if(lab[i][j]==0){
 				if(valides(i+1,j))
 					map[i][j].porteBas = lab[i+1][j] == 0;
+					printf("1");
 
 				if(valides(i-1,j))
 					map[i][j].porteHaut = lab[i-1][j] == 0;
-
+					printf("2");
 				if(valides(i,j+1) )
 					map[i][j].porteDroite = lab[i][j+1] == 0;
-				
+					printf("3");
 				if(valides(i,j-1) )
 					map[i][j].porteGauche = lab[i][j-1] == 0;
-
+					printf("4");
 				for(l=0;l<N;i++){
 					for(k=0;k<M;k++){
-						
+						printf("5");
 						if(l == 0 || k == 0 || l == 25 || k == 25)
 							map[i][j].tileset[l][k] = '2';
 						
