@@ -15,6 +15,8 @@
 SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 
     SDL_Rect rect_fullscreen, rect_windowed, rect_back;
+	SDL_Rect texture_destination;
+
     const int taille_police = 72;
 
     rect_fullscreen.w = rect_windowed.w = rect_back.w = WIDTH-WIDTH*0.65;
@@ -24,6 +26,11 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
     rect_fullscreen.y = HEIGHT-3*(HEIGHT/5);
 	rect_windowed.y =  HEIGHT-2*(HEIGHT/5);
     rect_back.y = HEIGHT-1*(HEIGHT/5);
+
+	texture_destination.x = 0;
+    texture_destination.y = 0;
+    texture_destination.w = WIDTH;
+    texture_destination.h = HEIGHT;
 
 	TTF_Font *police = TTF_OpenFont(NOM_FONT, taille_police);
 
@@ -44,6 +51,11 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 	SDL_RenderDrawRect(renderer, &rect_windowed);
     SDL_RenderDrawRect(renderer, &rect_back);
 
+	SDL_Texture * image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
+    int image_width, image_height;
+
+	SDL_QueryTexture(image_texture, NULL, NULL, &image_width, &image_height);
+
     int widthTemp;
 
     TTF_SizeText(police, "FULL SCREEN", &widthTemp, NULL);
@@ -54,6 +66,8 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 
     TTF_SizeText(police, "BACK", &widthTemp, NULL);
 	creerTexte(renderer, police, "BACK",  WIDTH/2 - widthTemp/2, rect_back.y - 5, NOIR);
+
+	SDL_RenderCopy(renderer, image_texture, NULL, &texture_destination);
 
 	SDL_RenderPresent(renderer);
 
