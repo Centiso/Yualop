@@ -40,9 +40,9 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 
     SDL_SetRenderDrawColor(renderer, P_R, P_G, P_B, 255);
 
-    SDL_RenderFillRect(renderer, &rect_fullscreen);
-	SDL_RenderFillRect(renderer, &rect_windowed);
-    SDL_RenderFillRect(renderer, &rect_back);
+    SDL_RenderDrawRect(renderer, &rect_fullscreen);
+	SDL_RenderDrawRect(renderer, &rect_windowed);
+    SDL_RenderDrawRect(renderer, &rect_back);
 
     int widthTemp;
 
@@ -63,6 +63,7 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
     SDL_bool fullscreen_asked = SDL_FALSE;
 	SDL_bool windowed_asked = SDL_FALSE;
 	SDL_bool back_asked = SDL_FALSE;
+	SDL_bool exit_asked = SDL_FALSE;
 
     while (menu_launched){
         SDL_WaitEvent(&event);
@@ -70,7 +71,7 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 			switch(event.type){
 				case SDL_QUIT: 
 					menu_launched = SDL_FALSE;
-					back_asked = SDL_TRUE;
+					exit_asked = SDL_TRUE;
 					break;
 
 				case SDL_MOUSEBUTTONDOWN:
@@ -107,5 +108,9 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
     else if (back_asked)
 	{
 		return 1;
+	}
+	else if (exit_asked)
+	{
+		return SDL_FALSE;
 	}
 }
