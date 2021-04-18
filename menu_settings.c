@@ -55,6 +55,8 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
     TTF_SizeText(police, "BACK", &widthTemp, NULL);
 	creerTexte(renderer, police, "BACK",  WIDTH/2 - widthTemp/2, rect_back.y - 5, NOIR);
 
+	SDL_RenderPresent(renderer);
+
     SDL_Event event;
 	SDL_bool menu_launched = SDL_TRUE;
 
