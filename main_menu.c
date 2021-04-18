@@ -127,7 +127,7 @@ SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
 	}
 	else if (setting_asked)
 	{
-		printf("Settings.");
+		menu_settings(window,renderer);
 	}
     else if (exit_asked)
 	{

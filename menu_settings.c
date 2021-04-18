@@ -100,9 +100,10 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 	else if (windowed_asked)
 	{
 		SDL_SetWindowSize(window, 1280, 720);
+		SDL_RenderClear(renderer);
 	}
     else if (back_asked)
 	{
-		menu(window, renderer);
+		return;
 	}
 }
