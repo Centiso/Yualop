@@ -113,10 +113,12 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
     if (fullscreen_asked)
 	{
         SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+		SDL_RenderClear(renderer);
 	}
 	else if (windowed_asked)
 	{
 		SDL_SetWindowSize(window, 1280, 720);
+		SDL_SetWindowDisplayMode(window,NULL);
 		SDL_RenderClear(renderer);
 	}
     else if (back_asked)
