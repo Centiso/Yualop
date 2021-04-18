@@ -104,6 +104,6 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 	}
     else if (back_asked)
 	{
-		return;
+		return 1;
 	}
 }

@@ -31,6 +31,7 @@
 #include "map.h"
 #include "jeu.h"
 #include "pile.h"
+#include "menu_settings.h"
 
 ///Déclaration des constantes
 
