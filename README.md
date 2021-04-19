@@ -1,6 +1,6 @@
 # Yualop
 
-[![forthebadge](https://forthebadge.com/images/badges/contains-17-coffee-cups.svg)](http://forthebadge.com)  [![forthebadge](https://forthebadge.com/images/badges/made-with-c.svg)](http://forthebadge.com)  [![forthebadge](https://forthebadge.com/images/badges/not-a-bug-a-feature.svg)](http://forthebadge.com)  
+[![forthebadge](https://forthebadge.com/images/badges/made-with-c.svg)](http://forthebadge.com)  [![forthebadge](https://forthebadge.com/images/badges/not-a-bug-a-feature.svg)](http://forthebadge.com)  
 
 L2 Informatique - SDL2 Game
 Yualop est un roguelike dans lequel notre héros va s'aventurer dans un donjon où il va rencontrer des monstres et des boss qu'il devra terrasser pour en sortir. Au cours de son aventure il récupèrera de l'équipement afin de ne pas mourir.
@@ -52,5 +52,3 @@ _(pour le lien mettez simplement l'URL de votre projets suivi de ``/tags``)_
 * **Cécile SAIVET** _alias_ [@xMa97](https://github.com/xMa97)
 
 Lisez la liste des [contributeurs](https://github.com/Centiso/Yualop/contributors) pour voir qui à aidé au projet !
-
-_(pour le lien mettez simplement l'URL de votre projet suivi de ``/contirubors``)_
