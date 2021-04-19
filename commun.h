@@ -3,7 +3,7 @@
  * \brief Fichier regroupant les constantes et librairies utilisées dans les différents fichiers.
  * \author SAIVET Cécile, TACHET Nicolas, SANNA Florian
  * \version 1.0
- * \date 2021
+ * \date Mars 2021
  */
 
 #ifndef _COMMUN_H_

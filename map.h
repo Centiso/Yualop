@@ -3,23 +3,29 @@
 
 #define MAP_MAX_Y 26
 #define MAP_MAX_X 26
+#define CACHE_SIZE 5000
+#define N 10
+#define M 10
+typedef struct s_salle{
 
-typedef struct s_map
-{
-    SDL_Surface *background, *tileSet;
+	char tileset[MAP_MAX_Y][MAP_MAX_X];
 
-    //Coordonnées de début, lorsqu'on doit dessiner la map
-    int startX, startY;
+	int porteHaut;
+	int porteGauche;
+	int porteDroite;
+	int porteBas;
 
-    //Coordonnées max de fin de la map
-    int maxX, maxY;
+	int salleClear;
 
-    //Complession du niveau
-    int levelClear;
+} t_salle;
 
-    //Tableau à double dimension représentant la map de tiles
-    int tile[MAP_MAX_Y][MAP_MAX_X];
-
-} t_map;
+void init_lab(int lab[N][M]);
+int valides(int i, int j);
+int est_vide(int i, int j, int lab[N][M]);
+int est_mur(int i, int j, int lab[N][M]);
+int blocage(int i, int j, int lab[N][M]);
+int creer_lab(int lab[N][M]);
+void initSalle(int lab[N][M], t_salle map[MAP_MAX_Y][MAP_MAX_X]);
 
 #endif
+

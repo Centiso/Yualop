@@ -1,0 +1,79 @@
+\hypertarget{fonctions_8c}{}\doxysection{Référence du fichier fonctions.\+c}
+\label{fonctions_8c}\index{fonctions.c@{fonctions.c}}
+
+
+Contient des fonctions utilisées pour le jeu.  
+
+
+{\ttfamily \#include \char`\"{}commun.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de fonctions.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{fonctions_8c_af6a04b57093a69d2616a571d0af7746c}{S\+D\+L\+\_\+\+Exit\+With\+Error}} (const char $\ast$message, S\+D\+L\+\_\+\+Window $\ast$w, S\+D\+L\+\_\+\+Renderer $\ast$r, S\+D\+L\+\_\+\+Texture $\ast$t)
+\begin{DoxyCompactList}\small\item\em Fonction utilisée en cas d\textquotesingle{}erreur S\+DL. \end{DoxyCompactList}\item 
+S\+D\+L\+\_\+bool \mbox{\hyperlink{fonctions_8c_afb7236c601b1e03cfeb37d61c4e1a333}{click\+Sur\+Case}} (S\+D\+L\+\_\+\+Event click, S\+D\+L\+\_\+\+Rect case\+Rect)
+\begin{DoxyCompactList}\small\item\em Regarde si l\textquotesingle{}utilisateur a cliqué sur une case passée en paramètre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{fonctions_8c_aa34b8922158e8ade94d8c554df026ec0}\label{fonctions_8c_aa34b8922158e8ade94d8c554df026ec0}} 
+void \mbox{\hyperlink{fonctions_8c_aa34b8922158e8ade94d8c554df026ec0}{creer\+Texte}} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, T\+T\+F\+\_\+\+Font $\ast$police, char $\ast$str, int x, int y, S\+D\+L\+\_\+\+Color color)
+\begin{DoxyCompactList}\small\item\em Fonction affichant un texte \char`\"{}str\char`\"{} sur le renderer aux coordonées passées en paramètres. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{fonctions_8c_a278a2ffbb995f7837d4970a4d7435b63}{delay}} (unsigned int frame\+Limit)
+\begin{DoxyCompactList}\small\item\em Fonction utilisée pour la limite d\textquotesingle{}image par seconde (en ms). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Contient des fonctions utilisées pour le jeu. 
+
+\begin{DoxyAuthor}{Auteur}
+S\+A\+I\+V\+ET Cécile, T\+A\+C\+H\+ET Nicolas, S\+A\+N\+NA Florian 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Mars 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{fonctions_8c_afb7236c601b1e03cfeb37d61c4e1a333}\label{fonctions_8c_afb7236c601b1e03cfeb37d61c4e1a333}} 
+\index{fonctions.c@{fonctions.c}!clickSurCase@{clickSurCase}}
+\index{clickSurCase@{clickSurCase}!fonctions.c@{fonctions.c}}
+\doxysubsubsection{\texorpdfstring{clickSurCase()}{clickSurCase()}}
+{\footnotesize\ttfamily S\+D\+L\+\_\+bool click\+Sur\+Case (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Event}]{click,  }\item[{S\+D\+L\+\_\+\+Rect}]{case\+Rect }\end{DoxyParamCaption})}
+
+
+
+Regarde si l\textquotesingle{}utilisateur a cliqué sur une case passée en paramètre. 
+
+Fonction testant si un clique a lieu dans le rectangle passé en paramètres.
+
+\begin{DoxyReturn}{Renvoie}
+S\+D\+L\+\_\+\+T\+R\+UE si le clique est sur le rectangle, S\+D\+L\+\_\+\+F\+A\+L\+SE sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{fonctions_8c_a278a2ffbb995f7837d4970a4d7435b63}\label{fonctions_8c_a278a2ffbb995f7837d4970a4d7435b63}} 
+\index{fonctions.c@{fonctions.c}!delay@{delay}}
+\index{delay@{delay}!fonctions.c@{fonctions.c}}
+\doxysubsubsection{\texorpdfstring{delay()}{delay()}}
+{\footnotesize\ttfamily void delay (\begin{DoxyParamCaption}\item[{unsigned int}]{frame\+Limit }\end{DoxyParamCaption})}
+
+
+
+Fonction utilisée pour la limite d\textquotesingle{}image par seconde (en ms). 
+
+Delay utilisé pour la limite de fps. \mbox{\Hypertarget{fonctions_8c_af6a04b57093a69d2616a571d0af7746c}\label{fonctions_8c_af6a04b57093a69d2616a571d0af7746c}} 
+\index{fonctions.c@{fonctions.c}!SDL\_ExitWithError@{SDL\_ExitWithError}}
+\index{SDL\_ExitWithError@{SDL\_ExitWithError}!fonctions.c@{fonctions.c}}
+\doxysubsubsection{\texorpdfstring{SDL\_ExitWithError()}{SDL\_ExitWithError()}}
+{\footnotesize\ttfamily void S\+D\+L\+\_\+\+Exit\+With\+Error (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message,  }\item[{S\+D\+L\+\_\+\+Window $\ast$}]{w,  }\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{r,  }\item[{S\+D\+L\+\_\+\+Texture $\ast$}]{t }\end{DoxyParamCaption})}
+
+
+
+Fonction utilisée en cas d\textquotesingle{}erreur S\+DL. 
+
+Fonction de gestion d\textquotesingle{}erreur qui affiche l\textquotesingle{}erreur S\+DL rencontrée et libère la mémoire allouée avant de quitter le programme.
+
+\begin{DoxyReturn}{Renvoie}
+Affiche l\textquotesingle{}erreur dans la console et ferme le programme en libérant la mémoire. 
+\end{DoxyReturn}

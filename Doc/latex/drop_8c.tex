@@ -1,0 +1,63 @@
+\hypertarget{drop_8c}{}\doxysection{Référence du fichier drop.\+c}
+\label{drop_8c}\index{drop.c@{drop.c}}
+
+
+Contient les fonctions liées aux drops.  
+
+
+{\ttfamily \#include \char`\"{}commun.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de drop.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structt__objet}{t\+\_\+objet}} $\ast$ \mbox{\hyperlink{drop_8c_ac100caf3c304e6d36e32e49ced7ba4e6}{drop}} (int level\+Monstre)
+\begin{DoxyCompactList}\small\item\em Décide si un objet est drop ou non, et le créé dans le cas où il l\textquotesingle{}est. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{drop_8c_a24be67c4d904521daf11584cd43ebe68}\label{drop_8c_a24be67c4d904521daf11584cd43ebe68}} 
+void \mbox{\hyperlink{drop_8c_a24be67c4d904521daf11584cd43ebe68}{affiche\+\_\+drop}} (S\+D\+L\+\_\+\+Renderer $\ast$renderer, S\+D\+L\+\_\+\+Rect $\ast$cadavre, S\+D\+L\+\_\+\+Texture $\ast$stuff\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{structt__objet}{t\+\_\+objet}} $\ast$\mbox{\hyperlink{drop_8c_ac100caf3c304e6d36e32e49ced7ba4e6}{drop}})
+\begin{DoxyCompactList}\small\item\em Affiche un objet à l\textquotesingle{}emplacement du mob tué. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{drop_8c_ad31f0f50b61aae2a595f37b3cfca4b08}{recupere\+\_\+drop}} (S\+D\+L\+\_\+\+Rect $\ast$joueur, S\+D\+L\+\_\+\+Rect $\ast$cadavre, \mbox{\hyperlink{structt__objet}{t\+\_\+objet}} $\ast$\mbox{\hyperlink{drop_8c_ac100caf3c304e6d36e32e49ced7ba4e6}{drop}}, \mbox{\hyperlink{structt__stuff}{t\+\_\+stuff}} $\ast$player\+Stuff, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$player\+Stats)
+\begin{DoxyCompactList}\small\item\em Ajoute l\textquotesingle{}objet récupéré dans l\textquotesingle{}inventaire du joueur si le joueur a les mêmes coordonnées que l\textquotesingle{}objet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Contient les fonctions liées aux drops. 
+
+\begin{DoxyAuthor}{Auteur}
+T\+A\+C\+H\+ET Nicolas, S\+A\+N\+NA Florian 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{drop_8c_ac100caf3c304e6d36e32e49ced7ba4e6}\label{drop_8c_ac100caf3c304e6d36e32e49ced7ba4e6}} 
+\index{drop.c@{drop.c}!drop@{drop}}
+\index{drop@{drop}!drop.c@{drop.c}}
+\doxysubsubsection{\texorpdfstring{drop()}{drop()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structt__objet}{t\+\_\+objet}} $\ast$ drop (\begin{DoxyParamCaption}\item[{int}]{level\+Monstre }\end{DoxyParamCaption})}
+
+
+
+Décide si un objet est drop ou non, et le créé dans le cas où il l\textquotesingle{}est. 
+
+\begin{DoxyReturn}{Renvoie}
+Retourne un \mbox{\hyperlink{structt__objet}{t\+\_\+objet}} si le monstre tué en drop un. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{drop_8c_ad31f0f50b61aae2a595f37b3cfca4b08}\label{drop_8c_ad31f0f50b61aae2a595f37b3cfca4b08}} 
+\index{drop.c@{drop.c}!recupere\_drop@{recupere\_drop}}
+\index{recupere\_drop@{recupere\_drop}!drop.c@{drop.c}}
+\doxysubsubsection{\texorpdfstring{recupere\_drop()}{recupere\_drop()}}
+{\footnotesize\ttfamily int recupere\+\_\+drop (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{joueur,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{cadavre,  }\item[{\mbox{\hyperlink{structt__objet}{t\+\_\+objet}} $\ast$}]{drop,  }\item[{\mbox{\hyperlink{structt__stuff}{t\+\_\+stuff}} $\ast$}]{player\+Stuff,  }\item[{\mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$}]{player\+Stats }\end{DoxyParamCaption})}
+
+
+
+Ajoute l\textquotesingle{}objet récupéré dans l\textquotesingle{}inventaire du joueur si le joueur a les mêmes coordonnées que l\textquotesingle{}objet. 
+
+\begin{DoxyReturn}{Renvoie}
+1 dans le cas où l\textquotesingle{}objet est récupéré, 0 sinon. 
+\end{DoxyReturn}

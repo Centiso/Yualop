@@ -3,7 +3,7 @@
  * \brief Contient des fonctions utilisées pour le jeu
  * \author SAIVET Cécile, TACHET Nicolas, SANNA Florian
  * \version 1.0
- * \date 2021
+ * \date Mars 2021
  */
 
 #include "commun.h"

@@ -1,18 +1,19 @@
 /**
- * \file stuffv2.c
+ * \file stuff.c
  * \brief Programme de stats stuff
  * \details Version avec pointeurs
- * \author Cécile SAIVET
+ * \author SAIVET Cécile
  * \version 1.1
- * \date 17 Mars 2021
+ * \date Mars 2021
  */
 
-// Consigne : Faire struct t_equipement avec tête, bras, jambes etc... le rattacher à t_pers
 #include "commun.h"
-//Protos + struct irons dans pers.h ou obj.h
-//Le prog ira dans persp.c
 
-//Retourne un objet créé et alloué dynamiquement avec un niveau et une catégorie passés en paramètre
+/**
+ * \fn t_objet *crea_obj (int level, int cat)
+ * \brief Créé et alloue dynamiquement un objet avec un niveau et une catégorie passés en paramètre.
+ * \return Retourne l'objet créé.
+ */
 t_objet *crea_obj (int level, int cat)
 {
     t_objet *item;
@@ -80,7 +81,11 @@ t_objet *crea_obj (int level, int cat)
     return (item);
 }
 
-//Met à jour les stats de l'objet en fonction de son niveau
+
+/**
+ * \fn void maj_lvl_obj(t_objet *obj)
+ * \brief Met à jour les stats de l'objet en fonction de son niveau.
+ */
 void maj_lvl_obj(t_objet *obj){
 
     for (int i = 0; i < obj->lvl; i++)

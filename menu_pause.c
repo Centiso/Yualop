@@ -1,11 +1,28 @@
+/**
+ * \file menu_pause.c
+ * \brief Contient le menu de pause de Yualop
+ * \author SANNA Florian
+ * \version 1.0
+ * \date Mars 2021
+ */
+
 #include "commun.h"
 
+
+/**
+ * \fn void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Fonction permettant à l'utilisateur de changer les paramètre en jeu.
+ */
 void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
 {
 	//
 }
 
-///Affichage du menu pause lorsque le joueur est en jeu.
+/**
+ * \fn void in_game_options(SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Affichage du menu pause lorsque le joueur est en jeu.
+ * \return SDL_True si le joueur souhaite continuer à jouer, SDL_False sinon.
+ */
 SDL_bool menu_pause(SDL_Window *window, SDL_Renderer *renderer, t_pers *player)
 {
 	SDL_Rect rect_reprendre, rect_options, rect_quitter;

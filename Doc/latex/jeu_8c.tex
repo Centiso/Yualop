@@ -1,0 +1,125 @@
+\hypertarget{jeu_8c}{}\doxysection{Référence du fichier jeu.\+c}
+\label{jeu_8c}\index{jeu.c@{jeu.c}}
+
+
+Contient les actions disponibles pendant une partie.  
+
+
+{\ttfamily \#include \char`\"{}commun.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de jeu.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{jeu_8c_a81d7aa3db838e1462e13d8d8ef84a62a}\label{jeu_8c_a81d7aa3db838e1462e13d8d8ef84a62a}} 
+void \mbox{\hyperlink{jeu_8c_a81d7aa3db838e1462e13d8d8ef84a62a}{mouvement}} (int carte\mbox{[}$\,$\mbox{]}\mbox{[}M\+A\+P\+\_\+\+M\+A\+X\+\_\+X\mbox{]}, S\+D\+L\+\_\+\+Rect $\ast$pos, int direction, S\+D\+L\+\_\+\+Renderer $\ast$render)
+\begin{DoxyCompactList}\small\item\em Bouge le S\+D\+L\+\_\+\+Rect (correspondant à un personnage) passé en paramètre. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{jeu_8c_a5263cb0016b41594f6bd7cdbc2731f3f}{hit\+Marker}} (int direction, S\+D\+L\+\_\+\+Rect $\ast$src\+Pos, S\+D\+L\+\_\+\+Rect $\ast$dest\+Pos, int range\+Attaque)
+\begin{DoxyCompactList}\small\item\em Regarde si une attaque peut être effectuée. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{jeu_8c_a1b3cb7c3e40c5d6663b358720eca7b37}\label{jeu_8c_a1b3cb7c3e40c5d6663b358720eca7b37}} 
+void \mbox{\hyperlink{jeu_8c_a1b3cb7c3e40c5d6663b358720eca7b37}{attaque}} (int carte\mbox{[}$\,$\mbox{]}\mbox{[}M\+A\+P\+\_\+\+M\+A\+X\+\_\+X\mbox{]}, S\+D\+L\+\_\+\+Rect $\ast$src\+Pos, S\+D\+L\+\_\+\+Rect $\ast$dest\+Pos, int direction, S\+D\+L\+\_\+\+Renderer $\ast$render, int range\+Attaque, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$src\+Atq, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$dest\+Atq)
+\begin{DoxyCompactList}\small\item\em Fonction d\textquotesingle{}attaque du jeu. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{jeu_8c_aa61ceed8dffa6a7a0a812da432d954e4}{bot\+Actions}} (int carte\mbox{[}$\,$\mbox{]}\mbox{[}M\+A\+P\+\_\+\+M\+A\+X\+\_\+X\mbox{]}, S\+D\+L\+\_\+\+Rect $\ast$bot\+Tueur, S\+D\+L\+\_\+\+Rect $\ast$joueur, S\+D\+L\+\_\+\+Renderer $\ast$render, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$src\+Atq, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$dest\+Atq)
+\begin{DoxyCompactList}\small\item\em Fonction concernant les actions du/des bots. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{jeu_8c_ada0fcc9d2308759f069c301185e4bc5c}{can\+Change\+Map}} (S\+D\+L\+\_\+\+Rect $\ast$joueur, int direction, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$pers\+Bot)
+\begin{DoxyCompactList}\small\item\em Regarde si un changement de map peut être effectué. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{jeu_8c_ad2ecc00210efa93f1e91d903f492c980}\label{jeu_8c_ad2ecc00210efa93f1e91d903f492c980}} 
+void \mbox{\hyperlink{jeu_8c_ad2ecc00210efa93f1e91d903f492c980}{changement\+Map}} (S\+D\+L\+\_\+\+Rect $\ast$joueur, S\+D\+L\+\_\+\+Rect $\ast$bot, int direction)
+\begin{DoxyCompactList}\small\item\em Effectue un changement de map. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{jeu_8c_ab241af27dec775b64ac27dd97b2d2eda}{jouer}} (S\+D\+L\+\_\+\+Renderer $\ast$render, S\+D\+L\+\_\+\+Window $\ast$window)
+\begin{DoxyCompactList}\small\item\em Fonction principale du jeu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Contient les actions disponibles pendant une partie. 
+
+\begin{DoxyAuthor}{Auteur}
+T\+A\+C\+H\+ET Nicolas, S\+A\+N\+NA Florian 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Mars 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{jeu_8c_aa61ceed8dffa6a7a0a812da432d954e4}\label{jeu_8c_aa61ceed8dffa6a7a0a812da432d954e4}} 
+\index{jeu.c@{jeu.c}!botActions@{botActions}}
+\index{botActions@{botActions}!jeu.c@{jeu.c}}
+\doxysubsubsection{\texorpdfstring{botActions()}{botActions()}}
+{\footnotesize\ttfamily int bot\+Actions (\begin{DoxyParamCaption}\item[{int}]{carte\mbox{[}$\,$\mbox{]}\mbox{[}\+M\+A\+P\+\_\+\+M\+A\+X\+\_\+\+X\mbox{]},  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{bot\+Tueur,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{joueur,  }\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{render,  }\item[{\mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$}]{src\+Atq,  }\item[{\mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$}]{dest\+Atq }\end{DoxyParamCaption})}
+
+
+
+Fonction concernant les actions du/des bots. 
+
+\begin{DoxyReturn}{Renvoie}
+Côté vers lequel le bot se tourne. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{jeu_8c_ada0fcc9d2308759f069c301185e4bc5c}\label{jeu_8c_ada0fcc9d2308759f069c301185e4bc5c}} 
+\index{jeu.c@{jeu.c}!canChangeMap@{canChangeMap}}
+\index{canChangeMap@{canChangeMap}!jeu.c@{jeu.c}}
+\doxysubsubsection{\texorpdfstring{canChangeMap()}{canChangeMap()}}
+{\footnotesize\ttfamily int can\+Change\+Map (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{joueur,  }\item[{int}]{direction,  }\item[{\mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$}]{pers\+Bot }\end{DoxyParamCaption})}
+
+
+
+Regarde si un changement de map peut être effectué. 
+
+\begin{DoxyReturn}{Renvoie}
+1 si le changement peut être fait, 0 sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{jeu_8c_a5263cb0016b41594f6bd7cdbc2731f3f}\label{jeu_8c_a5263cb0016b41594f6bd7cdbc2731f3f}} 
+\index{jeu.c@{jeu.c}!hitMarker@{hitMarker}}
+\index{hitMarker@{hitMarker}!jeu.c@{jeu.c}}
+\doxysubsubsection{\texorpdfstring{hitMarker()}{hitMarker()}}
+{\footnotesize\ttfamily int hit\+Marker (\begin{DoxyParamCaption}\item[{int}]{direction,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{src\+Pos,  }\item[{S\+D\+L\+\_\+\+Rect $\ast$}]{dest\+Pos,  }\item[{int}]{range\+Attaque }\end{DoxyParamCaption})}
+
+
+
+Regarde si une attaque peut être effectuée. 
+
+\begin{DoxyReturn}{Renvoie}
+1 si l\textquotesingle{}attaque peut être effectuée, 0 sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{jeu_8c_ab241af27dec775b64ac27dd97b2d2eda}\label{jeu_8c_ab241af27dec775b64ac27dd97b2d2eda}} 
+\index{jeu.c@{jeu.c}!jouer@{jouer}}
+\index{jouer@{jouer}!jeu.c@{jeu.c}}
+\doxysubsubsection{\texorpdfstring{jouer()}{jouer()}}
+{\footnotesize\ttfamily void jouer (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{render,  }\item[{S\+D\+L\+\_\+\+Window $\ast$}]{window }\end{DoxyParamCaption})}
+
+
+
+Fonction principale du jeu. 
+
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---Définition des textes-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---
+
+Définition des polices
+
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---Initialisation personnage-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---
+
+On crée des variables
+
+Compteur\+\_\+\+Variable
+
+Definit les images sur les Surfaces Perso\mbox{[}Orientation\mbox{]}
+
+Définition de la carte
+
+On remet le render vierge
+
+Définission de la position du joueur et du bot
+
+Taille et position des bots/joueur
+
+Création du joueur et du/des bots
+
+Gestion des F\+PS
+
+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---Programme principal du jeu-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---
+
+Attaques
+
+Gestion des 60 fps (1000ms/60 = 16.\+6 -\/$>$ 16

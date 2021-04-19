@@ -1,18 +1,29 @@
+/**
+ * \file drop.c
+ * \brief Contient les fonctions liées aux drops
+ * \author TACHET Nicolas, SANNA Florian
+ * \version 1.0
+ * \date Avril 2021
+ */
+
 #include "commun.h"
 
-//Retourne un objet si le monstre tué en drop un
+/**
+ * \fn t_objet *drop (int levelMonstre)
+ * \brief Décide si un objet est drop ou non, et le créé dans le cas où il l'est.
+ * \return Retourne un t_objet si le monstre tué en drop un.
+ */
 t_objet *drop (int levelMonstre)
 {
-	
 	int dropChance, aleaDrop , obj_cat, vieDrop, vie;
 
 	obj_cat = rand()%7;
-	dropChance = rand()%1000;
+	dropChance = rand()%10;
 	vieDrop = rand()%20;
 	aleaDrop = rand()%10;
 	t_objet *item = NULL; 
 
-	switch(1) //dropChance
+	switch(dropChance)
 	{
 		case 1 :
 			switch (aleaDrop)
@@ -43,7 +54,10 @@ t_objet *drop (int levelMonstre)
 	return item;
 }
 
-//Affiche un objet à l'emplacement du mob tué
+/**
+ * \fn void affiche_drop(SDL_Renderer *renderer, SDL_Rect *cadavre, SDL_Texture *stuff[], t_objet *drop)
+ * \brief Affiche un objet à l'emplacement du mob tué.
+ */
 void affiche_drop(SDL_Renderer *renderer, SDL_Rect *cadavre, SDL_Texture *stuff[], t_objet *drop)
 {   
 	SDL_Rect posCadavre;
@@ -54,7 +68,11 @@ void affiche_drop(SDL_Renderer *renderer, SDL_Rect *cadavre, SDL_Texture *stuff[
 	SDL_RenderCopy(renderer, stuff[drop->categ], NULL, &posCadavre);
 }
 
-//
+/**
+ * \fn int recupere_drop(SDL_Rect *joueur, SDL_Rect *cadavre, t_objet *drop, t_stuff *playerStuff, t_pers *playerStats)
+ * \brief Ajoute l'objet récupéré dans l'inventaire du joueur si le joueur a les mêmes coordonnées que l'objet.
+ * \return 1 dans le cas où l'objet est récupéré, 0 sinon.
+ */
 int recupere_drop(SDL_Rect *joueur, SDL_Rect *cadavre, t_objet *drop, t_stuff *playerStuff, t_pers *playerStats)
 {
 	if (joueur->x + TAILLE_BLOCK == cadavre->x + TAILLE_BLOCK && joueur->y + TAILLE_BLOCK == cadavre->y + TAILLE_BLOCK)

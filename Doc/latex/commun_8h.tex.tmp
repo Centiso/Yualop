@@ -1,0 +1,150 @@
+\hypertarget{commun_8h}{}\doxysection{Référence du fichier commun.\+h}
+\label{commun_8h}\index{commun.h@{commun.h}}
+
+
+Fichier regroupant les constantes et librairies utilisées dans les différents fichiers.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L\+\_\+image.\+h$>$}\newline
+{\ttfamily \#include $<$S\+D\+L\+\_\+ttf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}pers.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}menu\+\_\+pause.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}fonctions.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}main\+\_\+menu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stuff.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}drop.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}map.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}jeu.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de commun.\+h\+:
+% FIG 0
+Ce graphe montre quels fichiers incluent directement ou indirectement ce fichier \+:
+% FIG 1
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{commun_8h_a759d9c46e8a620ecbbd5b61259047310}\label{commun_8h_a759d9c46e8a620ecbbd5b61259047310}} 
+\#define \mbox{\hyperlink{commun_8h_a759d9c46e8a620ecbbd5b61259047310}{T\+A\+I\+L\+L\+E\+\_\+\+B\+L\+O\+CK}}~(\mbox{\hyperlink{commun_8h_a1616202489a4e64656da568d06754a57}{H\+E\+I\+G\+HT}} / M\+A\+P\+\_\+\+M\+A\+X\+\_\+Y)
+\begin{DoxyCompactList}\small\item\em Hauteur de la fenêtre principale. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_afc33ef3eddf1936762c617120891ee1f}\label{commun_8h_afc33ef3eddf1936762c617120891ee1f}} 
+\#define {\bfseries N\+O\+M\+\_\+\+F\+O\+NT}~\char`\"{}polices/L\+L\+H\+P.\+ttf\char`\"{}
+\item 
+\mbox{\Hypertarget{commun_8h_a2cb703f15dd54ba57ac3c864d753d71e}\label{commun_8h_a2cb703f15dd54ba57ac3c864d753d71e}} 
+\#define {\bfseries R\+A\+N\+G\+E\+\_\+\+J\+O\+U\+E\+UR}~3
+\item 
+\mbox{\Hypertarget{commun_8h_ac4ab7f71766d4570f10dfa324a2f8ae0}\label{commun_8h_ac4ab7f71766d4570f10dfa324a2f8ae0}} 
+\#define {\bfseries R\+A\+N\+G\+E\+\_\+\+B\+OT}~1
+\item 
+\mbox{\Hypertarget{commun_8h_a4f9fe2f1309c3dbfcf132e9fffb11fb2}\label{commun_8h_a4f9fe2f1309c3dbfcf132e9fffb11fb2}} 
+\#define {\bfseries D\+E\+F\+A\+U\+L\+T\+\_\+\+L\+E\+V\+EL}~1
+\item 
+\mbox{\Hypertarget{commun_8h_a1bd2e58a183206537e3365f36d514eec}\label{commun_8h_a1bd2e58a183206537e3365f36d514eec}} 
+\#define \mbox{\hyperlink{commun_8h_a1bd2e58a183206537e3365f36d514eec}{P\+\_\+R}}~25
+\begin{DoxyCompactList}\small\item\em Code R\+GB de la police d\textquotesingle{}écriture. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_a0fa286a619ee028391743a06f25e3cad}\label{commun_8h_a0fa286a619ee028391743a06f25e3cad}} 
+\#define {\bfseries P\+\_\+G}~25
+\item 
+\mbox{\Hypertarget{commun_8h_a06441a74086d94a7aa28f9b236881455}\label{commun_8h_a06441a74086d94a7aa28f9b236881455}} 
+\#define {\bfseries P\+\_\+B}~25
+\item 
+\mbox{\Hypertarget{commun_8h_a826d450a621f9f68660d603f3d9ed177}\label{commun_8h_a826d450a621f9f68660d603f3d9ed177}} 
+\#define \mbox{\hyperlink{commun_8h_a826d450a621f9f68660d603f3d9ed177}{A\+\_\+R}}~125
+\begin{DoxyCompactList}\small\item\em Code R\+GB des rectangles d\textquotesingle{}affichage. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_a4f17261ea0e723266a4bc257c8ddd6b6}\label{commun_8h_a4f17261ea0e723266a4bc257c8ddd6b6}} 
+\#define {\bfseries A\+\_\+G}~125
+\item 
+\mbox{\Hypertarget{commun_8h_a93c77ce6ff344b118beedfd437346030}\label{commun_8h_a93c77ce6ff344b118beedfd437346030}} 
+\#define {\bfseries A\+\_\+B}~125
+\end{DoxyCompactItemize}
+\doxysubsection*{Définitions de type}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{commun_8h_a8d28a0c1f59574b453923c4bbf27d225}\label{commun_8h_a8d28a0c1f59574b453923c4bbf27d225}} 
+typedef enum \mbox{\hyperlink{commun_8h_a7ab79a8a1650c170ba79c1dbafca4c6b}{s\+\_\+direction}} \mbox{\hyperlink{commun_8h_a8d28a0c1f59574b453923c4bbf27d225}{t\+\_\+direction}}
+\begin{DoxyCompactList}\small\item\em Définitions pour le \mbox{\hyperlink{jeu_8c}{jeu.\+c}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_a3d61f40421614a9e28100a489d39bc2f}\label{commun_8h_a3d61f40421614a9e28100a489d39bc2f}} 
+typedef enum s\+\_\+obstacle {\bfseries t\+\_\+obstacle}
+\item 
+\mbox{\Hypertarget{commun_8h_a63d96496a5e259813b70abc5543fbc1b}\label{commun_8h_a63d96496a5e259813b70abc5543fbc1b}} 
+typedef enum \mbox{\hyperlink{commun_8h_adbd0b02bbd03b33344eb1637957bb9b1}{s\+\_\+faction}} \mbox{\hyperlink{commun_8h_a63d96496a5e259813b70abc5543fbc1b}{t\+\_\+faction}}
+\begin{DoxyCompactList}\small\item\em Définitions \mbox{\hyperlink{pers_8c}{pers.\+c}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_a564b2f8779716b6b82f3cc7c3ecd5cfb}\label{commun_8h_a564b2f8779716b6b82f3cc7c3ecd5cfb}} 
+typedef enum \mbox{\hyperlink{commun_8h_a0432e577d703ec1f8cd0c0223718d60a}{s\+\_\+categorie}} \mbox{\hyperlink{commun_8h_a564b2f8779716b6b82f3cc7c3ecd5cfb}{t\+\_\+categorie}}
+\begin{DoxyCompactList}\small\item\em Définition \mbox{\hyperlink{stuff_8c}{stuff.\+c}} / \mbox{\hyperlink{drop_8c}{drop.\+c}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Énumérations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{commun_8h_a7ab79a8a1650c170ba79c1dbafca4c6b}\label{commun_8h_a7ab79a8a1650c170ba79c1dbafca4c6b}} 
+enum \mbox{\hyperlink{commun_8h_a7ab79a8a1650c170ba79c1dbafca4c6b}{s\+\_\+direction}} \{ {\bfseries H\+A\+UT}, 
+{\bfseries B\+AS}, 
+{\bfseries G\+A\+U\+C\+HE}, 
+{\bfseries D\+R\+O\+I\+TE}
+ \}
+\begin{DoxyCompactList}\small\item\em Définitions pour le \mbox{\hyperlink{jeu_8c}{jeu.\+c}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_a2329f021ffc5aaa55f044aef4aa9c1ec}\label{commun_8h_a2329f021ffc5aaa55f044aef4aa9c1ec}} 
+enum {\bfseries s\+\_\+obstacle} \{ {\bfseries V\+I\+DE}, 
+{\bfseries M\+UR}, 
+{\bfseries J\+O\+U\+E\+UR}
+ \}
+\item 
+\mbox{\Hypertarget{commun_8h_adbd0b02bbd03b33344eb1637957bb9b1}\label{commun_8h_adbd0b02bbd03b33344eb1637957bb9b1}} 
+enum \mbox{\hyperlink{commun_8h_adbd0b02bbd03b33344eb1637957bb9b1}{s\+\_\+faction}} \{ {\bfseries G\+E\+N\+T\+IL}, 
+{\bfseries M\+E\+C\+H\+A\+NT}
+ \}
+\begin{DoxyCompactList}\small\item\em Définitions \mbox{\hyperlink{pers_8c}{pers.\+c}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_a0432e577d703ec1f8cd0c0223718d60a}\label{commun_8h_a0432e577d703ec1f8cd0c0223718d60a}} 
+enum \mbox{\hyperlink{commun_8h_a0432e577d703ec1f8cd0c0223718d60a}{s\+\_\+categorie}} \{ \newline
+{\bfseries H\+E\+AD}, 
+{\bfseries C\+H\+E\+ST}, 
+{\bfseries G\+L\+O\+V\+ES}, 
+{\bfseries L\+E\+GS}, 
+\newline
+{\bfseries F\+E\+ET}, 
+{\bfseries M\+A\+I\+N\+\_\+\+H\+A\+ND}, 
+{\bfseries O\+F\+F\+\_\+\+H\+A\+ND}, 
+{\bfseries H\+E\+A\+RT}, 
+\newline
+{\bfseries H\+A\+L\+F\+\_\+\+H\+E\+A\+RT}
+ \}
+\begin{DoxyCompactList}\small\item\em Définition \mbox{\hyperlink{stuff_8c}{stuff.\+c}} / \mbox{\hyperlink{drop_8c}{drop.\+c}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \mbox{\hyperlink{commun_8h_ad9effd43217aebb56382d72aca4bde76}{W\+I\+D\+TH}}
+\begin{DoxyCompactList}\small\item\em Déclaration des librairies. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{commun_8h_a1616202489a4e64656da568d06754a57}\label{commun_8h_a1616202489a4e64656da568d06754a57}} 
+unsigned int \mbox{\hyperlink{commun_8h_a1616202489a4e64656da568d06754a57}{H\+E\+I\+G\+HT}}
+\begin{DoxyCompactList}\small\item\em Largeur de la fenêtre principale. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Fichier regroupant les constantes et librairies utilisées dans les différents fichiers. 
+
+\begin{DoxyAuthor}{Auteur}
+S\+A\+I\+V\+ET Cécile, T\+A\+C\+H\+ET Nicolas, S\+A\+N\+NA Florian 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Mars 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des variables}
+\mbox{\Hypertarget{commun_8h_ad9effd43217aebb56382d72aca4bde76}\label{commun_8h_ad9effd43217aebb56382d72aca4bde76}} 
+\index{commun.h@{commun.h}!WIDTH@{WIDTH}}
+\index{WIDTH@{WIDTH}!commun.h@{commun.h}}
+\doxysubsubsection{\texorpdfstring{WIDTH}{WIDTH}}
+{\footnotesize\ttfamily unsigned int W\+I\+D\+TH}
+
+
+
+Déclaration des librairies. 
+
+Déclaration des constantes 

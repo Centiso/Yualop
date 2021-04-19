@@ -3,7 +3,7 @@
  * \brief Contient les fonctions liées aux personnages (joueur comme bot)
  * \author SAIVET Cécile, SANNA Florian
  * \version 1.0
- * \date 2021
+ * \date Mars 2021
  */
 
 #include "commun.h"

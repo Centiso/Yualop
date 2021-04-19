@@ -1,3 +1,11 @@
+/**
+ * \file test_menu_pause.c
+ * \brief Programme de test du menu de pause.
+ * \author SANNA Florian
+ * \version 1.0
+ * \date Mars 2021
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

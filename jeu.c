@@ -3,7 +3,7 @@
  * \brief Contient les actions disponibles pendant une partie
  * \author TACHET Nicolas, SANNA Florian
  * \version 1.0
- * \date 2021
+ * \date Mars 2021
  */
 
 #include "commun.h"
@@ -234,6 +234,11 @@ int botActions(int carte[][MAP_MAX_X], SDL_Rect *botTueur, SDL_Rect *joueur, SDL
 	}
 }
 
+/**
+ * \fn int canChangeMap(SDL_Rect *joueur, int direction, t_pers *persBot)
+ * \brief Regarde si un changement de map peut être effectué.
+ * \return 1 si le changement peut être fait, 0 sinon.
+ */
 int canChangeMap(SDL_Rect *joueur, int direction, t_pers *persBot)
 {
 	switch (direction)
@@ -277,6 +282,10 @@ int canChangeMap(SDL_Rect *joueur, int direction, t_pers *persBot)
 	return 0;
 }
 
+/**
+ * \fn void changementMap(SDL_Rect *joueur, SDL_Rect *bot, int direction)
+ * \brief Effectue un changement de map.
+ */
 void changementMap(SDL_Rect *joueur, SDL_Rect *bot, int direction)
 {
 	switch (direction)

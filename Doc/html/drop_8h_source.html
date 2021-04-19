@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Yualop:  Fichier source de drop.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Yualop.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">Yualop
+   </div>
+   <div id="projectbrief">Projet de L2 Informatique</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">drop.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef _DROP_H_</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define _DROP_H_</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;stuff.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<a class="code" href="structt__objet.html">t_objet</a> *<a class="code" href="drop_8c.html#ac100caf3c304e6d36e32e49ced7ba4e6">drop</a> (<span class="keywordtype">int</span> levelMonstre);</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keywordtype">void</span> <a class="code" href="drop_8c.html#a24be67c4d904521daf11584cd43ebe68">affiche_drop</a>(SDL_Renderer *renderer, SDL_Rect *cadavre, SDL_Texture *stuff[], <a class="code" href="structt__objet.html">t_objet</a> *<a class="code" href="drop_8c.html#ac100caf3c304e6d36e32e49ced7ba4e6">drop</a>);</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">int</span> <a class="code" href="drop_8c.html#ad31f0f50b61aae2a595f37b3cfca4b08">recupere_drop</a>(SDL_Rect *joueur, SDL_Rect *cadavre, <a class="code" href="structt__objet.html">t_objet</a> *<a class="code" href="drop_8c.html#ac100caf3c304e6d36e32e49ced7ba4e6">drop</a>, <a class="code" href="structt__stuff.html">t_stuff</a> *playerStuff, <a class="code" href="structs__pers.html">t_pers</a> *playerStats);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#endif</span></div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="adrop_8c_html_ad31f0f50b61aae2a595f37b3cfca4b08"><div class="ttname"><a href="drop_8c.html#ad31f0f50b61aae2a595f37b3cfca4b08">recupere_drop</a></div><div class="ttdeci">int recupere_drop(SDL_Rect *joueur, SDL_Rect *cadavre, t_objet *drop, t_stuff *playerStuff, t_pers *playerStats)</div><div class="ttdoc">Ajoute l'objet récupéré dans l'inventaire du joueur si le joueur a les mêmes coordonnées que l'objet.</div><div class="ttdef"><b>Definition:</b> drop.c:76</div></div>
+<div class="ttc" id="astructs__pers_html"><div class="ttname"><a href="structs__pers.html">s_pers</a></div><div class="ttdef"><b>Definition:</b> pers.h:4</div></div>
+<div class="ttc" id="adrop_8c_html_a24be67c4d904521daf11584cd43ebe68"><div class="ttname"><a href="drop_8c.html#a24be67c4d904521daf11584cd43ebe68">affiche_drop</a></div><div class="ttdeci">void affiche_drop(SDL_Renderer *renderer, SDL_Rect *cadavre, SDL_Texture *stuff[], t_objet *drop)</div><div class="ttdoc">Affiche un objet à l'emplacement du mob tué.</div><div class="ttdef"><b>Definition:</b> drop.c:61</div></div>
+<div class="ttc" id="adrop_8c_html_ac100caf3c304e6d36e32e49ced7ba4e6"><div class="ttname"><a href="drop_8c.html#ac100caf3c304e6d36e32e49ced7ba4e6">drop</a></div><div class="ttdeci">t_objet * drop(int levelMonstre)</div><div class="ttdoc">Décide si un objet est drop ou non, et le créé dans le cas où il l'est.</div><div class="ttdef"><b>Definition:</b> drop.c:16</div></div>
+<div class="ttc" id="astructt__stuff_html"><div class="ttname"><a href="structt__stuff.html">t_stuff</a></div><div class="ttdef"><b>Definition:</b> stuff.h:15</div></div>
+<div class="ttc" id="astructt__objet_html"><div class="ttname"><a href="structt__objet.html">t_objet</a></div><div class="ttdef"><b>Definition:</b> stuff.h:4</div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.17
+</small></address>
+</body>
+</html>

@@ -1,0 +1,42 @@
+digraph "jeu.c"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="jeu.c",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Contient les actions disponibles pendant une partie."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="commun.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$commun_8h.html",tooltip="Fichier regroupant les constantes et librairies utilisées dans les différents fichiers."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="stdio.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="stdlib.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="unistd.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="string.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="time.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="SDL.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="SDL_image.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="SDL_ttf.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="pers.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$pers_8h_source.html",tooltip=" "];
+  Node2 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="menu_pause.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu__pause_8h_source.html",tooltip=" "];
+  Node2 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="fonctions.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$fonctions_8h_source.html",tooltip=" "];
+  Node2 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="main_menu.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main__menu_8h_source.html",tooltip=" "];
+  Node2 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="stuff.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$stuff_8h_source.html",tooltip=" "];
+  Node2 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="drop.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drop_8h_source.html",tooltip=" "];
+  Node16 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node17 [color="midnightblue",fontsize="10",style="solid"];
+  Node17 [label="map.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$map_8h_source.html",tooltip=" "];
+  Node2 -> Node18 [color="midnightblue",fontsize="10",style="solid"];
+  Node18 [label="jeu.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$jeu_8h_source.html",tooltip=" "];
+}

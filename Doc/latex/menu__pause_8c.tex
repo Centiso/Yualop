@@ -1,0 +1,50 @@
+\hypertarget{menu__pause_8c}{}\doxysection{Référence du fichier menu\+\_\+pause.\+c}
+\label{menu__pause_8c}\index{menu\_pause.c@{menu\_pause.c}}
+
+
+Contient le menu de pause de Yualop.  
+
+
+{\ttfamily \#include \char`\"{}commun.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de menu\+\_\+pause.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{menu__pause_8c_a09c8f585eb4181d7004aa43849fa9e88}{in\+\_\+game\+\_\+options}} (S\+D\+L\+\_\+\+Window $\ast$window, S\+D\+L\+\_\+\+Renderer $\ast$renderer)
+\begin{DoxyCompactList}\small\item\em Fonction permettant à l\textquotesingle{}utilisateur de changer les paramètre en jeu. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{menu__pause_8c_ade904284bee1f0a653fd42614d31358d}\label{menu__pause_8c_ade904284bee1f0a653fd42614d31358d}} 
+S\+D\+L\+\_\+bool {\bfseries menu\+\_\+pause} (S\+D\+L\+\_\+\+Window $\ast$window, S\+D\+L\+\_\+\+Renderer $\ast$renderer, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$player)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Contient le menu de pause de Yualop. 
+
+\begin{DoxyAuthor}{Auteur}
+S\+A\+N\+NA Florian 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Mars 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{menu__pause_8c_a09c8f585eb4181d7004aa43849fa9e88}\label{menu__pause_8c_a09c8f585eb4181d7004aa43849fa9e88}} 
+\index{menu\_pause.c@{menu\_pause.c}!in\_game\_options@{in\_game\_options}}
+\index{in\_game\_options@{in\_game\_options}!menu\_pause.c@{menu\_pause.c}}
+\doxysubsubsection{\texorpdfstring{in\_game\_options()}{in\_game\_options()}}
+{\footnotesize\ttfamily void in\+\_\+game\+\_\+options (\begin{DoxyParamCaption}\item[{S\+D\+L\+\_\+\+Window $\ast$}]{window,  }\item[{S\+D\+L\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption})}
+
+
+
+Fonction permettant à l\textquotesingle{}utilisateur de changer les paramètre en jeu. 
+
+Affichage du menu pause lorsque le joueur est en jeu.
+
+\begin{DoxyReturn}{Renvoie}
+S\+D\+L\+\_\+\+True si le joueur souhaite continuer à jouer, S\+D\+L\+\_\+\+False sinon. 
+\end{DoxyReturn}
