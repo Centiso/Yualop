@@ -696,11 +696,6 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 							SDL_ShowCursor(SDL_DISABLE);
 							break;
 						
-						case SDLK_n:
-							printf("Respawn\n");
-							persBotTueur = crea_pers(MECHANT, DEFAULT_LEVEL);
-							break;
-
 						///Attaques
 						case SDLK_UP:
 							attaque(carte, &positionJoueur, &positionBot, HAUT, render, RANGE_JOUEUR, persPlayer, persBotTueur);
@@ -833,6 +828,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 	SDL_ShowCursor(SDL_ENABLE);
 
 	SDL_DestroyTexture(*tPerso);
+	SDL_DestroyTexture(*tPersoAtq);
 	SDL_DestroyTexture(*tBot);
 	SDL_DestroyTexture(*tStuff);
 

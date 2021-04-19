@@ -57,10 +57,8 @@ int main(int argc, char** argv)
 	WIDTH = current.w;
 	HEIGHT = current.h;*/
 
-	if (WIDTH != current.w){
-		WIDTH = 1400;
-		HEIGHT = 800;
-	}
+	WIDTH = 1400;
+	HEIGHT = 800;
 
 	///Création de la fenêtre
 	window = SDL_CreateWindow("Yualop", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
