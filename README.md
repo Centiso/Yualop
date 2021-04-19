@@ -38,14 +38,6 @@ Afin de lancer l'exécutable, vous devez être dans le dossier ``./src/Yualop/``
 * [Visual Studio Code](https://code.visualstudio.com/) - Éditeur de texte
 * [Atom](https://atom.io/) - Éditeur de texte
 
-## Versions
-Listez les versions ici 
-_exemple :_
-**Dernière version stable :** 5.0
-**Dernière version :** 5.1
-Liste des versions : [Cliquer pour afficher](https://github.com/your/project-name/tags)
-_(pour le lien mettez simplement l'URL de votre projets suivi de ``/tags``)_
-
 ## Auteurs
 
 * **Florian SANNA** _alias_ [@Centiso](https://github.com/Centiso)
