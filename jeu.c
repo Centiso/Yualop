@@ -777,7 +777,7 @@ void jouer(SDL_Renderer *render , SDL_Window *window)
 
 		//Affichage de la vie en haut à gauche
 		if (persPlayer->pdv > 0){
-			itoa(persPlayer->pdv, texte_life, 10);
+			sprintf(texte_life,"%d",persPlayer->pdv);
 			creerTexte(render, police_hp, texte_life, 10, 10, RED);
 		}
 

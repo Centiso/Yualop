@@ -34,11 +34,11 @@ clean :
 
 else
 Yualop : $(OBJ)
-	$(CC) $^ -o $@ $(LDFLAGSU) 
+    $(CC) $^ -o $@ $(LLDFLAGS)
 
 %.o : %.c 
-	$(CC) -Wall $< -c `sdl2-config --cflags` -o $@
+    $(CC) -Wall $< -c `sdl2-config --cflags` -o $@
 
 clean :
-	rm -f *.o core
+    rm -f *.o core
 endif
