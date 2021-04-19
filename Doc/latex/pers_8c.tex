@@ -1,0 +1,48 @@
+\hypertarget{pers_8c}{}\doxysection{Référence du fichier pers.\+c}
+\label{pers_8c}\index{pers.c@{pers.c}}
+
+
+Contient les fonctions liées aux personnages (joueur comme bot)  
+
+
+{\ttfamily \#include \char`\"{}commun.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de pers.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$ \mbox{\hyperlink{pers_8c_af269c9f53dcfd888d16c8b4af1e32473}{crea\+\_\+pers}} (int faction, int level)
+\begin{DoxyCompactList}\small\item\em Fonction de création d\textquotesingle{}un personnage. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{pers_8c_af91c085a224af90b304cd974d0d7815a}\label{pers_8c_af91c085a224af90b304cd974d0d7815a}} 
+void \mbox{\hyperlink{pers_8c_af91c085a224af90b304cd974d0d7815a}{maj\+\_\+lvl}} (int level, \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em Fonction de mise à jour de niveau d\textquotesingle{}un t\+\_\+pers passé en paramètre. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Contient les fonctions liées aux personnages (joueur comme bot) 
+
+\begin{DoxyAuthor}{Auteur}
+S\+A\+I\+V\+ET Cécile, S\+A\+N\+NA Florian 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Mars 2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentation des fonctions}
+\mbox{\Hypertarget{pers_8c_af269c9f53dcfd888d16c8b4af1e32473}\label{pers_8c_af269c9f53dcfd888d16c8b4af1e32473}} 
+\index{pers.c@{pers.c}!crea\_pers@{crea\_pers}}
+\index{crea\_pers@{crea\_pers}!pers.c@{pers.c}}
+\doxysubsubsection{\texorpdfstring{crea\_pers()}{crea\_pers()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structs__pers}{t\+\_\+pers}} $\ast$ crea\+\_\+pers (\begin{DoxyParamCaption}\item[{int}]{faction,  }\item[{int}]{level }\end{DoxyParamCaption})}
+
+
+
+Fonction de création d\textquotesingle{}un personnage. 
+
+\begin{DoxyReturn}{Renvoie}
+Le personnage créé en mémoire dynamique. 
+\end{DoxyReturn}

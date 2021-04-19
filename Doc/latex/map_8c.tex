@@ -1,0 +1,48 @@
+\hypertarget{map_8c}{}\doxysection{Référence du fichier map.\+c}
+\label{map_8c}\index{map.c@{map.c}}
+
+
+Contient la création du labyrinthe et la création des salles de jeu.  
+
+
+{\ttfamily \#include \char`\"{}commun.\+h\char`\"{}}\newline
+Graphe des dépendances par inclusion de map.\+c\+:
+% FIG 0
+\doxysubsection*{Fonctions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{map_8c_ab23f716957eeceb234591d9f118dbe6a}\label{map_8c_ab23f716957eeceb234591d9f118dbe6a}} 
+void \mbox{\hyperlink{map_8c_ab23f716957eeceb234591d9f118dbe6a}{init\+\_\+lab}} (int lab\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em Initialise le labyrinthe avec des murs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{map_8c_a7279d61fed0bc7a9db97e36a9851fb07}\label{map_8c_a7279d61fed0bc7a9db97e36a9851fb07}} 
+int \mbox{\hyperlink{map_8c_a7279d61fed0bc7a9db97e36a9851fb07}{valides}} (int i, int j)
+\begin{DoxyCompactList}\small\item\em renvoie V\+R\+AI si i et j désignent une case de la matrice \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{map_8c_a45ba5d99ba86b6a8b9b6587d058baa20}\label{map_8c_a45ba5d99ba86b6a8b9b6587d058baa20}} 
+int \mbox{\hyperlink{map_8c_a45ba5d99ba86b6a8b9b6587d058baa20}{est\+\_\+vide}} (int i, int j, int lab\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em renvoie V\+R\+AI si i et j désignent une case couloir \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{map_8c_afef03c2982f1b7d124d94ca98b0e5086}\label{map_8c_afef03c2982f1b7d124d94ca98b0e5086}} 
+int \mbox{\hyperlink{map_8c_afef03c2982f1b7d124d94ca98b0e5086}{est\+\_\+mur}} (int i, int j, int lab\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em renvoie V\+R\+AI si i et j désignent une case mur \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{map_8c_acad8284b7c5dd2b8d09c3db9a39db111}\label{map_8c_acad8284b7c5dd2b8d09c3db9a39db111}} 
+int \mbox{\hyperlink{map_8c_acad8284b7c5dd2b8d09c3db9a39db111}{blocage}} (int i, int j, int lab\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em renvoie V\+R\+AI si aucune case voisine n\textquotesingle{}est un mur \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{map_8c_a4e4f5faaa6fb8782a587c7dc29927d57}\label{map_8c_a4e4f5faaa6fb8782a587c7dc29927d57}} 
+int \mbox{\hyperlink{map_8c_a4e4f5faaa6fb8782a587c7dc29927d57}{creer\+\_\+lab}} (int lab\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em crée le labyrinthe parfait de la partie de jeu. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{map_8c_a4078e9c9b1876e1c3df9b35fe14a9826}\label{map_8c_a4078e9c9b1876e1c3df9b35fe14a9826}} 
+void \mbox{\hyperlink{map_8c_a4078e9c9b1876e1c3df9b35fe14a9826}{init\+Salle}} (int lab\mbox{[}N\mbox{]}\mbox{[}M\mbox{]}, \mbox{\hyperlink{structs__salle}{t\+\_\+salle}} map\mbox{[}M\+A\+P\+\_\+\+M\+A\+X\+\_\+Y\mbox{]}\mbox{[}M\+A\+P\+\_\+\+M\+A\+X\+\_\+X\mbox{]})
+\begin{DoxyCompactList}\small\item\em génère les salles de jeu \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Description détaillée}
+Contient la création du labyrinthe et la création des salles de jeu. 
+
+\begin{DoxyAuthor}{Auteur}
+T\+A\+C\+H\+ET Nicolas 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Avril 2021 
+\end{DoxyDate}

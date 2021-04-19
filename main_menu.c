@@ -1,7 +1,20 @@
+/**
+ * \file main_menu.c
+ * \brief Contient le menu principal de Yualop
+ * \author SAIVET Cécile, TACHET Nicolas, SANNA Florian
+ * \version 1.0
+ * \date Mars 2021
+ */
+
 #include "commun.h"
 
-void menu(SDL_Window *window, SDL_Renderer *renderer){
-/**Fonction affichant un menu permettant a l'utilisateur de naviguer dans le programme**/
+/**
+ * \fn SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
+ * \brief Fonction affichant un menu permettant a l'utilisateur de naviguer dans le programme.
+ * \return SDL_TRUE si le joueur reste sur le jeu, SDL_FALSE sinon.
+ */
+SDL_bool menu(SDL_Window *window, SDL_Renderer *renderer)
+{
 	SDL_Rect rect_new_game, rect_load_game, rect_settings, rect_exit;
 	const int taille_police = 72;
 
@@ -15,10 +28,12 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
 
 	TTF_Font *police = TTF_OpenFont(NOM_FONT, taille_police);
 
+	SDL_Color NOIR = {P_R, P_G, P_B};
+
 	if (!police)
 		SDL_ExitWithError("Erreur du chargement de la police", window, renderer, NULL);
 
-	SDL_SetRenderDrawColor(renderer, A_R,  A_G, A_B, 255);
+	SDL_SetRenderDrawColor(renderer, A_R, A_G, A_B, 255);
 
 	SDL_RenderFillRect(renderer, &rect_new_game);
 	SDL_RenderFillRect(renderer, &rect_load_game);
@@ -32,10 +47,19 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
 	SDL_RenderDrawRect(renderer, &rect_settings);
     SDL_RenderDrawRect(renderer, &rect_exit);
 
-	creerTexte(renderer, police, "NEW GAME",  WIDTH/2 - 5 * 18, rect_new_game.y - 5);
-	creerTexte(renderer, police, "LOAD GAME", WIDTH/2 - 7 * 15, rect_load_game.y - 5);
-	creerTexte(renderer, police, "SETTINGS",  WIDTH/2 - 7 * 20, rect_settings.y - 5);
-    creerTexte(renderer, police, "EXIT",      WIDTH/2 - 7 * 20, rect_exit.y - 5);
+	int widthTemp;
+	
+	TTF_SizeText(police, "NEW GAME", &widthTemp, NULL);
+	creerTexte(renderer, police, "NEW GAME",  WIDTH/2 - widthTemp/2, rect_new_game.y - 5, NOIR);
+	
+	TTF_SizeText(police, "LOAD GAME", &widthTemp, NULL);
+	creerTexte(renderer, police, "LOAD GAME", WIDTH/2 - widthTemp/2, rect_load_game.y - 5, NOIR);
+	
+	TTF_SizeText(police, "SETTINGS", &widthTemp, NULL);
+	creerTexte(renderer, police, "SETTINGS",  WIDTH/2 - widthTemp/2, rect_settings.y - 5, NOIR);
+    
+	TTF_SizeText(police, "EXIT", &widthTemp, NULL);
+	creerTexte(renderer, police, "EXIT",      WIDTH/2 - widthTemp/2, rect_exit.y - 5, NOIR);
 
  	SDL_RenderPresent(renderer);
 
@@ -51,7 +75,10 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
         SDL_WaitEvent(&event);
 
 			switch(event.type){
-				case SDL_QUIT: menu_launched = SDL_FALSE;break;
+				case SDL_QUIT: 
+					menu_launched = SDL_FALSE;
+					exit_asked = SDL_TRUE;
+					break;
 
 				case SDL_MOUSEBUTTONDOWN:
 					if (event.button.button == SDL_BUTTON_LEFT){
@@ -74,10 +101,14 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
 					}
 					break;
 
-				case SDL_KEYDOWN:
+				/*case SDL_KEYDOWN:
 					switch(event.key.keysym.sym){
-						case SDLK_ESCAPE: menu_launched = SDL_FALSE;break;
+						case SDLK_F11: 
+							//SDL_SetWindowSize(window, 1400, 800);
+							printf("F11");
+							break;
 					}
+					break;*/
 			}
 	}
 
@@ -86,11 +117,21 @@ void menu(SDL_Window *window, SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 
 	if (new_game_asked)
-		printf("New Game.");
+	{
+		jouer(renderer, window);
+		return SDL_TRUE;
+	}
 	else if (load_game_asked)
+	{
 		printf("Load Game.");
+	}
 	else if (setting_asked)
+	{
 		printf("Settings.");
+	}
     else if (exit_asked)
+	{
         printf("Bisous.");
+		return SDL_FALSE;
+	}
 }
