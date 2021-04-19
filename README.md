@@ -30,7 +30,6 @@ Vous obtiendez alors un exécutable Yualop dans le dossier ``./bin`` de votre do
 
 ## Démarrage
 
-Dites comment faire pour lancer votre projet
 Afin de lancer l'exécutable, vous devez être dans le dossier ``./src/Yualop/`` et ensuite vous pourrez lancer le jeu grâce à la commande ``../../bin/Yualop``.
 
 ## Fabriqué avec
