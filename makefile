@@ -10,16 +10,19 @@ LIB = -L ${SDLLIB_DIR} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 INCLUDE = -I ${SDLINC_DIR}
 LDFLAGS = $(LIB) $(INCLUDE)
 
-LLIB = -ldl `sdl2-config --libs` -lSDL2 -lSDL2_image -lSDL2_ttf
-LLDFLAGS = $(LLIB) 
+LLIB = -L ${SDLLIB_DIR} -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
+LLDFLAGS = $(LLIB) $(INCLUDE)
+
+SDL = -ldl `sdl2-config --libs`
+LDFLAGSU = $(SDL) -lSDL2 -lSDL2_image -lSDL2_ttf
 
 SRC=$(wildcard *.c)
 OBJ=$(SRC:.c=.o)
 
 ifeq ($(OS),Windows_NT) 
-    detected_OS := Windows
+	detected_OS := Windows
 else
-    detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
+	detected_OS := $(shell sh -c 'uname 2>/dev/null || echo Unknown')
 endif
 
 ifeq ($(detected_OS), Windows)
@@ -34,11 +37,11 @@ clean :
 
 else
 Yualop : $(OBJ)
-    $(CC) $^ -o $@ $(LLDFLAGS)
+	$(CC) $^ -o $@ $(LDFLAGSU)
 
 %.o : %.c 
-    $(CC) -Wall $< -c `sdl2-config --cflags` -o $@
+	$(CC) -Wall $< -c `sdl2-config --cflags` -o $@
 
 clean :
-    rm -f *.o core
+	rm -f *.o core
 endif
