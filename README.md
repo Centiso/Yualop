@@ -6,10 +6,6 @@ L2 Informatique - SDL2 Game.
 
 Yualop est un roguelike dans lequel notre héros va s'aventurer dans un donjon où il va rencontrer des monstres et des boss qu'il devra terrasser pour en sortir. Au cours de son aventure il récupèrera de l'équipement afin de ne pas mourir.
 
-## Pour commencer
-
-Entrez ici les instructions pour bien débuter avec votre projet...
-
 ### Pré-requis
 
 Afin de faire fonctionner ce projet, il vous faudra :
