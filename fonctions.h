@@ -13,4 +13,6 @@ void creerTexte(SDL_Renderer *renderer, TTF_Font *police, char *str, int x, int 
 ///Delay utilisé pour la limite de fps
 void delay(unsigned int frameLimit);
 
+SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *renderer);
+
 #endif

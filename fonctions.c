@@ -98,3 +98,17 @@ void delay(unsigned int frameLimit)
 		SDL_Delay(frameLimit - ticks);
 	}
 }
+
+/**
+ * \fn SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *renderer)
+ * \brief Créé une texture à partir d'un fichier.
+ * \return Texture du fichier passé en paramètre.
+ */
+SDL_Texture *initialize_texture_from_file(const char* file_name, SDL_Renderer *renderer)
+{
+	SDL_Surface *image = IMG_Load(file_name);
+    SDL_Texture * image_texture = SDL_CreateTextureFromSurface(renderer, image);
+    SDL_FreeSurface(image);
+
+    return image_texture;
+}

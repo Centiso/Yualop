@@ -52,7 +52,8 @@ SDL_bool menu_settings(SDL_Window *window, SDL_Renderer *renderer){
 	SDL_RenderDrawRect(renderer, &rect_windowed);
     SDL_RenderDrawRect(renderer, &rect_back);
 
-	SDL_Texture * image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
+	SDL_Texture * image_texture;
+	image_texture = initialize_texture_from_file("images/Fox.jpg", renderer);
     int image_width, image_height;
 
 	SDL_QueryTexture(image_texture, NULL, NULL, &image_width, &image_height);
